@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Psychology Behind Social Engineering Attacks — Adrian Necaj</title>
+  <meta name="description" content="Social engineering exploits more than just security systems – it manipulates human psychology. Explore how social engineers use psychological tactics to breach even the most secure environments.">
+  <!-- Post metadata — used by blog.html auto-detection -->
+  <meta name="post-title" content="The Psychology Behind Social Engineering Attacks">
+  <meta name="post-date" content="2024-05-13">
+  <meta name="post-description" content="Social engineering exploits more than just security systems – it manipulates human psychology. Explore how social engineers use psychological tactics to breach even the most secure environments.">
+  <meta name="post-image" content="social-engineering.jpg">
+  <meta name="post-tags" content="Cybersecurity, Social Engineering, Psychology">
+  <!-- Open Graph -->
+  <meta property="og:title" content="The Psychology Behind Social Engineering Attacks">
+  <meta property="og:description" content="Social engineering exploits more than just security systems – it manipulates human psychology. Explore how social engineers use psychological tactics to breach even the most secure environments.">
+  <meta property="og:type" content="article">
+  <meta property="article:published_time" content="2024-05-13">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Fira+Code:wght@300;400;500;600&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+  <style>
+  :root{
+    --bg:#040912;--bg-s:#091221;--bg-e:#0d1a2e;
+    --green:#00e87a;--blue:#38bdf8;
+    --txt:#dde6f0;--txt-m:#8fa3bb;--txt-d:#3d5268;
+    --border:rgba(255,255,255,.07);--bdr-g:rgba(0,232,122,.28);
+    --fn-d:'Bebas Neue',sans-serif;--fn-m:'Fira Code',monospace;--fn-b:'DM Sans',sans-serif;
+    --w:720px;
+  }
+  *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--txt);font-family:var(--fn-b);line-height:1.6;overflow-x:hidden}
+  body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(1px 1px at center,rgba(255,255,255,.025) 0%,transparent 100%);background-size:28px 28px;pointer-events:none;z-index:0}
+  ::-webkit-scrollbar{width:8px}::-webkit-scrollbar-track{background:var(--bg-s)}::-webkit-scrollbar-thumb{background:rgba(0,232,122,.45);border-radius:4px}
+  #prog{position:fixed;top:0;left:0;height:2px;width:0;background:linear-gradient(90deg,var(--green),var(--blue));z-index:200;transition:width .1s linear}
+  nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:1rem 3rem;background:rgba(4,9,18,.92);backdrop-filter:blur(16px);border-bottom:2px solid rgba(0,232,122,.2)}
+  .logo{font-family:var(--fn-d);font-size:1.4rem;letter-spacing:.12em;color:var(--txt);text-decoration:none}.logo em{color:var(--green);font-style:normal}
+  .nav-r{display:flex;align-items:center;gap:1.5rem}
+  .nav-back,.nav-port{font-family:var(--fn-m);font-size:.76rem;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;transition:color .2s}
+  .nav-back{color:var(--txt-m);display:flex;align-items:center;gap:.4rem}.nav-back:hover,.nav-port:hover{color:var(--green)}
+  .nav-port{color:var(--txt-d)}
+  .post-hero{position:relative;min-height:400px;display:flex;align-items:flex-end;overflow:hidden;z-index:1}
+  .post-hero.has-img .hero-bg{position:absolute;inset:0;background-size:cover;background-position:center;filter:brightness(.32) saturate(.75);transform:scale(1.03);transition:transform 8s}
+  .post-hero.has-img:hover .hero-bg{transform:scale(1)}
+  .post-hero.no-img{background:linear-gradient(135deg,var(--bg-s),var(--bg-e));border-bottom:1px solid var(--border)}
+  .post-hero.no-img::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 20% 60%,rgba(0,232,122,.07),transparent 50%),radial-gradient(circle at 80% 30%,rgba(56,189,248,.05),transparent 50%)}
+  .hero-ov{position:absolute;inset:0;background:linear-gradient(to top,rgba(4,9,18,.95) 0%,rgba(4,9,18,.65) 40%,rgba(4,9,18,.15) 100%);z-index:1}
+  .hero-c{position:relative;z-index:2;padding:4rem 3rem 3rem;width:100%;max-width:calc(var(--w) + 6rem);margin:0 auto}
+  .tag-pills{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:1.2rem}
+  .tag-pill{font-family:var(--fn-m);font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;padding:.2rem .6rem;background:rgba(0,232,122,.1);border:1px solid rgba(0,232,122,.22);color:var(--green)}
+  .post-title{font-family:var(--fn-d);font-size:clamp(2rem,5.5vw,3.6rem);letter-spacing:.04em;line-height:1.05;margin-bottom:1.3rem;text-shadow:0 2px 20px rgba(0,0,0,.5)}
+  .post-meta{display:flex;align-items:center;gap:1.2rem;flex-wrap:wrap}
+  .meta-i{font-family:var(--fn-m);font-size:.68rem;color:var(--txt-m);letter-spacing:.06em}
+  .meta-dot{color:var(--txt-d)}
+  .post-wrap{max-width:var(--w);margin:0 auto;padding:3.5rem 3rem 5rem;position:relative;z-index:1}
+  .post-content{font-size:1.05rem;line-height:1.82;color:var(--txt-m)}
+  .post-content p{margin-bottom:1.5rem}
+  .post-content h1,.post-content h2,.post-content h3,.post-content h4{font-family:var(--fn-d);letter-spacing:.05em;color:var(--txt);line-height:1.1;margin:2.5rem 0 1rem}
+  .post-content h2{font-size:2rem;border-bottom:1px solid var(--border);padding-bottom:.55rem}
+  .post-content h3{font-size:1.5rem}
+  .post-content h4{font-size:1.1rem;font-family:var(--fn-b);font-weight:600;letter-spacing:.02em}
+  .post-content a{color:var(--blue);text-decoration:none;border-bottom:1px solid rgba(56,189,248,.3);transition:color .2s,border-color .2s}
+  .post-content a:hover{color:var(--green);border-bottom-color:rgba(0,232,122,.4)}
+  .post-content strong{color:var(--txt);font-weight:600}
+  .post-content em{color:var(--txt-m);font-style:italic}
+  .post-content ul{list-style:none;padding:0;margin-bottom:1.5rem;display:flex;flex-direction:column;gap:.5rem}
+  .post-content ul li{padding-left:1.4rem;position:relative}
+  .post-content ul li::before{content:'▸';position:absolute;left:0;color:var(--green);font-size:.85em}
+  .post-content ol{padding-left:1.6rem;margin-bottom:1.5rem;display:flex;flex-direction:column;gap:.5rem}
+  .post-content ol li{color:var(--txt-m)}
+  .post-content ol li::marker{color:var(--green);font-family:var(--fn-m);font-size:.85em}
+  .post-content li ul,.post-content li ol{margin-top:.5rem;margin-bottom:0}
+  .post-content blockquote{border-left:3px solid var(--green);padding:1rem 1.5rem;background:rgba(0,232,122,.04);margin:2rem 0;color:var(--txt-m);font-style:italic}
+  .post-content blockquote p{margin-bottom:0}
+  .post-content hr{border:none;border-top:1px solid var(--border);margin:2.5rem 0}
+  .post-content code{font-family:var(--fn-m);font-size:.85em;background:rgba(0,232,122,.08);border:1px solid rgba(0,232,122,.15);color:var(--green);padding:.15em .4em;border-radius:3px}
+  .post-content pre{background:#060d1a;border:1px solid var(--border);border-left:3px solid var(--green);padding:1.5rem;margin:2rem 0;overflow-x:auto}
+  .post-content pre code{background:none;border:none;color:#a8d8a8;padding:0;font-size:.85rem;line-height:1.6}
+  .post-content img{max-width:100%;display:block;margin:2rem auto;border:1px solid var(--border)}
+  .post-content table{width:100%;border-collapse:collapse;margin:2rem 0;font-size:.9rem}
+  .post-content th{font-family:var(--fn-m);font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:var(--green);border-bottom:2px solid var(--border);padding:.75rem 1rem;text-align:left}
+  .post-content td{padding:.75rem 1rem;border-bottom:1px solid var(--border);color:var(--txt-m)}
+  .post-footer{max-width:var(--w);margin:0 auto;padding:0 3rem 4rem;position:relative;z-index:1}
+  .footer-line{height:1px;background:linear-gradient(90deg,var(--green),transparent);margin-bottom:2.5rem}
+  .footer-top{display:flex;align-items:flex-start;justify-content:space-between;gap:2rem;flex-wrap:wrap;margin-bottom:2rem}
+  .tags-label{font-family:var(--fn-m);font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--txt-d);margin-bottom:.75rem}
+  .author-card{display:flex;align-items:center;gap:1rem;padding:1.2rem 1.5rem;background:var(--bg-s);border:1px solid var(--border);flex:1;min-width:220px;max-width:320px}
+  .av{width:42px;height:42px;border-radius:50%;border:2px solid var(--bdr-g);background:linear-gradient(135deg,rgba(0,232,122,.2),rgba(56,189,248,.1));display:flex;align-items:center;justify-content:center;font-family:var(--fn-d);font-size:1.1rem;color:var(--green);flex-shrink:0}
+  .av-info .name{font-family:var(--fn-d);font-size:.95rem;letter-spacing:.06em;margin-bottom:.15rem}
+  .av-info .role{font-family:var(--fn-m);font-size:.62rem;color:var(--txt-d);letter-spacing:.08em}
+  .nav-btns{display:flex;gap:1rem;flex-wrap:wrap}
+  .nb{font-family:var(--fn-m);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;padding:.6rem 1.3rem;border:1px solid var(--border);color:var(--txt-m);text-decoration:none;transition:all .2s;display:inline-flex;align-items:center;gap:.4rem}
+  .nb:hover{border-color:var(--green);color:var(--green);background:rgba(0,232,122,.04)}
+  .nb.p{background:var(--green);color:var(--bg);border-color:var(--green);font-weight:600}
+  .nb.p:hover{background:#00c96a}
+  .site-footer{padding:1.8rem 3rem;border-top:1px solid var(--border);background:var(--bg-s);display:flex;align-items:center;justify-content:space-between;position:relative;z-index:1}
+  .site-footer p{font-family:var(--fn-m);font-size:.68rem;color:var(--txt-d)}
+  .site-footer em{color:var(--green);font-style:normal}
+  .sf-links{display:flex;gap:1.5rem}
+  .sf-links a{font-family:var(--fn-m);font-size:.68rem;color:var(--txt-d);text-decoration:none;transition:color .2s}
+  .sf-links a:hover{color:var(--green)}
+  @media(max-width:720px){
+    nav,.hero-c,.post-wrap,.post-footer,.site-footer{padding-left:1.5rem;padding-right:1.5rem}
+    .post-title{font-size:clamp(1.8rem,8vw,2.6rem)}
+    .footer-top{flex-direction:column}
+    .author-card{max-width:100%}
+    .site-footer{flex-direction:column;gap:1rem;text-align:center}
+  }
+</style>
+</head>
+<body>
+<div id="prog"></div>
+
+<nav>
+  <a href="/" class="logo">AN<em>_</em></a>
+  <div class="nav-r">
+    <a href="/blog.html" class="nav-back"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18"/></svg> All Posts</a>
+    <a href="/" class="nav-port">Portfolio</a>
+  </div>
+</nav>
+
+  <div class="post-hero has-img">
+    <div class="hero-bg" style="background-image:url('../../blog/assets/img/social-engineering.jpg')"></div>
+    <div class="hero-ov"></div>
+    <div class="hero-c">
+      <div class="tag-pills"><span class="tag-pill">Cybersecurity</span><span class="tag-pill">Social Engineering</span><span class="tag-pill">Psychology</span></div>
+      <h1 class="post-title">The Psychology Behind Social Engineering Attacks</h1>
+      <div class="post-meta">
+        <span class="meta-i"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg> May 13, 2024</span>
+        <span class="meta-dot">·</span>
+        <span class="meta-i"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> 3 min read</span>
+        <span class="meta-dot">·</span>
+        <span class="meta-i">Adrian Necaj</span>
+      </div>
+    </div>
+  </div>
+
+<div class="post-wrap">
+  <div class="post-content">
+    <p>Social engineering stands as a formidable threat in the realm of cybersecurity, not merely because of sophisticated hacking techniques, but due to its exploitation of a fundamental vulnerability—human psychology. </p>
+<h3>Understanding Social Engineering</h3>
+<p>Social engineering attacks are crafted to exploit the natural human tendency to trust. These attacks are not only prevalent but are among the most effective means of gaining unauthorized access to information. Unlike other hacking techniques that rely on breaching digital security systems, social engineering manipulates human emotion and logic to gain physical or virtual access to restricted areas or sensitive information.</p>
+<h3>Psychological Triggers in Social Engineering</h3>
+<p>Social engineers act like chameleons, blending into their environments by adopting personas that elicit trust and compliance from their targets. Here are some psychological triggers commonly manipulated by attackers:</p>
+<ul>
+<li>
+<p><strong>Authority</strong>: People tend to obey authority figures or individuals who appear to hold power. Attackers often impersonate police, company executives, or officials to exploit this tendency.</p>
+</li>
+<li>
+<p><strong>Urgency</strong>: Creating a false sense of urgency, attackers push their targets to act quickly, bypassing rational and logical thinking processes. This can be particularly effective in busy or stressful environments where the target may act reflexively.</p>
+</li>
+<li>
+<p><strong>Reciprocity</strong>: This principle involves a social obligation to return favors. If someone does something for you, you naturally want to reciprocate. Social engineers might perform a small favor or provide 'helpful' information to invoke this response.</p>
+</li>
+<li>
+<p><strong>Scarcity</strong>: By suggesting that something is in limited supply, attackers can make information or access appear more valuable, encouraging quicker and less cautious actions from the target.</p>
+</li>
+<li>
+<p><strong>Social Proof</strong>: People tend to follow the lead of others. Attackers might manipulate this by faking endorsements or creating illusions of consensus or approval from irrelevant or non-existent others.</p>
+</li>
+</ul>
+<h3>Real-World Tactics</h3>
+<ul>
+<li>
+<p><strong>Phishing</strong>: Perhaps the most common form of social engineering, phishing scams involve sending fraudulent emails that appear to be from reputable sources to steal sensitive data such as credit card numbers and login information.</p>
+</li>
+<li>
+<p><strong>Baiting</strong>: Similar to phishing, except it promises the victim a reward. A common example is attackers leaving malware-infected flash drives in noticeable locations. The finder plugs the drive into a computer, unintentionally installing the malware.</p>
+</li>
+<li>
+<p><strong>Pretexting</strong>: This tactic involves fabricating scenarios to engage a target in a manner that leads to information or access divulgence. For instance, an attacker may impersonate a co-worker with an urgent problem that requires immediate access to network credentials.</p>
+</li>
+</ul>
+<h3>Mitigating Social Engineering Threats</h3>
+<p>Awareness and education are the primary defenses against social engineering. Regular training sessions that simulate phishing attacks, pretexting scenarios, and other social engineering tactics can prepare individuals and organizations to better recognize and resist such threats.</p>
+<p>Organizations should also enforce strict security protocols for handling sensitive information, including multi-factor authentication, rigorous access controls, and detailed logs of security-related events, which can help identify and mitigate these attacks.</p>
+<p>In conclusion, defending against social engineering requires a deep understanding of human psychology and continuous vigilance. As technology evolves, so do the tactics used by cyber criminals, making it imperative that individuals and organizations remain aware of the methods these attackers might use to gain unauthorized access or information.</p>
+  </div>
+</div>
+
+<div class="post-footer">
+  <div class="footer-line"></div>
+  <div class="footer-top">
+    <div>
+      <p class="tags-label">// Tagged under</p>
+      <div class="tag-pills"><span class="tag-pill">Cybersecurity</span><span class="tag-pill">Social Engineering</span><span class="tag-pill">Psychology</span></div>
+    </div>
+    <div class="author-card">
+      <div class="av">AN</div>
+      <div class="av-info">
+        <p class="name">Adrian Necaj</p>
+        <p class="role">MS Cybersecurity · NYU Tandon<br>NYS Executive Chamber</p>
+      </div>
+    </div>
+  </div>
+  <div class="nav-btns">
+    <a href="/blog.html" class="nb"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18"/></svg> All Posts</a>
+    <a href="/" class="nb p">Portfolio →</a>
+  </div>
+</div>
+
+<div class="site-footer">
+  <p>© 2026 <em>Adrian Necaj</em> · Queens, NYC 🇦🇱</p>
+  <div class="sf-links">
+    <a href="/">Portfolio</a>
+    <a href="/blog.html">Blog</a>
+    <a href="https://github.com/anecaj" target="_blank">GitHub</a>
+    <a href="https://www.linkedin.com/in/anecaj/" target="_blank">LinkedIn</a>
+  </div>
+</div>
+
+<script>
+const bar=document.getElementById('prog');
+window.addEventListener('scroll',()=>{
+  const d=document.documentElement;
+  bar.style.width=(d.scrollTop/(d.scrollHeight-d.clientHeight)*100)+'%';
+});
+</script>
+</body>
+</html>

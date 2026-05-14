@@ -76,7 +76,10 @@
   .post-content code{font-family:var(--fn-m);font-size:.85em;background:rgba(0,232,122,.08);border:1px solid rgba(0,232,122,.15);color:var(--green);padding:.15em .4em;border-radius:3px}
   .post-content pre{background:#060d1a;border:1px solid var(--border);border-left:3px solid var(--green);padding:1.5rem;margin:2rem 0;overflow-x:auto}
   .post-content pre code{background:none;border:none;color:#a8d8a8;padding:0;font-size:.85rem;line-height:1.6}
-  .post-content img{max-width:100%;display:block;margin:2rem auto;border:1px solid var(--border)}
+  .post-content img{max-width:100%;display:block;margin:2rem auto;border:1px solid var(--border);border-radius:2px}
+  .post-content figure{margin:2rem 0}
+  .post-content figure img{margin:0 auto}
+  .post-content figcaption{font-family:var(--fn-m);font-size:.72rem;color:var(--txt-d);text-align:center;margin-top:.7rem;letter-spacing:.06em;line-height:1.5}
   .post-footer{max-width:var(--w);margin:0 auto;padding:0 3rem 4rem;position:relative;z-index:1}
   .footer-line{height:1px;background:linear-gradient(90deg,var(--green),transparent);margin-bottom:2.5rem}
   .footer-top{display:flex;align-items:flex-start;justify-content:space-between;gap:2rem;flex-wrap:wrap;margin-bottom:2rem}
@@ -189,6 +192,18 @@ scanner = nessus.connect(target="192.168.1.0/24")</code></pre>
 
     <h2>Another Section</h2>
     <p>Continue writing...</p>
+
+    <!-- ══ IMAGE — plain, no caption ═══════════════════════════
+         Save your image to: blog/assets/img/filename.jpg
+         The ../../ path goes up from blog/posts/ back to root.
+    ════════════════════════════════════════════════════════════ -->
+    <img src="../../blog/assets/img/your-image.jpg" alt="Describe the image here">
+
+    <!-- ══ IMAGE — with caption below ══════════════════════════ -->
+    <figure>
+      <img src="../../blog/assets/img/your-image.jpg" alt="Describe the image here">
+      <figcaption>Caption text appears here below the image in small muted monospace.</figcaption>
+    </figure>
 
     <!-- ══ CONCLUSION ══ -->
     <hr>

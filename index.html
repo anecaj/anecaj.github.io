@@ -241,6 +241,15 @@
     .pg,.bg{grid-template-columns:repeat(2,1fr)}
     .skills-grid{grid-template-columns:repeat(2,1fr)}
   }
+
+  .hero-name-wrap { display:flex; align-items:center; gap:2rem; margin-bottom:1.2rem; }
+  .hero-avatar {
+    width:110px; height:110px; border-radius:50%;
+    object-fit:cover; object-position:center top;
+    border:2px solid var(--green);
+    box-shadow:0 0 28px rgba(0,232,122,.2);
+    flex-shrink:0;
+  }
   </style>
 </head>
 <body>
@@ -265,7 +274,11 @@
   <canvas id="hero-canvas"></canvas>
   <div class="hero-content inner">
     <p class="hero-avail"><span class="dot"></span>MS Cybersecurity @ NYU Tandon · Open to Opportunities</p>
-    <h1 class="hero-name">Adrian<br><span>Necaj</span></h1>
+
+    <div class="hero-name-wrap">
+      <img src="/profile.jpg" alt="Adrian Necaj" class="hero-avatar">
+      <h1 class="hero-name">Adrian<br><span>Necaj</span></h1>
+    </div>
     <p class="hero-role"><span id="type-text"></span><span class="cursor"></span></p>
     <p class="hero-bio">Cybersecurity graduate student at NYU Tandon (4.0 GPA, Cyber Fellows Scholar) and Cyber Intern at the NYS Executive Chamber's Chief Cyber Office. RIT alum. Building real defenses for real threats — GRC, cloud security, threat intelligence, and research.</p>
     <div class="hero-btns">
@@ -904,36 +917,109 @@ document.querySelectorAll('.f-btn').forEach(btn=>{
 showPage(1,false);
 
 // ── BLOG FETCH ───────────────────────────────────────────
-const FB=[
-  {title:'The Future of Cybersecurity: AI-Driven Vulnerability Management',pubDate:'2024-05-27',description:'As the digital landscape evolves, AI is transforming how organizations detect and respond to vulnerabilities at scale...',link:'https://anecaj.github.io/blog/The-Future-Of-Cybersecurity-AI-Drive-Vulnerability-Management/',thumbnail:''},
-  {title:"Zuckerberg's Attempt to Crack Snapchat's Encrypted Data",pubDate:'2024-05-20',description:'A case study in competitive intelligence practices and what it reveals about corporate ethics in tech...',link:'https://anecaj.github.io/blog/Mark-Zuckerbergs-Attempt-to-Crack-Snapchats-Encrypted-Data-A-Case-Study-in-Competitive-Practices/',thumbnail:''},
-  {title:'The Psychology Behind Social Engineering Attacks',pubDate:'2024-05-13',description:'Social engineering exploits human behavior rather than software. Understanding pretexting, baiting, and phishing is your first line of defense...',link:'https://anecaj.github.io/blog/The-Psychology-Behind-Social-Engineering-Attacks/',thumbnail:''}
+const FALLBACK_POSTS = [
+  {
+    title: 'The Future of Cybersecurity: AI-Driven Vulnerability Management',
+    date:  '2024-05-27',
+    desc:  'Explore how AI-driven vulnerability management is set to revolutionize the cybersecurity landscape by enhancing risk management, governance, and compliance.',
+    image: 'ai-cybersecurity.jpg',
+    url:   '/blog/posts/2024-05-27-the-future-of-cybersecurity-ai-drive-vulnerability-management.html'
+  },
+  {
+    title: "Zuckerberg's Attempt to Crack Snapchat's Encrypted Data",
+    date:  '2024-05-20',
+    desc:  'A case study in competitive intelligence practices and what it reveals about corporate ethics and the limits of encrypted data.',
+    image: 'zuckerberg-snapchat.jpg',
+    url:   '/blog/posts/2024-05-20-mark-zuckerbergs-attempt-to-crack-snapchats-encrypted-data-a-case-study-in-competitive-practices.html'
+  },
+  {
+    title: 'The Psychology Behind Social Engineering Attacks',
+    date:  '2024-05-13',
+    desc:  'Social engineering exploits human behavior rather than software. Understanding pretexting, baiting, and phishing is your first line of defense.',
+    image: 'social-engineering.jpg',
+    url:   '/blog/posts/2024-05-13-the-psychology-behind-social-engineering-attacks.html'
+  }
 ];
 
-function fmtDate(s){const d=new Date(s);return isNaN(d)?s:d.toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'})}
-function stripHtml(h){const d=document.createElement('div');d.innerHTML=h;return(d.textContent||'').trim().slice(0,155)+'…'}
+function fmtDate(s) {
+  try {
+    return new Date(s + 'T00:00:00').toLocaleDateString('en-US',
+      { year:'numeric', month:'long', day:'numeric' });
+  } catch { return s; }
+}
 
-function renderPosts(posts){
-  const grid=document.getElementById('blog-grid');
-  grid.innerHTML=posts.slice(0,3).map(p=>{
-    const exc=typeof p.description==='string'&&p.description.includes('<')?stripHtml(p.description):(p.description||'');
-    const thumb=p.thumbnail||'';
-    const img=thumb
-      ?`<div class="bc-img"><img src="${thumb}" alt="" loading="lazy" onerror="this.parentElement.outerHTML='<div class=\\"bc-img bc-img-gen\\"><span>${p.title.split(' ').slice(0,5).join(' ')}</span></div>'"></div>`
-      :`<div class="bc-img bc-img-gen"><span>${p.title.split(' ').slice(0,5).join(' ')}</span></div>`;
-    return`<div class="bc fi">${img}<div class="bc-body"><p class="bc-date">${fmtDate(p.pubDate)}</p><h3 class="bc-title">${p.title}</h3><p class="bc-exc">${exc}</p><a href="${p.link}" target="_blank" class="bc-link">Read Post →</a></div></div>`;
+function stripHtml(h) {
+  const d = document.createElement('div');
+  d.innerHTML = h;
+  return (d.textContent || '').trim().slice(0, 155) + '…';
+}
+
+function renderPosts(posts) {
+  const grid = document.getElementById('blog-grid');
+  grid.innerHTML = posts.slice(0, 3).map(p => {
+    const img = p.image
+      ? `<div class="bc-img"><img src="/blog/assets/img/${p.image}" alt="" loading="lazy"
+           onerror="this.parentElement.className='bc-img bc-img-gen';this.parentElement.innerHTML='<span>${(p.title||'').split(' ').slice(0,4).join(' ')}</span>'"></div>`
+      : `<div class="bc-img bc-img-gen" style="background:linear-gradient(135deg,rgba(0,232,122,.08),rgba(56,189,248,.06))"><span>${(p.title||'').split(' ').slice(0,4).join(' ')}</span></div>`;
+    return `
+      <div class="bc fi">
+        ${img}
+        <div class="bc-body">
+          <p class="bc-date">${fmtDate(p.date)}</p>
+          <h3 class="bc-title">${p.title}</h3>
+          <p class="bc-exc">${p.desc || ''}</p>
+          <a href="${p.url}" class="bc-link">Read Post →</a>
+        </div>
+      </div>`;
   }).join('');
-  grid.querySelectorAll('.bc').forEach(el=>io.observe(el));
+  grid.querySelectorAll('.bc').forEach(el => io.observe(el));
 }
 
-async function fetchBlog(){
-  try{
-    const res=await fetch(`https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent('https://anecaj.github.io/blog/feed.xml')}&count=3`);
-    const data=await res.json();
-    if(data.status==='ok'&&data.items?.length)renderPosts(data.items);
-    else renderPosts(FB);
-  }catch{renderPosts(FB)}
+async function fetchBlog() {
+  try {
+    const res = await fetch(
+      'https://api.github.com/repos/anecaj/anecaj.github.io/contents/blog/posts',
+      { headers: { 'Accept': 'application/vnd.github.v3+json' } }
+    );
+    if (!res.ok) throw new Error('API error');
+    const files = await res.json();
+
+    const postFiles = files
+      .filter(f => f.name.endsWith('.html') && !f.name.startsWith('_'))
+      .sort((a, b) => b.name.localeCompare(a.name))
+      .slice(0, 3);
+
+    // Try to get metadata from each post file
+    const posts = await Promise.all(postFiles.map(async file => {
+      try {
+        const raw  = await fetch(file.download_url);
+        const html = await raw.text();
+        const doc  = new DOMParser().parseFromString(html, 'text/html');
+        const meta = name => doc.querySelector(`meta[name="${name}"]`)?.getAttribute('content') || '';
+        return {
+          title: meta('post-title') || file.name.replace(/^\d{4}-\d{2}-\d{2}-/, '').replace(/-/g, ' ').replace('.html',''),
+          date:  meta('post-date')  || file.name.slice(0, 10),
+          desc:  meta('post-description'),
+          image: meta('post-image'),
+          url:   '/blog/posts/' + file.name
+        };
+      } catch {
+        return {
+          title: file.name.replace(/^\d{4}-\d{2}-\d{2}-/, '').replace(/-/g,' ').replace('.html',''),
+          date:  file.name.slice(0, 10),
+          desc: '', image: '',
+          url:  '/blog/posts/' + file.name
+        };
+      }
+    }));
+
+    renderPosts(posts);
+  } catch {
+    // GitHub API failed — use hardcoded fallback with correct new URLs
+    renderPosts(FALLBACK_POSTS);
+  }
 }
+
 fetchBlog();
 </script>
 </body>

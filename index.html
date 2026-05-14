@@ -1,811 +1,940 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="Start your development with JohnDoe landing page.">
-    <meta name="author" content="Devcrud">
-    <title>Adrian Necaj - Portfolio</title>
-    <!-- font icons -->
-    <link rel="stylesheet" href="/public_html/assets/vendors/themify-icons/css/themify-icons.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    <!-- Bootstrap + JohnDoe main styles -->
-	<link rel="stylesheet" href="/public_html/assets/css/johndoe.css">
-    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
-    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Adrian Necaj — MS Cybersecurity @ NYU Tandon | NYS Executive Chamber Cyber Intern | Queens, NYC">
+  <title>Adrian Necaj — Cybersecurity</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Fira+Code:wght@300;400;500;600&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+  <style>
+  :root{
+    --bg:#040912;--bg-s:#091221;--bg-e:#0d1a2e;
+    --green:#00e87a;--blue:#38bdf8;--red:#f43f5e;--amber:#f59e0b;--purple:#a78bfa;
+    --txt:#dde6f0;--txt-m:#8fa3bb;--txt-d:#3d5268;
+    --border:rgba(255,255,255,0.07);--bdr-g:rgba(0,232,122,0.35);
+    --fn-d:'Bebas Neue',sans-serif;--fn-m:'Fira Code',monospace;--fn-b:'DM Sans',sans-serif;
+  }
+  *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--txt);font-family:var(--fn-b);line-height:1.6;overflow-x:hidden}
+  body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(1px 1px at center,rgba(255,255,255,.028) 0%,transparent 100%);background-size:28px 28px;pointer-events:none;z-index:0}
 
-    <style>
-        .portfolio-link {
-            color: white;
-            text-decoration: none;
-        }
-        .portfolio-link:hover {
-            color: gray;
-        }
+  /* SCROLLBAR */
+  ::-webkit-scrollbar{width:8px}
+  ::-webkit-scrollbar-track{background:var(--bg-s)}
+  ::-webkit-scrollbar-thumb{background:rgba(0,232,122,.5);border-radius:4px}
+  ::-webkit-scrollbar-thumb:hover{background:rgba(0,232,122,.8)}
 
-        .ti-youtube {
-        color: white; /* Ensures the icon is white */
-        }
-        .ti-youtube:hover {
-            color: #d3d3d3; /* Changes color on hover */
-        }
-        .fab {
-            color: white;
-        }
-        .fab:hover {
-            color: gray;
-        }
-    </style>
+  /* NAV */
+  nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:1.1rem 3.5rem;background:rgba(4,9,18,.92);backdrop-filter:blur(16px);border-bottom:2px solid rgba(0,232,122,.18);transition:border-color .3s,box-shadow .3s}
+  nav.scrolled{border-bottom-color:rgba(0,232,122,.55);box-shadow:0 1px 30px rgba(0,232,122,.06)}
+  .nav-logo{font-family:var(--fn-d);font-size:1.5rem;letter-spacing:.12em;color:var(--txt);text-decoration:none}
+  .nav-logo em{color:var(--green);font-style:normal}
+  .nav-links{display:flex;gap:2rem;list-style:none}
+  .nav-links a{font-family:var(--fn-m);font-size:.82rem;letter-spacing:.1em;text-transform:uppercase;color:var(--txt-m);text-decoration:none;transition:color .2s;position:relative}
+  .nav-links a:hover{color:var(--txt)}
+  .nav-links a::after{content:'';position:absolute;bottom:-4px;left:0;right:0;height:2px;background:var(--green);transform:scaleX(0);transform-origin:left;transition:transform .2s}
+  .nav-links a:hover::after{transform:scaleX(1)}
+  .nav-resume{font-family:var(--fn-m);font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;color:var(--green);text-decoration:none;padding:.5rem 1.2rem;border:1px solid var(--green);transition:background .2s,color .2s}
+  .nav-resume:hover{background:var(--green);color:var(--bg)}
+  .ham{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:.2rem}
+  .ham span{display:block;width:22px;height:2px;background:var(--txt-m);transition:.3s}
 
+  /* SECTIONS */
+  section{padding:5.5rem 3.5rem;position:relative;z-index:1}
+  .inner{max-width:1160px;margin:0 auto}
+  .eyebrow{display:flex;align-items:center;gap:.75rem;font-family:var(--fn-m);font-size:.68rem;letter-spacing:.25em;text-transform:uppercase;color:var(--green);margin-bottom:.6rem}
+  .eyebrow::before{content:attr(data-n);color:var(--txt-d);font-size:.6rem}
+  .sh{font-family:var(--fn-d);font-size:clamp(2.4rem,5vw,3.8rem);letter-spacing:.06em;line-height:1;margin-bottom:3rem}
+
+  /* HERO */
+  #home{min-height:100vh;display:flex;align-items:center;padding:9rem 3.5rem 5rem;overflow:hidden;position:relative}
+  #hero-canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:0;opacity:.7}
+  .hero-content{position:relative;z-index:2;max-width:780px}
+  .hero-avail{display:inline-flex;align-items:center;gap:.6rem;font-family:var(--fn-m);font-size:.68rem;letter-spacing:.15em;text-transform:uppercase;color:var(--green);margin-bottom:1.8rem}
+  .hero-avail .dot{width:6px;height:6px;border-radius:50%;background:var(--green);animation:pulse 2s infinite}
+  @keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(0,232,122,.5)}50%{box-shadow:0 0 0 6px rgba(0,232,122,0)}}
+  .hero-name{font-family:var(--fn-d);font-size:clamp(4.5rem,11vw,9rem);line-height:.92;letter-spacing:.03em;margin-bottom:1.2rem;text-shadow:0 0 80px rgba(0,232,122,.08)}
+  .hero-name span{color:var(--green);display:block}
+  .hero-role{font-family:var(--fn-m);font-size:clamp(.9rem,1.8vw,1.05rem);color:var(--txt-m);margin-bottom:2rem;display:flex;align-items:center;gap:.5rem}
+  #type-text{color:var(--blue)}
+  .cursor{display:inline-block;width:2px;height:1em;background:var(--green);vertical-align:text-top;animation:blink .75s step-end infinite}
+  @keyframes blink{50%{opacity:0}}
+  .hero-bio{max-width:540px;color:var(--txt-m);font-size:.97rem;line-height:1.8;margin-bottom:2.5rem;border-left:2px solid var(--green);padding-left:1.4rem}
+  .hero-btns{display:flex;gap:1rem;flex-wrap:wrap}
+  .btn-p{font-family:var(--fn-m);font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;padding:.75rem 1.8rem;background:var(--green);color:var(--bg);text-decoration:none;font-weight:600;transition:transform .2s,box-shadow .2s;display:inline-flex;align-items:center;gap:.4rem}
+  .btn-p:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,232,122,.25)}
+  .btn-o{font-family:var(--fn-m);font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;padding:.75rem 1.8rem;border:1px solid var(--border);color:var(--txt-m);text-decoration:none;transition:border-color .2s,color .2s;display:inline-flex;align-items:center;gap:.4rem}
+  .btn-o:hover{border-color:var(--blue);color:var(--blue)}
+  .hero-side{position:absolute;right:3.5rem;bottom:4rem;display:flex;flex-direction:column;align-items:center;gap:1.2rem;z-index:2}
+  .hero-side::after{content:'';display:block;width:1px;height:5rem;background:linear-gradient(to bottom,var(--txt-d),transparent)}
+  .hero-side a{color:var(--txt-d);text-decoration:none;font-size:1rem;transition:color .2s}
+  .hero-side a:hover{color:var(--green)}
+
+  /* ABOUT */
+  #about{background:var(--bg-s)}
+  .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start}
+  .about-bio p{color:var(--txt-m);font-size:.97rem;line-height:1.85;margin-bottom:1.4rem}
+  .about-bio p:last-child{margin-bottom:0}
+  .info-cards{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+  .info-card{padding:1.2rem 1.4rem;background:var(--bg);border:1px solid var(--border);border-left:3px solid var(--green)}
+  .info-card .lbl{font-family:var(--fn-m);font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color:var(--txt-d);margin-bottom:.35rem}
+  .info-card .val{font-size:.88rem;color:var(--txt);font-weight:500}
+  .info-card .val a{color:var(--blue);text-decoration:none}
+  .info-card .val a:hover{text-decoration:underline}
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-top:1.8rem}
+  .stat{text-align:center;padding:1.8rem 1rem;background:var(--bg);border:1px solid var(--border);position:relative;overflow:hidden;transition:border-color .3s}
+  .stat:hover{border-color:var(--bdr-g)}
+  .stat::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:var(--green);transform:scaleX(0);transform-origin:left;transition:transform .35s}
+  .stat:hover::after{transform:scaleX(1)}
+  .stat-n{font-family:var(--fn-d);font-size:2.6rem;color:var(--green);line-height:1;margin-bottom:.4rem}
+  .stat-l{font-family:var(--fn-m);font-size:.62rem;color:var(--txt-d);letter-spacing:.08em;text-transform:uppercase}
+
+  /* SKILLS */
+  #skills{background:var(--bg)}
+  .skills-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
+  .sk-cat{padding:2rem;background:var(--bg-s);border:1px solid var(--border);transition:border-color .3s}
+  .sk-cat:hover{border-color:var(--bdr-g)}
+  .sk-cat-title{font-family:var(--fn-m);font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;color:var(--green);margin-bottom:1.4rem;padding-bottom:.9rem;border-bottom:1px solid var(--border)}
+  .sk-list{display:flex;flex-direction:column;gap:.85rem}
+  .sk-item{display:flex;flex-direction:column;gap:.35rem}
+  .sk-name{font-family:var(--fn-m);font-size:.76rem;color:var(--txt-m)}
+  .sk-bar{height:2px;background:var(--border);overflow:hidden}
+  .sk-fill{height:100%;width:0;background:linear-gradient(90deg,var(--green),var(--blue));transition:width 1.4s cubic-bezier(.4,0,.2,1)}
+
+  /* EXPERIENCE */
+  #experience{background:var(--bg-s)}
+  .exp-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem}
+  .tl-head{font-family:var(--fn-m);font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;color:var(--txt-d);margin-bottom:2rem}
+  .timeline{position:relative;padding-left:2rem}
+  .timeline::before{content:'';position:absolute;left:0;top:.5rem;bottom:0;width:1px;background:linear-gradient(to bottom,var(--green),transparent)}
+  .tl-item{position:relative;padding:0 0 2.8rem 2.2rem}
+  .tl-item::before{content:'';position:absolute;left:-4px;top:.45rem;width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 8px rgba(0,232,122,.5)}
+  .tl-item.hi::before{background:var(--blue);box-shadow:0 0 8px rgba(56,189,248,.6)}
+  .tl-date{font-family:var(--fn-m);font-size:.65rem;color:var(--green);letter-spacing:.1em;margin-bottom:.5rem}
+  .tl-item.hi .tl-date{color:var(--blue)}
+
+  /* Timeline header with logo */
+  .tl-hd{display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;margin-bottom:.25rem}
+  .tl-hd-txt{flex:1}
+  .tl-role{font-family:var(--fn-d);font-size:1.4rem;letter-spacing:.04em;line-height:1.15;margin-bottom:.2rem}
+  .tl-co{font-family:var(--fn-m);font-size:.76rem;color:var(--blue);margin-bottom:.8rem}
+  .tl-item.hi .tl-co{color:var(--green)}
+  .tl-badge{display:inline-block;font-family:var(--fn-m);font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;padding:.15rem .55rem;background:rgba(56,189,248,.1);border:1px solid rgba(56,189,248,.3);color:var(--blue);margin-bottom:.8rem}
+  .tl-item.hi .tl-badge{background:rgba(0,232,122,.1);border-color:var(--bdr-g);color:var(--green)}
+  .tl-desc{font-size:.88rem;color:var(--txt-m);line-height:1.75;margin-bottom:.9rem}
+  .tl-ul{list-style:none;display:flex;flex-direction:column;gap:.45rem}
+  .tl-ul li{font-family:var(--fn-m);font-size:.76rem;color:var(--txt-m);padding-left:1.1em;position:relative;line-height:1.6}
+  .tl-ul li::before{content:'▸';position:absolute;left:0;color:var(--green)}
+
+  /* Org logo badge */
+  .org-logo{width:40px;height:40px;border-radius:9px;border:1px solid var(--border);overflow:hidden;background:#fff;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:.1rem}
+  .org-logo img{width:100%;height:100%;object-fit:contain;padding:5px;display:block}
+  .org-logo.no-img{background:var(--bg-e)}
+  .org-logo .fb{display:none;font-family:var(--fn-d);font-size:.75rem;letter-spacing:.05em;color:var(--c,var(--green));width:100%;height:100%;align-items:center;justify-content:center;text-align:center}
+  .org-logo.no-img img{display:none}
+  .org-logo.no-img .fb{display:flex}
+
+  /* PORTFOLIO */
+  #portfolio{background:var(--bg)}
+  .filters{display:flex;gap:.75rem;flex-wrap:wrap;margin-bottom:2.5rem}
+  .f-btn{font-family:var(--fn-m);font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;padding:.45rem 1.1rem;border:1px solid var(--border);background:transparent;color:var(--txt-d);cursor:pointer;transition:all .2s}
+  .f-btn:hover,.f-btn.on{border-color:var(--green);color:var(--green);background:rgba(0,232,122,.05)}
+  .pg{display:grid;grid-template-columns:repeat(3,1fr);gap:1.4rem;transition:opacity .25s ease,transform .25s ease}
+  .pc{background:var(--bg-s);border:1px solid var(--border);position:relative;overflow:hidden;transition:transform .3s,border-color .3s,box-shadow .3s;display:flex;flex-direction:column}
+  .pc::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--green),var(--blue));transform:scaleX(0);transform-origin:left;transition:transform .3s;z-index:2}
+  .pc:hover{transform:translateY(-5px);border-color:var(--bdr-g);box-shadow:0 16px 40px rgba(0,0,0,.4)}
+  .pc:hover::before{transform:scaleX(1)}
+  .pc.hide{display:none}
+
+  .pc-thumb{height:110px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;flex-shrink:0}
+  .pc-thumb::after{content:'';position:absolute;bottom:0;left:0;right:0;height:40px;background:linear-gradient(transparent,var(--bg-s));z-index:1}
+  .pc-thumb svg{width:46px;height:46px;opacity:.55;position:relative;z-index:0}
+  .pc-thumb.cat-cyber{background:linear-gradient(135deg,rgba(244,63,94,.18),rgba(249,115,22,.12))}
+  .pc-thumb.cat-research{background:linear-gradient(135deg,rgba(167,139,250,.18),rgba(79,70,229,.12))}
+  .pc-thumb.cat-web{background:linear-gradient(135deg,rgba(16,185,129,.18),rgba(59,130,246,.12))}
+  .pc-thumb.cat-policy{background:linear-gradient(135deg,rgba(8,145,178,.18),rgba(13,148,136,.12))}
+  .pc-thumb.cat-nys{background:linear-gradient(135deg,rgba(245,158,11,.18),rgba(234,179,8,.08))}
+
+  .pc-body{padding:1.4rem 1.7rem 1.7rem;display:flex;flex-direction:column;flex:1}
+  .pc-cat{font-family:var(--fn-m);font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;color:var(--green);margin-bottom:.55rem}
+  .pc-title{font-family:var(--fn-d);font-size:1.25rem;letter-spacing:.04em;line-height:1.2;margin-bottom:.55rem}
+  .pc-desc{font-size:.83rem;color:var(--txt-m);line-height:1.65;margin-bottom:1.1rem;flex:1}
+  .pc-tags{display:flex;flex-wrap:wrap;gap:.4rem;margin-bottom:1.2rem}
+  .tag{font-family:var(--fn-m);font-size:.6rem;padding:.2rem .55rem;background:rgba(255,255,255,.04);border:1px solid var(--border);color:var(--txt-d);letter-spacing:.05em}
+  .pc-link{font-family:var(--fn-m);font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--blue);text-decoration:none;display:inline-flex;align-items:center;gap:.35rem;transition:gap .2s}
+  .pc-link:hover{gap:.6rem}
+  .pc-link.dead{color:var(--txt-d);cursor:default;pointer-events:none}
+
+  /* Pagination */
+  .pg-nav{display:none;justify-content:center;align-items:center;gap:.6rem;margin-top:2.5rem}
+  .pg-btn{font-family:var(--fn-m);font-size:.72rem;letter-spacing:.1em;width:2.6rem;height:2.6rem;border:1px solid var(--border);background:transparent;color:var(--txt-d);cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center}
+  .pg-btn:hover,.pg-btn.active{border-color:var(--green);color:var(--green);background:rgba(0,232,122,.05)}
+  .pg-btn.active{box-shadow:0 0 12px rgba(0,232,122,.15)}
+
+  /* BLOG */
+  #blog{background:var(--bg-s)}
+  .bg{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
+  .bc{background:var(--bg);border:1px solid var(--border);display:flex;flex-direction:column;transition:transform .3s,border-color .3s;overflow:hidden}
+  .bc:hover{transform:translateY(-5px);border-color:var(--bdr-g)}
+  .bc-img{height:140px;overflow:hidden;flex-shrink:0;background:var(--bg-e);display:flex;align-items:center;justify-content:center;position:relative}
+  .bc-img img{width:100%;height:100%;object-fit:cover;transition:transform .4s}
+  .bc:hover .bc-img img{transform:scale(1.05)}
+  .bc-img-gen{background:linear-gradient(135deg,rgba(0,232,122,.07),rgba(56,189,248,.05));padding:1rem;text-align:center}
+  .bc-img-gen span{font-family:var(--fn-d);font-size:1rem;letter-spacing:.06em;color:var(--txt-d);line-height:1.3}
+  .bc-body{padding:1.4rem;display:flex;flex-direction:column;flex:1}
+  .bc-date{font-family:var(--fn-m);font-size:.62rem;color:var(--txt-d);letter-spacing:.1em;margin-bottom:.6rem}
+  .bc-title{font-family:var(--fn-d);font-size:1.1rem;letter-spacing:.04em;line-height:1.3;margin-bottom:.6rem}
+  .bc-exc{font-size:.82rem;color:var(--txt-m);line-height:1.65;flex:1;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;margin-bottom:1.2rem}
+  .bc-link{font-family:var(--fn-m);font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--green);text-decoration:none;display:inline-flex;align-items:center;gap:.35rem;transition:gap .2s}
+  .bc-link:hover{gap:.6rem}
+  .blog-status{grid-column:1/-1;text-align:center;padding:3rem;font-family:var(--fn-m);font-size:.8rem;color:var(--txt-d)}
+  .blog-cta{margin-top:2rem;text-align:center}
+
+  /* CONTACT */
+  #contact{background:var(--bg)}
+  .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center}
+  .contact-info h3{font-family:var(--fn-d);font-size:2rem;letter-spacing:.05em;margin-bottom:.9rem}
+  .contact-info p{color:var(--txt-m);line-height:1.75;margin-bottom:2rem;font-size:.95rem}
+  .c-items{display:flex;flex-direction:column;gap:1rem}
+  .c-item{display:flex;align-items:center;gap:.9rem;font-family:var(--fn-m);font-size:.78rem;color:var(--txt-m)}
+  .c-icon{width:2rem;height:2rem;display:flex;align-items:center;justify-content:center;border:1px solid var(--border);font-size:.85rem;flex-shrink:0}
+  .c-item a{color:var(--txt-m);text-decoration:none;transition:color .2s}
+  .c-item a:hover{color:var(--green)}
+  .c-social{display:flex;gap:.75rem;margin-top:1.8rem}
+  .s-btn{width:2.8rem;height:2.8rem;display:flex;align-items:center;justify-content:center;border:1px solid var(--border);color:var(--txt-d);text-decoration:none;transition:all .2s}
+  .s-btn:hover{border-color:var(--green);color:var(--green);background:rgba(0,232,122,.05)}
+  .contact-box{padding:2.5rem;background:var(--bg-s);border:1px solid var(--border);text-align:center}
+  .contact-box p{font-family:var(--fn-m);font-size:.78rem;color:var(--txt-m);line-height:1.7;margin-bottom:1.5rem}
+
+  /* FOOTER */
+  footer{padding:1.8rem 3.5rem;border-top:1px solid var(--border);background:var(--bg-s);display:flex;align-items:center;justify-content:space-between;position:relative;z-index:1}
+  .fc{font-family:var(--fn-m);font-size:.68rem;color:var(--txt-d)}
+  .fc em{color:var(--green);font-style:normal}
+  .fl{display:flex;gap:1.5rem}
+  .fl a{font-family:var(--fn-m);font-size:.68rem;color:var(--txt-d);text-decoration:none;transition:color .2s}
+  .fl a:hover{color:var(--green)}
+
+  /* FADE IN */
+  .fi{opacity:0;transform:translateY(18px);transition:opacity .55s ease,transform .55s ease}
+  .fi.vis{opacity:1;transform:none}
+
+  /* RESPONSIVE */
+  @media(max-width:960px){
+    nav{padding:1rem 1.5rem}
+    .nav-links{display:none}
+    .ham{display:flex}
+    .nav-links.open{display:flex;flex-direction:column;gap:1.2rem;position:fixed;top:56px;left:0;right:0;bottom:0;background:rgba(4,9,18,.97);padding:2rem 1.5rem;backdrop-filter:blur(12px);z-index:99}
+    .nav-links.open a{font-size:1rem}
+    section{padding:4rem 1.5rem}
+    #home{padding:8rem 1.5rem 4rem}
+    .about-grid,.exp-grid,.contact-grid{grid-template-columns:1fr;gap:3rem}
+    .skills-grid,.pg,.bg{grid-template-columns:1fr}
+    .stats{grid-template-columns:repeat(2,1fr)}
+    .info-cards{grid-template-columns:1fr}
+    .hero-side{display:none}
+    footer{flex-direction:column;gap:1rem;text-align:center}
+  }
+  @media(min-width:961px) and (max-width:1200px){
+    .pg,.bg{grid-template-columns:repeat(2,1fr)}
+    .skills-grid{grid-template-columns:repeat(2,1fr)}
+  }
+  </style>
 </head>
-<body data-spy="scroll" data-target=".navbar" data-offset="40" id="home">
-    <!-- <a href="components.html" class="btn btn-primary btn-component" data-spy="affix" data-offset-top="600"><i class="ti-shift-left-alt"></i> Components</a> -->
-    <header class="header">
-        <div class="container">
-            <ul class="social-icons pt-3">
-                <!-- <li class="social-item"><a class="social-link text-light" href="#"><i class="ti-facebook" aria-hidden="true"></i></a></li> -->
-                <!-- <li class="social-item"><a class="social-link text-light" href="#"><i class="ti-google" aria-hidden="true"></i></a></li> -->
-                <li class="social-item"><a class="social-link text-light" href="https://www.linkedin.com/in/anecaj/" target="_blank"><i class="ti-linkedin" aria-hidden="true"></i></a></li>
-                <li class="social-item"><a class="social-link text-light" href="https://github.com/anecaj" target="_blank"><i class="ti-github" aria-hidden="true"></i></a></li>
-                <li class="social-item"><a class="social-link text-dark" href="https://www.youtube.com/channel/YourChannel" target="_blank"><i class="ti-youtube" aria-hidden="true"></i></a></li>
-                <!-- <li class="social-item"><a class="social-link text-dark" href="#" target="_blank"><i class="fab fa-medium-m" aria-hidden="true"></i></a></li> -->
-            </ul>  
-            <div class="header-content">
-                <h4 class="header-subtitle" >Hello, I am</h4>
-                <h1 class="header-title">Adrian Necaj</h1>
-                <h6 class="header-mono" >Cybersecurity | Enthusiast</h6>
-                <a href="../Adrian's Resume.pdf" class="btn btn-primary btn-rounded" download="Resume.pdf">Get Resume</a>
-            </div>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="#home" class="nav-logo">AN<em>_</em></a>
+  <ul class="nav-links" id="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#portfolio">Portfolio</a></li>
+    <li><a href="#blog">Blog</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="https://anecaj.github.io/Adrian's%20Resume.pdf" target="_blank" class="nav-resume">Resume ↗</a>
+  <button class="ham" id="ham" onclick="toggleNav()" aria-label="Menu"><span></span><span></span><span></span></button>
+</nav>
+
+<!-- HERO -->
+<section id="home">
+  <canvas id="hero-canvas"></canvas>
+  <div class="hero-content inner">
+    <p class="hero-avail"><span class="dot"></span>MS Cybersecurity @ NYU Tandon · Open to Opportunities</p>
+    <h1 class="hero-name">Adrian<br><span>Necaj</span></h1>
+    <p class="hero-role"><span id="type-text"></span><span class="cursor"></span></p>
+    <p class="hero-bio">Cybersecurity graduate student at NYU Tandon (4.0 GPA, Cyber Fellows Scholar) and Cyber Intern at the NYS Executive Chamber's Chief Cyber Office. RIT alum. Building real defenses for real threats — GRC, cloud security, threat intelligence, and research.</p>
+    <div class="hero-btns">
+      <a href="#portfolio" class="btn-p">View My Work →</a>
+      <a href="#contact" class="btn-o">Get in Touch</a>
+    </div>
+  </div>
+  <div class="hero-side">
+    <a href="https://www.linkedin.com/in/anecaj/" target="_blank" title="LinkedIn">
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
+    </a>
+    <a href="https://github.com/anecaj" target="_blank" title="GitHub">
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+    </a>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="inner">
+    <p class="eyebrow" data-n="01">Who I Am</p>
+    <h2 class="sh">ABOUT ME</h2>
+    <div class="about-grid">
+      <div class="about-bio">
+        <p>I'm a Master's student in Cybersecurity at <strong style="color:var(--txt)">NYU Tandon School of Engineering</strong> (4.0 GPA, Cyber Fellows Scholar), building on my B.S. in Computer Security from Rochester Institute of Technology, where I also minored in Web Development and immersed in Economics. I'm passionate about bridging technical security with organizational governance — making cybersecurity decisions align with business goals, risk appetite, and compliance standards.</p>
+        <p>Currently interning at the <strong style="color:var(--txt)">NYS Executive Chamber's Chief Cyber Office</strong>, where I map CIS Controls across state agencies, author weekly threat intelligence memos briefed to the Director of Security &amp; Intelligence, and design incident reporting infrastructure. I identified unintended vulnerabilities during a beta test that triggered a formal red team review.</p>
+        <p>My academic work spans IEEE research on behavioral GRC, IoT network segmentation, cryptographic deepfake defense, and full-stack vulnerability management tooling. I'm fluent in English and Albanian, conversational in Spanish and French.</p>
+      </div>
+      <div>
+        <div class="info-cards">
+          <div class="info-card"><div class="lbl">Location</div><div class="val">Queens, New York City</div></div>
+          <div class="info-card"><div class="lbl">Email</div><div class="val"><a href="mailto:an4837@nyu.edu">an4837@nyu.edu</a></div></div>
+          <div class="info-card"><div class="lbl">Currently At</div><div class="val">NYS Chief Cyber Office</div></div>
+          <div class="info-card"><div class="lbl">MS Program</div><div class="val">NYU Tandon · GPA 4.0</div></div>
+          <div class="info-card"><div class="lbl">LinkedIn</div><div class="val"><a href="https://linkedin.com/in/anecaj" target="_blank">in/anecaj</a></div></div>
+          <div class="info-card"><div class="lbl">Languages</div><div class="val">EN · AL · ES · FR</div></div>
         </div>
-    </header>
-    <nav class="navbar sticky-top navbar-expand-lg navbar-light bg-white" data-spy="affix" data-offset-top="510">
-        <div class="container">
-            <button class="navbar-toggler ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse mt-sm-20 navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item">
-                        <a href="#home" class="nav-link">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#about" class="nav-link">About</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#resume" class="nav-link">Resume</a>
-                    </li>
-                </ul>
-                <ul class="navbar-nav brand">
-                    <img src="/public_html/assets/imgs/avatar.jpg" alt="" class="brand-img">
-                    <li class="brand-txt">
-                        <h5 class="brand-title">Adrian Necaj</h5>
-                        <div class="brand-subtitle">Cybersecurity | Enthusiast</div>
-                    </li>
-                </ul>
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item">
-                        <a href="#portfolio" class="nav-link">Portfolio</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="https://anecaj.github.io/blog/" class="nav-link">Blog</a>
-                    </li>
-                    <li class="nav-item last-item">
-                        <a href="#contact" class="nav-link">Contact</a>
-                    </li>
-                </ul>
-            </div>
+        <div class="stats">
+          <div class="stat fi"><div class="stat-n">4.0</div><div class="stat-l">GPA at NYU</div></div>
+          <div class="stat fi"><div class="stat-n">15+</div><div class="stat-l">Projects</div></div>
+          <div class="stat fi"><div class="stat-n">4</div><div class="stat-l">Research Papers</div></div>
+          <div class="stat fi"><div class="stat-n">🏛</div><div class="stat-l">Cyber Fellow</div></div>
         </div>
-    </nav>
-    <div class="container-fluid">
-        <div id="about" class="row about-section">
-            <div class="col-lg-4 about-card">
-                <h3 class="font-weight-light">Who am I ?</h3>
-                <span class="line mb-5"></span>
-                <h5 class="mb-3">A Cybersecurity Enthusiast</h5>
-                <p class="mt-20">
-                    I am a recent graduate from Rochester Institute of Technology, holding a degree in Cyber Security with a minor in Web Development and an immersion in Economics. My time at RIT has honed my skills in information security, ethical hacking, risk management, and digital forensics, preparing me to tackle the pressing cybersecurity challenges of today’s digital landscape.
-                    Driven by a commitment to safeguard digital systems and data, I am eager to apply my academic knowledge and practical experience in the field. My goal is to contribute to the cybersecurity community, collaborate with industry experts, and pursue opportunities that allow for significant real-world impact. As I transition from academic studies to professional practice, I am excited to continue learning and growing within this dynamic field.</p>
-            </div>
-            <div class="col-lg-4 about-card">
-                <h3 class="font-weight-light">Personal Info</h3>
-                <span class="line mb-5"></span>
-                <ul class="mt40 info list-unstyled">
-                    <li><span>Birthdate</span> : 10/30/2001</li>
-                    <li><span>Email</span> : an9905@g.rit.edu</li>
-                    <li><span>Phone</span> : 347-xxx-xxxx</li>
-                    <li><span>Address</span> :  Queens NYC</li>
-                </ul>
-                <ul class="social-icons pt-3">
-                    <!-- <li class="social-item"><a class="social-link" href="#"><i class="ti-facebook" aria-hidden="true"></i></a></li> -->
-                    <!-- <li class="social-item"><a class="social-link" href="#"><i class="ti-twitter" aria-hidden="true"></i></a></li> -->
-                    <!-- <li class="social-item"><a class="social-link" href="#"><i class="ti-google" aria-hidden="true"></i></a></li> -->
-                    <li class="social-item"><a class="social-link" href="https://www.linkedin.com/in/anecaj/" target="_blank"><i class="ti-linkedin" aria-hidden="true"></i></a></li>
-                    <li class="social-item"><a class="social-link" href="https://github.com/anecaj" target="_blank"><i class="ti-github" aria-hidden="true"></i></a></li>
-                </ul>  
-            </div>
-            <div class="col-lg-4 about-card">
-                <h3 class="font-weight-light">My Expertise</h3>
-                <span class="line mb-5"></span>
-                <div class="row">
-                    <div class="col-1 text-danger pt-1"><i class="ti-shield icon-lg"></i></div>
-                    <div class="col-10 ml-auto mr-3">
-                        <h6>Governance, Risk & Compliance</h6>
-                        <p class="subtitle">Skilled in risk management, vulnerability analysis, and compliance. Focused on creating and implementing robust security policies and frameworks to ensure compliance and manage threats effectively.</p>
-                        <hr>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-1 text-danger pt-1"><i class="ti-world icon-lg"></i></div>
-                    <div class="col-10 ml-auto mr-3">
-                        <h6>Secure Web Development</h6>
-                        <p class="subtitle">Experienced in developing secure web solutions by integrating best practices in cybersecurity. Proficient in mitigating web-based vulnerabilities and ensuring data protection in web applications.</p>
-                        <hr>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-1 text-danger pt-1"><i class="ti-bar-chart icon-lg"></i></div>
-                    <div class="col-10 ml-auto mr-3">
-                        <h6>Economic Principles in Cybersecurity</h6>
-                        <p class="subtitle">Applies economic analysis to cybersecurity to optimize resource allocation and improve decision-making processes. Understands the economic impact of security breaches and the cost-effectiveness of preventative measures.</p>
-                        <hr>
-                    </div>
-                </div>
-            </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="inner">
+    <p class="eyebrow" data-n="02">Capabilities</p>
+    <h2 class="sh">SKILLS</h2>
+    <div class="skills-grid">
+      <div class="sk-cat">
+        <p class="sk-cat-title">// Security &amp; GRC</p>
+        <div class="sk-list">
+          <div class="sk-item"><span class="sk-name">Governance, Risk &amp; Compliance (GRC)</span><div class="sk-bar"><div class="sk-fill" data-w="90"></div></div></div>
+          <div class="sk-item"><span class="sk-name">NIST / CIS / OWASP / MITRE ATT&CK</span><div class="sk-bar"><div class="sk-fill" data-w="88"></div></div></div>
+          <div class="sk-item"><span class="sk-name">Penetration Testing &amp; Ethical Hacking</span><div class="sk-bar"><div class="sk-fill" data-w="82"></div></div></div>
+          <div class="sk-item"><span class="sk-name">Risk &amp; Vulnerability Management</span><div class="sk-bar"><div class="sk-fill" data-w="87"></div></div></div>
+          <div class="sk-item"><span class="sk-name">Threat Intelligence &amp; Policy Writing</span><div class="sk-bar"><div class="sk-fill" data-w="85"></div></div></div>
         </div>
+      </div>
+      <div class="sk-cat">
+        <p class="sk-cat-title">// Tools &amp; Platforms</p>
+        <div class="sk-list">
+          <div class="sk-item"><span class="sk-name">Nessus / Rapid7 / OpenVAS / Wazuh</span><div class="sk-bar"><div class="sk-fill" data-w="80"></div></div></div>
+          <div class="sk-item"><span class="sk-name">SIEM / XDR / ServiceNow</span><div class="sk-bar"><div class="sk-fill" data-w="78"></div></div></div>
+          <div class="sk-item"><span class="sk-name">AWS Security Groups, VPCs, NACLs</span><div class="sk-bar"><div class="sk-fill" data-w="76"></div></div></div>
+          <div class="sk-item"><span class="sk-name">GNS3 / Active Directory / Virtualization</span><div class="sk-bar"><div class="sk-fill" data-w="74"></div></div></div>
+          <div class="sk-item"><span class="sk-name">Linux · Windows · MacOS</span><div class="sk-bar"><div class="sk-fill" data-w="85"></div></div></div>
+        </div>
+      </div>
+      <div class="sk-cat">
+        <p class="sk-cat-title">// Development &amp; Research</p>
+        <div class="sk-list">
+          <div class="sk-item"><span class="sk-name">Python (Automation, Data Analysis)</span><div class="sk-bar"><div class="sk-fill" data-w="87"></div></div></div>
+          <div class="sk-item"><span class="sk-name">R (Visualization, Statistical Analysis)</span><div class="sk-bar"><div class="sk-fill" data-w="72"></div></div></div>
+          <div class="sk-item"><span class="sk-name">Secure Web Dev — HTML/CSS/JS/Flask/PHP</span><div class="sk-bar"><div class="sk-fill" data-w="84"></div></div></div>
+          <div class="sk-item"><span class="sk-name">SQL / MySQL Database Design</span><div class="sk-bar"><div class="sk-fill" data-w="78"></div></div></div>
+          <div class="sk-item"><span class="sk-name">Academic Research &amp; IEEE Writing</span><div class="sk-bar"><div class="sk-fill" data-w="82"></div></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE & EDUCATION -->
+<section id="experience">
+  <div class="inner">
+    <p class="eyebrow" data-n="03">Background</p>
+    <h2 class="sh">EXPERIENCE &amp; EDUCATION</h2>
+    <div class="exp-grid">
+
+      <div>
+        <p class="tl-head">// Professional</p>
+        <div class="timeline">
+
+          <div class="tl-item hi fi">
+            <p class="tl-date">FEB 2026 — PRESENT</p>
+            <div class="tl-hd">
+              <div class="tl-hd-txt">
+                <h3 class="tl-role">Executive Chamber Cyber Intern</h3>
+                <p class="tl-co">@ NYS Chief Cyber Office · New York, NY</p>
+              </div>
+              <div class="org-logo" style="--c:#f59e0b">
+                <img src="https://logo.clearbit.com/ny.gov" alt="NYS" onerror="this.closest('.org-logo').classList.add('no-img')">
+                <span class="fb">NYS</span>
+              </div>
+            </div>
+            <span class="tl-badge">Current Role</span>
+            <ul class="tl-ul">
+              <li>Coordinate state agency CIS Controls v8.1.2 mapping across IT and OT domains; build R/Python-embedded Excel workbooks to surface compliance gaps</li>
+              <li>Author weekly threat intelligence memos and AI policy research briefed to the Director of Security &amp; Intelligence</li>
+              <li>Designed a cybersecurity incident reporting interface for the NYS CCO website; identified vulnerabilities during beta testing that prompted a formal red team review</li>
+              <li>Conduct policy research on disinformation countermeasures, rural hospital cybersecurity, and critical infrastructure</li>
+            </ul>
+          </div>
+
+          <div class="tl-item fi">
+            <p class="tl-date">JAN 2023 — APR 2023</p>
+            <div class="tl-hd">
+              <div class="tl-hd-txt">
+                <h3 class="tl-role">Information Security Intern</h3>
+                <p class="tl-co">@ Rochester Institute of Technology</p>
+              </div>
+              <div class="org-logo" style="--c:#f97316;background:#1a1a1a">
+                <img src="https://logo.clearbit.com/rit.edu" alt="RIT" onerror="this.closest('.org-logo').classList.add('no-img')">
+                <span class="fb">RIT</span>
+              </div>
+            </div>
+            <ul class="tl-ul">
+              <li>Integrated Rapid7 with ServiceNow to automate vulnerability management — reduced manual monitoring by 30%, improved response time by 20%</li>
+              <li>Conducted security assessments and vulnerability scans using Nessus and OpenVAS</li>
+              <li>Assisted in developing internal security policies and cybersecurity awareness training</li>
+            </ul>
+          </div>
+
+          <div class="tl-item fi">
+            <p class="tl-date">AUG 2022 — DEC 2022</p>
+            <div class="tl-hd">
+              <div class="tl-hd-txt">
+                <h3 class="tl-role">Jr. Application Administrator</h3>
+                <p class="tl-co">@ Rochester Institute of Technology</p>
+              </div>
+              <div class="org-logo" style="--c:#f97316;background:#1a1a1a">
+                <img src="https://logo.clearbit.com/rit.edu" alt="RIT" onerror="this.closest('.org-logo').classList.add('no-img')">
+                <span class="fb">RIT</span>
+              </div>
+            </div>
+            <ul class="tl-ul">
+              <li>Managed ServiceNow applications — software updates, bug fixes, customizations</li>
+              <li>Collaborated cross-functionally to integrate ServiceNow workflows across SecOps and ProCard teams</li>
+              <li>Developed documentation and SOPs to support platform maintenance and team onboarding</li>
+            </ul>
+          </div>
+
+          <div class="tl-item fi">
+            <p class="tl-date">MAY 2019 — PRESENT</p>
+            <div class="tl-hd">
+              <div class="tl-hd-txt">
+                <h3 class="tl-role">Doorman &amp; Building Operations</h3>
+                <p class="tl-co">@ Douglas Elliman Real Estate · NYC</p>
+              </div>
+              <div class="org-logo" style="--c:#94a3b8">
+                <img src="https://logo.clearbit.com/elliman.com" alt="DE" onerror="this.closest('.org-logo').classList.add('no-img')">
+                <span class="fb">DE</span>
+              </div>
+            </div>
+            <ul class="tl-ul">
+              <li>Managed building logistics, security protocols, and resident communications at a high-profile NYC property</li>
+              <li>Demonstrated professionalism serving high-profile tenants; adapted operations during pandemic-era workflow changes</li>
+            </ul>
+          </div>
+
+        </div>
+      </div>
+
+      <div>
+        <p class="tl-head">// Education &amp; Certifications</p>
+        <div class="timeline">
+
+          <div class="tl-item hi fi">
+            <p class="tl-date">SEP 2025 — MAY 2027</p>
+            <div class="tl-hd">
+              <div class="tl-hd-txt">
+                <h3 class="tl-role">M.S. Cybersecurity</h3>
+                <p class="tl-co">@ NYU Tandon School of Engineering</p>
+              </div>
+              <div class="org-logo" style="--c:#8b5cf6">
+                <img src="https://logo.clearbit.com/nyu.edu" alt="NYU" onerror="this.closest('.org-logo').classList.add('no-img')">
+                <span class="fb">NYU</span>
+              </div>
+            </div>
+            <span class="tl-badge">Current · 4.0 GPA · Cyber Fellows Scholar</span>
+            <p class="tl-desc">Applied Cryptography, OS Security, Information Security &amp; Privacy, Database Systems. Research: behavioral GRC, IoT segmentation, media provenance cryptography.</p>
+          </div>
+
+          <div class="tl-item fi">
+            <p class="tl-date">AUG 2019 — MAY 2024</p>
+            <div class="tl-hd">
+              <div class="tl-hd-txt">
+                <h3 class="tl-role">B.S. Computer Security</h3>
+                <p class="tl-co">@ Rochester Institute of Technology</p>
+              </div>
+              <div class="org-logo" style="--c:#f97316;background:#1a1a1a">
+                <img src="https://logo.clearbit.com/rit.edu" alt="RIT" onerror="this.closest('.org-logo').classList.add('no-img')">
+                <span class="fb">RIT</span>
+              </div>
+            </div>
+            <p class="tl-desc">Major in Cyber Security · Minor in Web Development · Immersion in Economics. Ethical hacking, risk management, digital forensics.<br><strong style="color:var(--green)">Dean's List '21–'24 · RIT Founders Scholarship · Major GPA 3.42</strong></p>
+          </div>
+
+          <div class="tl-item fi">
+            <p class="tl-date">2015 — 2019</p>
+            <div class="tl-hd">
+              <div class="tl-hd-txt">
+                <h3 class="tl-role">High School Diploma — 4.0 GPA</h3>
+                <p class="tl-co">@ Benjamin N. Cardozo H.S., Queens NYC</p>
+              </div>
+              <div class="org-logo" style="--c:#3b82f6">
+                <img src="https://logo.clearbit.com/schools.nyc.gov" alt="NYC" onerror="this.closest('.org-logo').classList.add('no-img')">
+                <span class="fb">NYC</span>
+              </div>
+            </div>
+            <p class="tl-desc">Arista Honor Society · National Honors Society.</p>
+          </div>
+
+          <div class="tl-item fi">
+            <p class="tl-date">Certification</p>
+            <div class="tl-hd">
+              <div class="tl-hd-txt">
+                <h3 class="tl-role">Google IT Support Specialization</h3>
+                <p class="tl-co">@ Google / Coursera</p>
+              </div>
+              <div class="org-logo" style="--c:#4285F4">
+                <img src="https://logo.clearbit.com/google.com" alt="Google" onerror="this.closest('.org-logo').classList.add('no-img')">
+                <span class="fb">G</span>
+              </div>
+            </div>
+            <p class="tl-desc">Troubleshooting, networking, OS, system administration, and security fundamentals.</p>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- PORTFOLIO -->
+<section id="portfolio">
+  <div class="inner">
+    <p class="eyebrow" data-n="04">My Work</p>
+    <h2 class="sh">PORTFOLIO</h2>
+    <div class="filters">
+      <button class="f-btn on" data-f="all">All</button>
+      <button class="f-btn" data-f="cybersecurity">Cybersecurity</button>
+      <button class="f-btn" data-f="research">Research &amp; Academic</button>
+      <button class="f-btn" data-f="web">Web &amp; Data</button>
+      <button class="f-btn" data-f="policy">Policy &amp; GRC</button>
     </div>
 
-    <!--Resume Section-->
-    <section class="section" id="resume">
-        <div class="container">
-            <h2 class="mb-5"><span class="text-danger">My</span> Resume</h2>
-            <div class="row">
-                <div class="col-md-6 col-lg-4">
-                    <div class="card">
-                       <div class="card-header">
-                            <div class="mt-2">
-                                <h4>Professional Experience</h4>
-                                <span class="line"></span>  
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            <h6 class="title text-danger">May 2024 - Present</h6>
-                            <P>Security Specialist @ Viral Software Solutions</P>
-                            <P class="subtitle">
-                                Helping implement cost-effective cybersecurity solutions by determining requirements and benefits and clearly communicating them to stakeholders, facilitators, and partners.
-                                <ul>
-                                    <li>Created and deployed Python scripts to streamline the management of AWS security components such as security groups, Network Access Control Lists (NACLs), Virtual Private Clouds (VPCs), and subnets, resulting in faster development cycles.</li>
-                                    <li>Conducted thorough security reviews for application teams to ensure adherence to security protocols, including enforcing TLS for all applications, preventing deployment in public subnets, and developing plans to address CVEs.</li>
-                                </ul>
-                            </P>
-                            <hr>
-                            <h6 class="title text-danger">2022 - 2023</h6>
-                            <P>Jr Application Administrator / Information Security Intern</P>
-                            <P class="subtitle">
-                                In my recent role, I applied advanced ServiceNow application administration skills, playing a key role in software updates and system enhancements.
-                                <ul>
-                                    <li>Applied ServiceNow application administration skills, proficiently implementing software updates and leveraging ServiceNow "building blocks" to enhance system functionality.</li>
-                                    <li>Evaluated and refined design approaches to align with specific requirements, consistently choosing the most suitable option for each request.</li>
-                                    <li>Developed, rigorously tested, and seamlessly implemented enhancements, bug fixes, and projects in adherence to established standards, ensuring optimal system performance.</li>
-                                    <li>Crafted and optimized customized workflows tailored to the unique needs of various departments, streamlining operational processes and improving efficiency.</li>
-                                    <li>Collaborated with cross-functional teams, including SecOps and ProCard, to integrate ServiceNow applications seamlessly into existing workflows.</li>
-                                    <li>Demonstrated strong skills in Information Security and effective communication, contributing to a collaborative and secure IT environment.</li>
-                                </ul>
-                            </P>
-                            <hr>
-                            <h6 class="title text-danger">2019 - 2021</h6>
-                            <P>Doorman * Porter * IT Tech at Douglas Elliman Real Estate</P>
-                            <P class="subtitle">
-                                Managed logistics and maintained security at a high-profile residential building. Key tasks included:
-                                <ul>
-                                    <li>Handling mail and deliveries, ensuring efficient and secure distribution.</li>
-                                    <li>Communicating effectively with property management to address resident concerns swiftly.</li>
-                                    <li>Maintaining a clean and safe environment, demonstrating commitment to resident well-being.</li>
-                                </ul>
-                            </P>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-4">
-                    <div class="card">
-                       <div class="card-header">
-                            <div class="mt-2">
-                                <h4>Education</h4>
-                                <span class="line"></span>  
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            <h6 class="title text-danger">2019 - 2024</h6>
-                            <p>Bachelor of Science in Computer Security</p>
-                            <p class="subtitle">Graduated from Rochester Institute of Technology with a major in Cyber Security, complemented by a minor in Web Development and an immersion in Economics. Acquired skills in information security, ethical hacking, risk management, and digital forensics. Awarded the RIT Founders Scholarship and made the Dean's List multiple times.</p>
-                            <hr>
-                            <h6 class="title text-danger">2015 - 2019</h6>
-                            <p>High School Diploma</p>
-                            <p class="subtitle">Graduated from Benjamin N. Cardozo High School in Queens, NYC, with a 4.0 GPA. Member of Arista Honor Society and the Honors Society, demonstrating early academic excellence and leadership.</p>
-                            <hr>
-                            <h6 class="title text-danger">Certifications</h6>
-                            <p>Google IT Support Specialization Certification</p>
-                            <p class="subtitle">Certification focusing on key aspects of IT support, including troubleshooting, customer service, networking, operating systems, system administration, and security. Provides a solid foundation for entry-level IT support roles.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4">
-                    <div class="card">
-                       <div class="card-header">
-                            <div class="pull-left">
-                                <h4 class="mt-2">Skills</h4>
-                                <span class="line"></span>  
-                            </div>
-                        </div>
-                        <div class="card-body pb-2">
-                            <h6>Cybersecurity Frameworks (NIST, OWASP)</h6>
-                            <div class="progress mb-3">
-                                <div class="progress-bar bg-danger" role="progressbar" style="width: 95%" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
-                            </div>
-                            <h6>Network Security</h6>
-                            <div class="progress mb-3">
-                                <div class="progress-bar bg-danger" role="progressbar" style="width: 90%" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
-                            </div>
-                            <h6>Python for Security Automation</h6>
-                            <div class="progress mb-3">
-                                <div class="progress-bar bg-danger" role="progressbar" style="width: 85%" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100"></div>
-                            </div>
-                            <h6>Penetration Testing & Ethical Hacking</h6>
-                            <div class="progress mb-3">
-                                <div class="progress-bar bg-danger" role="progressbar" style="width: 85%" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100"></div>
-                            </div>
-                            <h6>Web Development (HTML5, CSS3, JavaScript)</h6>
-                            <div class="progress mb-3">
-                                <div class="progress-bar bg-danger" role="progressbar" style="width: 95%" aria-valuenow="95" aria-valuemin="0" aria-valuemax="100"></div>
-                            </div>
-                            <h6>SQL Database Management</h6>
-                            <div class="progress mb-3">
-                                <div class="progress-bar bg-danger" role="progressbar" style="width: 90%" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
-                            </div>
-                            <h6>Microsoft Office Suite</h6>
-                            <div class="progress mb-3">
-                                <div class="progress-bar bg-danger" role="progressbar" style="width: 90%" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
-                            </div>
-                            <h6>Virtualization</h6>
-                            <div class="progress mb-3">
-                                <div class="progress-bar bg-danger" role="progressbar" style="width: 80%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
-                            </div>
-                            <h6>Risk & Vulnerability Management</h6>
-                            <div class="progress mb-3">
-                                <div class="progress-bar bg-danger" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
-                            </div>
-                            <h6>Governance & Compliance</h6>
-                            <div class="progress mb-3">
-                                <div class="progress-bar bg-danger" role="progressbar" style="width: 90%" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card">
-                       <div class="card-header">
-                            <div class="pull-left">
-                                <h4 class="mt-2">Languages</h4>
-                                <span class="line"></span>  
-                            </div>
-                        </div>
-                        <div class="card-body pb-2">
-                           <h6>English</h6>
-                            <div class="progress mb-3">
-                                <div class="progress-bar bg-danger" role="progressbar" style="width: 100%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                            </div>
-                            <h6>Albanian</h6>
-                            <div class="progress mb-3">
-                                <div class="progress-bar bg-danger" role="progressbar" style="width: 100%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                            </div>
-                            <h6>Spanish</h6>
-                            <div class="progress mb-3">
-                                <div class="progress-bar bg-danger" role="progressbar" style="width: 30%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
-                            </div>
-                            <h6>French</h6>
-                            <div class="progress mb-3">
-                                <div class="progress-bar bg-danger" role="progressbar" style="width: 25%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+    <div class="pg" id="proj-grid">
+
+      <div class="pc" data-c="policy">
+        <div class="pc-thumb cat-nys">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="color:#f59e0b"><path stroke-linecap="round" stroke-linejoin="round" d="M12 21v-8.25M15.75 21v-8.25M8.25 21v-8.25M3 9l9-6 9 6m-1.5 12V10.332A48.36 48.36 0 0012 9.75c-2.551 0-5.056.2-7.5.582V21M3 21h18M12 6.75h.008v.008H12V6.75z"/></svg>
         </div>
-    </section>
-
-    <section class="section bg-dark text-center">
-        <div class="container">
-            <div class="row text-center">
-                <div class="col-md-6 col-lg-3">
-                    <div class="row ">
-                        <div class="col-5 text-right text-light border-right py-3">
-                            <div class="m-auto"><i class="ti-alarm-clock icon-xl"></i></div>
-                        </div>
-                        <div class="col-7 text-left py-3">
-                            <h1 class="text-danger font-weight-bold font40">9</h1>
-                            <p class="text-light mb-1">Months Interning</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-3">
-                    <div class="row">
-                        <div class="col-5 text-right text-light border-right py-3">
-                            <div class="m-auto"><i class="ti-layers-alt icon-xl"></i></div>
-                        </div>
-                        <div class="col-7 text-left py-3">
-                            <h1 class="text-danger font-weight-bold font40">15+</h1>
-                            <p class="text-light mb-1">Projects Completed</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-3">
-                    <div class="row">
-                        <div class="col-5 text-right text-light border-right py-3">
-                            <div class="m-auto"><i class="ti-face-smile icon-xl"></i></div>
-                        </div>
-                        <div class="col-7 text-left py-3">
-                            <h1 class="text-danger font-weight-bold font40">10+</h1>
-                            <p class="text-light mb-1">Students Mentored</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-3">
-                    <div class="row">
-                        <div class="col-5 text-right text-light border-right py-3">
-                            <div class="m-auto"><i class="ti-heart-broken icon-xl"></i></div>
-                        </div>
-                        <div class="col-7 text-left py-3">
-                            <h1 class="text-danger font-weight-bold font40">500+</h1>
-                            <p class="text-light mb-1">Cups of Coffee</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <div class="pc-body">
+          <p class="pc-cat">State Government · Policy</p>
+          <h3 class="pc-title">NYS CCO Cyber Survey &amp; Reporting Interface</h3>
+          <p class="pc-desc">CIS Controls v8.1.2 mapping across state agencies, R/Python data tools to surface compliance gaps, and a cybersecurity incident reporting interface that triggered a formal red team review after beta vulnerabilities were discovered.</p>
+          <div class="pc-tags"><span class="tag">CIS Controls</span><span class="tag">R &amp; Python</span><span class="tag">Threat Intel</span><span class="tag">Policy</span></div>
+          <span class="pc-link dead">NYS Government · Internal</span>
         </div>
-    </section>
+      </div>
 
-    <section class="section" id="service">
-        <div class="container">
-            <h2 class="mb-5 pb-4"><span class="text-danger">My</span> Services</h2>
-            <div class="row">
-                <div class="col-md-4 col-sm-6">
-                    <div class="card mb-5">
-                       <div class="card-header has-icon">
-                            <i class="ti-shield text-danger" aria-hidden="true"></i>
-                        </div>
-                        <div class="card-body px-4 py-3">
-                            <h5 class="mb-3 card-title text-dark">Cybersecurity Consulting</h5>
-                            <p class="subtitle">Offering expertise in creating secure digital environments, including risk assessments, vulnerability testing, and security frameworks.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 col-sm-6">
-                    <div class="card mb-5">
-                       <div class="card-header has-icon">
-                            <i class="ti-world text-danger" aria-hidden="true"></i>
-                        </div>
-                        <div class="card-body px-4 py-3">
-                            <h5 class="mb-3 card-title text-dark">Web Development</h5>
-                            <p class="subtitle">Developing secure, scalable, and dynamic web solutions with a focus on user experience and performance optimization.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 col-sm-6">
-                    <div class="card mb-5">
-                       <div class="card-header has-icon">
-                            <i class="ti-stats-up text-danger" aria-hidden="true"></i>
-                        </div>
-                        <div class="card-body px-4 py-3">
-                            <h5 class="mb-3 card-title text-dark">Data Protection and Compliance</h5>
-                            <p class="subtitle">Ensuring data integrity and compliance with global standards such as GDPR and HIPAA for organizations of all sizes.</p>
-                        </div>
-                    </div>
-                </div>
-                <!-- <div class="col-md-4 col-sm-6">
-                    <div class="card mb-5">
-                       <div class="card-header has-icon">
-                            <i class="ti-map-alt text-danger" aria-hidden="true"></i>
-                        </div>
-                        <div class="card-body px-4 py-3">
-                            <h5 class="mb-3 card-title text-dark">Provident</h5>
-                            <P class="subtitle">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ullam commodi provident, dolores reiciendis enim pariatur error optio, tempora ex, nihil nesciunt! In praesentium sunt commodi, unde ipsam ex veritatis laboriosam dolor asperiores suscipit blanditiis, dignissimos quos nesciunt nulla aperiam officia.</P>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 col-sm-6">
-                    <div class="card mb-5">
-                       <div class="card-header has-icon">
-                            <i class="ti-bar-chart text-danger" aria-hidden="true"></i>
-                        </div>
-                        <div class="card-body px-4 py-3">
-                            <h5 class="mb-3 card-title text-dark">Consectetur</h5>
-                            <P class="subtitle">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ullam commodi provident, dolores reiciendis enim pariatur error optio, tempora ex, nihil nesciunt! In praesentium sunt commodi, unde ipsam ex veritatis laboriosam dolor asperiores suscipit blanditiis, dignissimos quos nesciunt nulla aperiam officia.</P>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 col-sm-6">
-                    <div class="card mb-5">
-                       <div class="card-header has-icon">
-                            <i class="ti-support text-danger" aria-hidden="true"></i>
-                        </div>
-                        <div class="card-body px-4 py-3">
-                            <h5 class="mb-3 card-title text-dark">Veritatis</h5>
-                            <P class="subtitle">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ullam commodi provident, dolores reiciendis enim pariatur error optio, tempora ex, nihil nesciunt! In praesentium sunt commodi, unde ipsam ex veritatis laboriosam dolor asperiores suscipit blanditiis, dignissimos quos nesciunt nulla aperiam officia.</P>
-                        </div>
-                    </div>
-                </div> -->
-            </div>
+      <div class="pc" data-c="web">
+        <div class="pc-thumb cat-web">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="color:#10b981"><path stroke-linecap="round" stroke-linejoin="round" d="M20.25 6.375c0 2.278-3.694 4.125-8.25 4.125S3.75 8.653 3.75 6.375m16.5 0c0-2.278-3.694-4.125-8.25-4.125S3.75 4.097 3.75 6.375m16.5 0v11.25c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125V6.375m16.5 5.625c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125"/></svg>
         </div>
-    </section>
-
-    <!-- <section class="section bg-custom-gray" id="price">
-        <div class="container">
-            <h1 class="mb-5"><span class="text-danger">Packs</span> Pricing</h1>
-            <div class="row align-items-center">
-                <div class="col-md-6 col-lg-3">
-                    <div class="price-card text-center mb-4">
-                        <h3 class="price-card-title">Free</h3>
-                        <div class="price-card-cost">
-                            <sup class="ti-money"></sup>
-                            <span class="num">0</span>
-                            <span class="date">MO</span>
-                        </div>
-                        <ul class="list">
-                            <li class="list-item">5 <span class="text-muted">Project</span></li>
-                            <li class="list-item">1GB <span class="text-muted">Storage</span></li>
-                            <li class="list-item"><span class="text-muted">No Domain</span></li>
-                            <li class="list-item">1 <span class="text-muted">User</span></li>
-                        </ul>
-                        <button class="btn btn-primary btn-rounded w-lg">Subscribe</button>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-3">
-                    <div class="price-card text-center mb-4">
-                        <h3 class="price-card-title">Basic</h3>
-                        <div class="price-card-cost">
-                            <sup class="ti-money"></sup>
-                            <span class="num">10</span>
-                            <span class="date">MO</span>
-                        </div>
-                        <ul class="list">
-                            <li class="list-item">50 <span class="text-muted">Project</span></li>
-                            <li class="list-item">10GB <span class="text-muted">Storage</span></li>
-                            <li class="list-item">1<span class="text-muted">Domain</span></li>
-                            <li class="list-item">5 <span class="text-muted">User</span></li>
-                        </ul>
-                        <button class="btn btn-primary btn-rounded w-lg">Subscribe</button>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-3">
-                    <div class="price-card text-center price-card-requried mb-4">
-                        <h3 class="price-card-title">Exclusive</h3>
-                        <div class="price-card-cost">
-                            <sup class="ti-money"></sup>
-                            <span class="num">25</span>
-                            <span class="date">MO</span>
-                        </div>
-                        <ul class="list">
-                            <li class="list-item">150 <span class="text-muted">Project</span></li>
-                            <li class="list-item">15GB <span class="text-muted">Storage</span></li>
-                            <li class="list-item">5<span class="text-muted"> Domain</span></li>
-                            <li class="list-item">15<span class="text-muted">User</span></li>
-                        </ul>
-                        <button class="btn btn-primary btn-rounded w-lg">Subscribe</button>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-3">
-                    <div class="price-card text-center mb-4">
-                        <h3 class="price-card-title">Pro</h3>
-                        <div class="price-card-cost">
-                            <sup class="ti-money"></sup>
-                            <span class="num">99</span>
-                            <span class="date">MO</span>
-                        </div>
-                        <ul class="list">
-                            <li class="list-item">500 <span class="text-muted">Project</span></li>
-                            <li class="list-item">1000GB <span class="text-muted">Storage</span></li>
-                            <li class="list-item">10<span class="text-muted"> Domain</span></li>
-                            <li class="list-item">Unlimite<span class="text-muted">User</span></li>
-                        </ul>
-                        <button class="btn btn-primary btn-rounded w-lg">Subscribe</button>
-                    </div>
-                </div>
-            </div>
+        <div class="pc-body">
+          <p class="pc-cat">Web &amp; Database</p>
+          <h3 class="pc-title">Vulnerability Management System</h3>
+          <p class="pc-desc">Three-tier Flask/MySQL CRUD application modeling a government cyber office workflow — tracking assets, CVEs, analyst assignments, and remediation actions. Includes ER model, stored procedures, ML risk-scoring function, and trigger automation.</p>
+          <div class="pc-tags"><span class="tag">Flask</span><span class="tag">MySQL</span><span class="tag">Python</span><span class="tag">CVSS Scoring</span></div>
+          <span class="pc-link dead">NYU Coursework · Academic</span>
         </div>
-    </section>
+      </div>
 
-    <section class="section bg-dark py-5">
-        <div class="container text-center">
-            <h2 class="text-light mb-5 font-weight-normal">I Am Available For FreeLance</h2>
-            <button class="btn bg-primary w-lg" >Hire me</button>
+      <div class="pc" data-c="research">
+        <div class="pc-thumb cat-research">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="color:#a78bfa"><path stroke-linecap="round" stroke-linejoin="round" d="M9.75 3.104v5.714a2.25 2.25 0 01-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 014.5 0m0 0v5.714c0 .597.237 1.17.659 1.591L19.8 15.3M14.25 3.104c.251.023.501.05.75.082M19.8 15.3l-1.57.393A9.065 9.065 0 0112 15a9.065 9.065 0 00-6.23-.693L5 14.5m14.8.8l1.402 1.402c1.232 1.232.65 3.318-1.067 3.611A48.309 48.309 0 0112 21c-2.773 0-5.491-.235-8.135-.687-1.718-.293-2.3-2.379-1.067-3.61L5 14.5"/></svg>
         </div>
-    </section> -->
-
-    <!-- Portfolio Section -->
-    <section class="section bg-custom-gray" id="portfolio">
-        <div class="container">
-            <h1 class="mb-5"><span class="text-danger">My</span> Portfolio</h1>
-            <div class="portfolio">
-                <div class="filters">
-                    <a href="#" data-filter=".new" class="active">All</a>
-                    <a href="#" data-filter=".cybersecurity">Cybersecurity</a>
-                    <a href="#" data-filter=".webdev">Web</a>
-                    <a href="#" data-filter=".research">Research</a>
-                </div>
-                <div class="portfolio-container">
-                    <!-- Computer System Security - ReelEducation -->
-                    <div class="col-md-6 col-lg-4 cybersecurity new">
-                        <div class="portfolio-item">
-                            <img src="/public_html/assets/imgs/reel-education.jpg" class="img-fluid" alt="ReelEducation Cybersecurity">
-                            <div class="content-holder">
-                                <a class="img-popup" href="/public_html/assets/imgs/reel-education.jpg"></a>
-                                <div class="text-holder">
-                                    <h6 class="title"><a href="https://github.com/anecaj/ReelEducation" class="portfolio-link" target="_blank">ReelEducation Cybersecurity Project</a></h6>
-                                    <p class="subtitle">Led cybersecurity initiatives for virtual environments, focusing on NIST air gap policies and VM configurations to enhance security.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Metadata Report - TaleSocial -->
-                    <div class="col-md-6 col-lg-4 research new">
-                        <div class="portfolio-item">
-                            <img src="/public_html/assets/imgs/talesocial-metadata.jpg" class="img-fluid" alt="TaleSocial Metadata Analysis">
-                            <div class="content-holder">
-                                <a class="img-popup" href="/public_html/assets/imgs/talesocial-metadata.jpg"></a>
-                                <div class="text-holder">
-                                    <h6 class="title">Metadata Analysis for TaleSocial</h6>
-                                    <p class="subtitle">Conducted deep metadata analysis to identify and mitigate vulnerabilities, enhancing the digital security posture of TaleSocial.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Disaster Recovery Plan -->
-                    <div class="col-md-6 col-lg-4 cybersecurity new">
-                        <div class="portfolio-item">
-                            <img src="/public_html/assets/imgs/disaster-recovery.jpg" class="img-fluid" alt="Disaster Recovery Planning">
-                            <div class="content-holder">
-                                <a class="img-popup" href="/public_html/assets/imgs/disaster-recovery.jpg"></a>
-                                <div class="text-holder">
-                                    <h6 class="title"><a href="https://github.com/anecaj/Disaster-Recovery-Paper" class="portfolio-link" target="_blank">IT Disaster Recovery Plan</a></h6>
-                                    <p class="subtitle">Collaboratively designed disaster recovery strategies, ensuring robust business continuity for IT infrastructures.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- AdrianHub -->
-                    <div class="col-md-6 col-lg-4 webdev new">
-                        <div class="portfolio-item">
-                            <img src="/public_html/assets/imgs/adrianhub.jpg" class="img-fluid" alt="AdrianHub">
-                            <div class="content-holder">
-                                <a class="img-popup" href="/public_html/assets/imgs/adrianhub.jpg"></a>
-                                <div class="text-holder">
-                                    <h6 class="title">AdrianHub - Full Stack Development</h6>
-                                    <p class="subtitle">Developed a dynamic, user-interactive web portfolio showcasing full-stack skills, with Google Analytics integration for performance tracking.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Malware Analysis Project -->
-                    <div class="col-md-6 col-lg-4 cybersecurity new">
-                        <div class="portfolio-item">
-                            <img src="/public_html/assets/imgs/malware-analysis.jpg" class="img-fluid" alt="Malware Analysis">
-                            <div class="content-holder">
-                                <a class="img-popup" href="/public_html/assets/imgs/malware-analysis.jpg"></a>
-                                <div class="text-holder">
-                                    <h6 class="title"><a href="https://github.com/anecaj/Malware-Analysis" class="portfolio-link" target="_blank">Malware Analysis - WannaCry</a></h6>
-                                    <p class="subtitle">Performed detailed analysis of WannaCry malware using advanced tools to understand and mitigate cyber threats effectively.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Cyber Security Policy -->
-                    <div class="col-md-6 col-lg-4 research new">
-                        <div class="portfolio-item">
-                            <img src="/public_html/assets/imgs/cyber-policy.jpg" class="img-fluid" alt="Cybersecurity Policy">
-                            <div class="content-holder">
-                                <a class="img-popup" href="/public_html/assets/imgs/cyber-policy.jpg"></a>
-                                <div class="text-holder">
-                                    <h6 class="title"><a href="https://github.com/anecaj/CyberPolicyInsights" class="portfolio-link" target="_blank">Cybersecurity Policy Development</a></h6>
-                                    <p class="subtitle">Authored policy briefs addressing key cybersecurity challenges, combining technical and policy analysis to guide strategic decisions.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Lightweight Authentication for Resource-Constrained IoT Devices -->
-                    <div class="col-md-6 col-lg-4 research new">
-                        <div class="portfolio-item">
-                            <img src="/public_html/assets/imgs/iot-authentication.jpg" class="img-fluid" alt="Lightweight Authentication for IoT">
-                            <div class="content-holder">
-                                <a class="img-popup" href="/public_html/assets/imgs/iot-authentication.jpg"></a>
-                                <div class="text-holder">
-                                    <h6 class="title"><a href="https://github.com/anecaj/Lightweight-Authentication-for-Resource-Constrained-IoT-Devices" class="portfolio-link" target="_blank">Lightweight Authentication for IoT Devices</a></h6>
-                                    <p class="subtitle">Explored efficient security solutions for IoT devices with limited resources, focusing on dynamic key management and streamlined cryptographic protocols.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- SWEN Capstone Portal Web App Security Audit -->
-                    <div class="col-md-6 col-lg-4 cybersecurity new">
-                        <div class="portfolio-item">
-                            <img src="/public_html/assets/imgs/capstone-audit.jpg" class="img-fluid" alt="SWEN Capstone Portal Audit">
-                            <div class="content-holder">
-                                <a class="img-popup" href="/public_html/assets/imgs/capstone-audit.jpg"></a>
-                                <div class="text-holder">
-                                    <h6 class="title">SWEN Capstone Portal Web App Security Audit</h6>
-                                    <p class="subtitle">Conducted a detailed security audit of the SWEN Capstone Portal, identifying and addressing vulnerabilities in web application security.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Risk Management Scenario -->
-                    <div class="col-md-6 col-lg-4 cybersecurity new">
-                        <div class="portfolio-item">
-                            <img src="/public_html/assets/imgs/risk-management.jpg" class="img-fluid" alt="Risk Management">
-                            <div class="content-holder">
-                                <a class="img-popup" href="/public_html/assets/imgs/risk-management.jpg"></a>
-                                <div the="text-holder">
-                                    <h6 class="title"><a href="https://github.com/anecaj/Social-Engineering-Paper/blob/main/Security_Scenario.pdf" class="portfolio-link" target="_blank">Risk Management Scenario</a></h6>
-                                    <p class="subtitle">Executed comprehensive risk assessments for a teaching hospital, formulating strategies to protect critical information assets.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <div class="pc-body">
+          <p class="pc-cat">Research · IEEE Paper</p>
+          <h3 class="pc-title">Behavioral Risk Integration in GRC Frameworks</h3>
+          <p class="pc-desc">Human-integrated GRC framework demonstrated 37.5% reduction in social engineering incidents (p&lt;0.001) vs. traditional approaches. ML behavioral risk scoring achieved 82% predictive accuracy in a 200-user simulated enterprise over 30 days.</p>
+          <div class="pc-tags"><span class="tag">GRC</span><span class="tag">Machine Learning</span><span class="tag">IEEE</span><span class="tag">Social Engineering</span></div>
+          <a href="https://github.com/anecaj" target="_blank" class="pc-link">GitHub →</a>
         </div>
-    </section>
-    <!-- End of portfolio section -->
+      </div>
 
-    <section class="section" id="blog">
-        <div class="container">
-            <h2 class="mb-5">Latest <span class="text-danger">Blogs</span></h2>
-            <div class="row">
-                <div class="blog-card">
-                    <div class="img-holder">
-                        <img src="/public_html/assets/imgs/blog-social-engineering.jpg" alt="blog_social">
-                    </div>
-                    <div class="content-holder">
-                        <h6 class="title">Social Engineering - Psychology behind Attacks</h6>
-
-                        <p class="post-details">
-                            <a href="#">By: Adrian Necaj</a>
-                            <i class="ti-heart text-danger"></i> 10</a>
-                            <i class="ti-comment"></i> 2</a>
-                        </p>
-                        
-                        <p>Explore the psychological tactics used in social engineering attacks, including methods such as pretexting, baiting, and phishing. Understand how these attacks exploit human behavior to bypass technical security controls.</p>
-                        <a href="https://anecaj.github.io/blog/The-Psychology-Behind-Social-Engineering-Attacks/" class="read-more">Read more <i class="ti-angle-double-right"></i></a>
-                    </div>
-                </div><!-- end of blog wrapper -->
-
-                <!-- blog-card -->
-                <div class="blog-card">
-                    <div class="img-holder">
-                        <img src="/public_html/assets/imgs/blog-cyber-trends.jpg" alt="blog_cyber_trends">
-                    </div>
-                    <div class="content-holder">
-                        <h6 class="title">Emerging Cybersecurity Trends in 2024</h6>
-
-                        <p class="post-details">
-                            <a href="#">By: Adrian Necaj</a>
-                            <i class="ti-heart text-danger"></i> 6</a>
-                            <i class="ti-comment"></i> 1</a>
-                        </p>
-                        
-                        <p>Discover the latest advancements in cybersecurity, including AI-driven security measures, the rise of quantum encryption, and the ongoing battle against ransomware.</p>
-
-                        <a href="https://anecaj.github.io/blog/Emerging-Cybersecurity-Trends-In-2024/" class="read-more">Read more <i class="ti-angle-double-right"></i></a>
-                    </div>
-                </div><!-- end of blog wrapper -->
-                <!-- blog-card -->
-                <div class="blog-card">
-                    <div class="img-holder">
-                        <img src="/public_html/assets/imgs/blog-iot-security.jpg" alt="blog_iot">
-                    </div>
-                    <div class="content-holder">
-                        <h4 class="title">Securing IoT Devices in Smart Homes</h4>
-
-                        <p class="post-details">
-                            <a href="#">By: Adrian Necaj</a>
-                            <i class="ti-heart text-danger"></i> 4</a>
-                            <i class="ti-comment"></i> 0</a>
-                        </p>
-                        
-                        <p>Learn about the challenges and strategies for securing IoT devices in smart homes. Covering essential practices for enhancing the security of connected devices from unauthorized access and cyber threats.</p>
-
-                        <a href="https://anecaj.github.io/blog/Securing-IoT-Devices-In-Smart-Homes/" class="read-more">Read more <i class="ti-angle-double-right"></i></a>
-                    </div>
-                </div><!-- end of blog wrapper -->
-
-            </div>
+      <div class="pc" data-c="research">
+        <div class="pc-thumb cat-research">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="color:#a78bfa"><path stroke-linecap="round" stroke-linejoin="round" d="M7.5 21L3 16.5m0 0L7.5 12M3 16.5h13.5m0-13.5L21 7.5m0 0L16.5 12M21 7.5H7.5"/></svg>
         </div>
-    </section>
-
-    <div class="section contact" id="contact">
-        <div id="map" class="map"></div>
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-8">
-                    <div class="contact-form-card">
-                        <h4 class="contact-title">Send a message</h4>
-                        <form action="https://formspree.io/f/xzbnwjqk" method="POST">
-                            <div class="form-group">
-                                <!-- <label>Your Name:</label> -->
-                                <input class="form-control" type="text" name="name" placeholder="Name *" required>
-                            </div>
-                            <div class="form-group">
-                                <!-- <label>Your Email:</label> -->
-                                <input class="form-control" type="email" name="email" placeholder="Email *" required>
-                            </div>
-                            <div class="form-group">
-                                <!-- <label>Your Message:</label> -->
-                                <textarea class="form-control" name="message" placeholder="Message *" rows="7" required></textarea>
-                            </div>
-                            <div class="form-group">
-                                <button type="submit" class="form-control btn btn-primary">Send Message</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-                <div class="col-lg-4">
-                    <div class="contact-info-card">
-                        <h4 class="contact-title">Get in touch!</h4>
-                        <div class="row mb-2">
-                            <div class="col-1 pt-1 mr-1">
-                                <i class="ti-mobile icon-md"></i>
-                            </div>
-                            <div class="col-10 ">
-                                <h6 class="d-inline">Phone : <br> <span class="text-muted">(347)-xxx-xxxx</span></h6>
-                            </div>
-                        </div>
-                        <div class="row mb-2">
-                            <div class="col-1 pt-1 mr-1">
-                                <i class="ti-map-alt icon-md"></i>
-                            </div>
-                            <div class="col-10">
-                                <h6 class="d-inline">Address :<br> <span class="text-muted">Queens NYC</span></h6>
-                            </div>
-                        </div>
-                        <div class="row mb-2">
-                            <div class="col-1 pt-1 mr-1">
-                                <i class="ti-envelope icon-md"></i>
-                            </div>
-                            <div class="col-10">
-                                <h6 class="d-inline">Email :<br> <span class="text-muted">an9905@g.rit.edu</span></h6>
-                            </div>
-                        </div>
-                        <ul class="social-icons pt-4">
-                            <!-- <li class="social-item"><a class="social-link text-dark" href="#"><i class="ti-facebook" aria-hidden="true"></i></a></li>
-                            <li class="social-item"><a class="social-link text-dark" href="#"><i class="ti-google" aria-hidden="true"></i></a></li> -->
-                            <li class="social-item"><a class="social-link text-dark" href="https://www.linkedin.com/in/anecaj/" target="_blank"><i class="ti-linkedin" aria-hidden="true"></i></a></li>
-                            <li class="social-item"><a class="social-link text-dark" href="https://github.com/anecaj" target="_blank"><i class="ti-github" aria-hidden="true"></i></a></li>
-                        </ul> 
-                    </div>
-                </div>
-            </div>
-
+        <div class="pc-body">
+          <p class="pc-cat">Research · IEEE Paper</p>
+          <h3 class="pc-title">IoT Network Segmentation for Residential Buildings</h3>
+          <p class="pc-desc">Simulated flat vs. VLAN-segmented architectures for 40 IoT devices using GNS3 and Python. Demonstrated 67% reduction in lateral movement success, 5x increase in time-to-compromise, and 180% improvement in detection rates via Zero Trust isolation.</p>
+          <div class="pc-tags"><span class="tag">GNS3</span><span class="tag">VLAN / Zero Trust</span><span class="tag">Python</span><span class="tag">IoT Security</span></div>
+          <a href="https://github.com/anecaj" target="_blank" class="pc-link">GitHub →</a>
         </div>
+      </div>
+
+      <div class="pc" data-c="research">
+        <div class="pc-thumb cat-research">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="color:#a78bfa"><path stroke-linecap="round" stroke-linejoin="round" d="M7.864 4.243A7.5 7.5 0 0119.5 10.5c0 2.92-.556 5.709-1.568 8.268M5.742 6.364A7.465 7.465 0 004.5 10.5a7.464 7.464 0 01-1.15 3.993m1.989 3.559A11.209 11.209 0 008.25 10.5a3.75 3.75 0 117.5 0c0 .527-.021 1.049-.064 1.565M12 10.5a14.94 14.94 0 01-3.6 9.75m6.633-4.596a18.666 18.666 0 01-2.485 5.33"/></svg>
+        </div>
+        <div class="pc-body">
+          <p class="pc-cat">Research · Applied Cryptography</p>
+          <h3 class="pc-title">Cryptographic Deepfake Defense System</h3>
+          <p class="pc-desc">C2PA-compliant media provenance system: ECDSA P-256 signing, SHA-256 content fingerprinting, perceptual hashing, and RFC 3161 trusted timestamping. Addresses deepfakes at capture-time — directly motivated by disinformation work at the NYS CCO.</p>
+          <div class="pc-tags"><span class="tag">ECDSA</span><span class="tag">C2PA</span><span class="tag">pHash</span><span class="tag">PKI</span><span class="tag">TLS 1.3</span></div>
+          <span class="pc-link dead">NYU Applied Cryptography</span>
+        </div>
+      </div>
+
+      <div class="pc" data-c="cybersecurity">
+        <div class="pc-thumb cat-cyber">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="color:#f43f5e"><path stroke-linecap="round" stroke-linejoin="round" d="M12 12.75c1.148 0 2.278.08 3.383.237 1.037.146 1.866.966 1.866 2.013 0 3.728-2.35 6.75-5.25 6.75S6.75 18.728 6.75 15c0-1.046.83-1.867 1.866-2.013A24.204 24.204 0 0112 12.75zm0 0c2.883 0 5.647.508 8.207 1.44a23.91 23.91 0 01-1.152 6.06M12 12.75c-2.883 0-5.647.508-8.208 1.44.125 2.104.52 4.136 1.153 6.06M12 12.75a2.25 2.25 0 002.248-2.354M12 12.75a2.25 2.25 0 01-2.248-2.354M12 8.25c.995 0 1.971-.08 2.922-.236.403-.066.74-.358.795-.762a3.778 3.778 0 00-.399-2.25M12 8.25c-.995 0-1.97-.08-2.922-.236-.402-.066-.74-.358-.795-.762a3.734 3.734 0 01.4-2.253M12 8.25a2.25 2.25 0 00-2.248 2.146M12 8.25a2.25 2.25 0 012.248 2.146M8.683 5a6.032 6.032 0 01-1.155-1.002c.07-.63.27-1.222.574-1.747m.581 2.749A3.75 3.75 0 0115.318 5m0 0c.427-.283.815-.62 1.155-.999a4.471 4.471 0 00-.575-1.752M4.921 6a24.048 24.048 0 00-.392 3.314c1.668.546 3.416.914 5.223 1.082M19.08 6c.205 1.08.337 2.187.392 3.314a23.882 23.882 0 01-5.223 1.082"/></svg>
+        </div>
+        <div class="pc-body">
+          <p class="pc-cat">Malware Analysis</p>
+          <h3 class="pc-title">WannaCry Malware Analysis</h3>
+          <p class="pc-desc">Deep forensic analysis of WannaCry ransomware — encryption mechanism, lateral movement via EternalBlue/DoublePulsar, and kill-switch discovery. Controlled lab environment using Wireshark, x32dbg, VirusTotal, and MalwareDB.</p>
+          <div class="pc-tags"><span class="tag">Forensics</span><span class="tag">Wireshark</span><span class="tag">x32dbg</span><span class="tag">Reverse Engineering</span></div>
+          <a href="https://github.com/anecaj/Malware-Analysis" target="_blank" class="pc-link">View on GitHub →</a>
+        </div>
+      </div>
+
+      <div class="pc" data-c="cybersecurity">
+        <div class="pc-thumb cat-cyber">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="color:#f43f5e"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 5.25a3 3 0 013 3m3 0a6 6 0 01-7.029 5.912c-.563-.097-1.159.026-1.563.43L10.5 17.25H8.25v2.25H6v2.25H2.25v-2.818c0-.597.237-1.17.659-1.591l6.499-6.499c.404-.404.527-1 .43-1.563A6 6 0 1121.75 8.25z"/></svg>
+        </div>
+        <div class="pc-body">
+          <p class="pc-cat">IoT Security · RIT Capstone</p>
+          <h3 class="pc-title">Lightweight IoT Authentication Protocol</h3>
+          <p class="pc-desc">Authentication protocol for resource-constrained IoT devices — comparative analysis of existing methods, implementation in simulated environments, dynamic key management to reduce computational overhead while enhancing security.</p>
+          <div class="pc-tags"><span class="tag">IoT Security</span><span class="tag">Cryptography</span><span class="tag">Key Management</span><span class="tag">NIST</span></div>
+          <a href="https://github.com/anecaj/Lightweight-Authentication-for-Resource-Constrained-IoT-Devices" target="_blank" class="pc-link">View on GitHub →</a>
+        </div>
+      </div>
+
+      <div class="pc" data-c="cybersecurity">
+        <div class="pc-thumb cat-cyber">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="color:#f43f5e"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z"/></svg>
+        </div>
+        <div class="pc-body">
+          <p class="pc-cat">Cybersecurity Initiative</p>
+          <h3 class="pc-title">ReelEducation Security Program</h3>
+          <p class="pc-desc">Security design for a virtual education company — NIST air gap policies, VM hardening, VLAN/subnet enforcement, and CIS compliance framework. Comprehensive final report and presentation delivered to client.</p>
+          <div class="pc-tags"><span class="tag">NIST</span><span class="tag">CIS</span><span class="tag">VM Hardening</span><span class="tag">VLANs</span></div>
+          <a href="https://github.com/anecaj/ReelEducation" target="_blank" class="pc-link">View on GitHub →</a>
+        </div>
+      </div>
+
+      <div class="pc" data-c="cybersecurity">
+        <div class="pc-thumb cat-cyber">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="color:#f43f5e"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"/></svg>
+        </div>
+        <div class="pc-body">
+          <p class="pc-cat">Metadata &amp; OSINT</p>
+          <h3 class="pc-title">TaleSocial Metadata Analysis</h3>
+          <p class="pc-desc">Full analysis of TaleSocial — HTML/CSS/JS parsing, WHOIS lookups, metadata exposure risk evaluation, and vulnerability identification. Actionable mitigation plans delivered in a structured client-facing report.</p>
+          <div class="pc-tags"><span class="tag">Metadata Forensics</span><span class="tag">OSINT</span><span class="tag">WHOIS</span><span class="tag">Pen Testing</span></div>
+          <span class="pc-link dead">Internal / Academic</span>
+        </div>
+      </div>
+
+      <div class="pc" data-c="policy">
+        <div class="pc-thumb cat-policy">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="color:#38bdf8"><path stroke-linecap="round" stroke-linejoin="round" d="M5.25 14.25h13.5m-13.5 0a3 3 0 01-3-3m3 3a3 3 0 100 6h13.5a3 3 0 100-6m-16.5-3a3 3 0 013-3h13.5a3 3 0 013 3m-19.5 0a4.5 4.5 0 01.9-2.7L5.737 5.1a3.375 3.375 0 012.7-1.35h7.126c1.062 0 2.062.5 2.7 1.35l2.587 3.45a4.5 4.5 0 01.9 2.7m0 0a3 3 0 01-3 3m0 3h.008v.008h-.008v-.008zm0-6h.008v.008h-.008v-.008zm-3 6h.008v.008h-.008v-.008zm0-6h.008v.008h-.008v-.008z"/></svg>
+        </div>
+        <div class="pc-body">
+          <p class="pc-cat">Business Continuity</p>
+          <h3 class="pc-title">IT Disaster Recovery Plan</h3>
+          <p class="pc-desc">Full IT disaster recovery framework covering LAN, WAN, and remote connectivity — RTO/RPO objectives, failover procedures, key stakeholder identification, and department-specific recovery plans.</p>
+          <div class="pc-tags"><span class="tag">Disaster Recovery</span><span class="tag">Business Continuity</span><span class="tag">RTO / RPO</span></div>
+          <a href="https://github.com/anecaj/Disaster-Recovery-Paper" target="_blank" class="pc-link">View on GitHub →</a>
+        </div>
+      </div>
+
+      <div class="pc" data-c="policy">
+        <div class="pc-thumb cat-policy">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="color:#38bdf8"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"/></svg>
+        </div>
+        <div class="pc-body">
+          <p class="pc-cat">Policy &amp; GRC</p>
+          <h3 class="pc-title">Cybersecurity Policy Briefs</h3>
+          <p class="pc-desc">Policy briefs on Facial Recognition Technology and the Data Economy — applying a public policy lens to technical cybersecurity issues with regulatory and strategic analysis. Evidence-based recommendations.</p>
+          <div class="pc-tags"><span class="tag">Policy Writing</span><span class="tag">GRC</span><span class="tag">FRT</span><span class="tag">Data Economy</span></div>
+          <a href="https://github.com/anecaj/CyberPolicyInsights" target="_blank" class="pc-link">View on GitHub →</a>
+        </div>
+      </div>
+
+      <div class="pc" data-c="policy">
+        <div class="pc-thumb cat-policy">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="color:#38bdf8"><path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z"/></svg>
+        </div>
+        <div class="pc-body">
+          <p class="pc-cat">Risk Management</p>
+          <h3 class="pc-title">Healthcare Risk Assessment Scenario</h3>
+          <p class="pc-desc">Comprehensive risk assessment for a teaching hospital — FIPS 199 categorization, MITRE ATT&CK and STRIDE threat modeling, and quantitative/qualitative risk mitigations for critical patient data systems.</p>
+          <div class="pc-tags"><span class="tag">FIPS 199</span><span class="tag">MITRE ATT&CK</span><span class="tag">STRIDE</span><span class="tag">HIPAA</span></div>
+          <a href="https://github.com/anecaj/Social-Engineering-Paper/blob/main/Security_Scenario.pdf" target="_blank" class="pc-link">View PDF →</a>
+        </div>
+      </div>
+
+      <div class="pc" data-c="web">
+        <div class="pc-thumb cat-web">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="color:#10b981"><path stroke-linecap="round" stroke-linejoin="round" d="M17.25 6.75L22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3l-4.5 16.5"/></svg>
+        </div>
+        <div class="pc-body">
+          <p class="pc-cat">Full Stack Development</p>
+          <h3 class="pc-title">AdrianHub — Personal Portfolio Platform</h3>
+          <p class="pc-desc">Full-stack interactive portfolio with Google Analytics integration, modal pop-ups, hover effects, and Git version control. HTML5, CSS, PHP, JavaScript, Bootstrap.</p>
+          <div class="pc-tags"><span class="tag">HTML5 / CSS</span><span class="tag">PHP</span><span class="tag">JavaScript</span><span class="tag">Google Analytics</span></div>
+          <a href="https://anecaj.github.io" target="_blank" class="pc-link">Live Site →</a>
+        </div>
+      </div>
+
     </div>
-    <footer class="footer py-3">
-        <div class="container">
-            <p class="small mb-0 text-light">
-                &copy; <script>document.write(new Date().getFullYear())</script> Created With <i class="ti-heart text-danger"></i> By <a href="https://www.linkedin.com/in/anecaj/" target="_blank"><span class="text-danger" title="Footer">Adrian Necaj</span></a> 
-            </p>
+
+    <!-- Pagination -->
+    <div class="pg-nav" id="pg-nav"></div>
+  </div>
+</section>
+
+<!-- BLOG -->
+<section id="blog">
+  <div class="inner">
+    <p class="eyebrow" data-n="05">Writing</p>
+    <h2 class="sh">LATEST POSTS</h2>
+    <div class="bg" id="blog-grid">
+      <p class="blog-status">// Loading posts...</p>
+    </div>
+    <div class="blog-cta">
+      <a href="blog.html" class="btn-o">View All Posts →</a>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="inner">
+    <p class="eyebrow" data-n="06">Get in Touch</p>
+    <h2 class="sh">CONTACT</h2>
+    <div class="contact-grid">
+      <div class="contact-info">
+        <h3>Let's Connect</h3>
+        <p>Whether you want to discuss an open role, talk threat intelligence, collaborate on research, or just connect with someone who thinks constantly about cybersecurity risk — reach out. Queens, NYC. Open to remote and hybrid.</p>
+        <div class="c-items">
+          <div class="c-item"><div class="c-icon">✉</div><a href="mailto:an4837@nyu.edu">an4837@nyu.edu</a></div>
+          <div class="c-item"><div class="c-icon">📍</div><span>Queens, New York City</span></div>
+          <div class="c-item"><div class="c-icon">🎓</div><span>NYU Tandon · MS Cybersecurity · 2027</span></div>
         </div>
-    </footer>
+        <div class="c-social">
+          <a href="https://www.linkedin.com/in/anecaj/" target="_blank" class="s-btn" title="LinkedIn">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
+          </a>
+          <a href="https://github.com/anecaj" target="_blank" class="s-btn" title="GitHub">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+          </a>
+        </div>
+      </div>
+      <div class="contact-box">
+        <p>// MS Cybersecurity student (May 2027). Open to summer 2026 internships, full-time security engineering and GRC roles post-graduation, and consulting engagements. NYC-based, open to remote.</p>
+        <a href="https://anecaj.github.io/Adrian's%20Resume.pdf" target="_blank" class="btn-p" style="display:inline-flex;margin-bottom:.9rem">Download Resume →</a><br>
+        <a href="https://www.linkedin.com/in/anecaj/" target="_blank" class="btn-o" style="display:inline-flex;margin-top:.5rem">Connect on LinkedIn →</a>
+      </div>
+    </div>
+  </div>
+</section>
 
-	<!-- core  -->
-    <script src="/public_html/assets/vendors/jquery/jquery-3.4.1.js"></script>
-    <script src="/public_html/assets/vendors/bootstrap/bootstrap.bundle.js"></script>
+<footer>
+  <p class="fc">© 2026 <em>Adrian Necaj</em> — Built from scratch · Queens, NYC 🇦🇱</p>
+  <div class="fl">
+    <a href="https://github.com/anecaj" target="_blank">GitHub</a>
+    <a href="https://www.linkedin.com/in/anecaj/" target="_blank">LinkedIn</a>
+    <a href="blog.html">Blog</a>
+    <a href="https://anecaj.github.io/Adrian's%20Resume.pdf" target="_blank">Resume</a>
+  </div>
+</footer>
 
-    <!-- bootstrap 3 affix -->
-    <script src="/public_html/assets/vendors/bootstrap/bootstrap.affix.js"></script>
+<script>
+// ── MOBILE NAV ───────────────────────────────────────────
+function toggleNav(){document.getElementById('nav-links').classList.toggle('open')}
+document.querySelectorAll('#nav-links a').forEach(a=>a.addEventListener('click',()=>document.getElementById('nav-links').classList.remove('open')));
+window.addEventListener('scroll',()=>document.getElementById('nav').classList.toggle('scrolled',window.scrollY>60));
 
-    <!-- Isotope  -->
-    <script src="/public_html/assets/vendors/isotope/isotope.pkgd.js"></script>
-    
-    <!-- Google maps -->
+// ── HERO CANVAS PARTICLE NETWORK ─────────────────────────
+(function(){
+  const canvas=document.getElementById('hero-canvas');
+  const ctx=canvas.getContext('2d');
+  let W,H;
 
-    <!-- JohnDoe js -->
-    <script src="/public_html/assets/js/johndoe.js"></script>
+  function resize(){
+    W=canvas.width=canvas.offsetWidth;
+    H=canvas.height=canvas.offsetHeight;
+  }
+  resize();
+  window.addEventListener('resize',resize);
 
+  const N=65, MAX=145;
+  const pts=Array.from({length:N},()=>({
+    x:Math.random()*W, y:Math.random()*H,
+    vx:(Math.random()-.5)*.38, vy:(Math.random()-.5)*.38,
+    r:Math.random()*1.8+.8
+  }));
+
+  function frame(){
+    ctx.clearRect(0,0,W,H);
+    for(let i=0;i<N;i++){
+      for(let j=i+1;j<N;j++){
+        const dx=pts[i].x-pts[j].x, dy=pts[i].y-pts[j].y;
+        const d=Math.sqrt(dx*dx+dy*dy);
+        if(d<MAX){
+          const a=(1-d/MAX)*0.32;
+          ctx.strokeStyle=`rgba(0,232,122,${a})`;
+          ctx.lineWidth=.8;
+          ctx.beginPath();
+          ctx.moveTo(pts[i].x,pts[i].y);
+          ctx.lineTo(pts[j].x,pts[j].y);
+          ctx.stroke();
+        }
+      }
+    }
+    pts.forEach(p=>{
+      ctx.fillStyle='rgba(0,232,122,0.55)';
+      ctx.beginPath();
+      ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+      ctx.fill();
+      p.x+=p.vx; p.y+=p.vy;
+      if(p.x<0||p.x>W) p.vx*=-1;
+      if(p.y<0||p.y>H) p.vy*=-1;
+    });
+    requestAnimationFrame(frame);
+  }
+  frame();
+})();
+
+// ── TYPING ───────────────────────────────────────────────
+const roles=['NYS Executive Chamber Cyber Intern','MS Cybersecurity @ NYU Tandon','Security Researcher','GRC & Risk Management','Penetration Tester','Cloud Security Specialist','Malware Analyst','Secure Web Developer'];
+let ri=0,ci=0,del=false;
+const tel=document.getElementById('type-text');
+function tick(){
+  const cur=roles[ri];
+  if(del){
+    tel.textContent=cur.slice(0,--ci);
+    if(ci===0){del=false;ri=(ri+1)%roles.length;return setTimeout(tick,350)}
+    setTimeout(tick,42);
+  }else{
+    tel.textContent=cur.slice(0,++ci);
+    if(ci===cur.length){del=true;return setTimeout(tick,2400)}
+    setTimeout(tick,72);
+  }
+}
+tick();
+
+// ── INTERSECTION OBSERVER ────────────────────────────────
+const io=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.classList.add('vis');
+      e.target.querySelectorAll('.sk-fill').forEach(b=>{b.style.width=b.dataset.w+'%'});
+    }
+  });
+},{threshold:0.1});
+document.querySelectorAll('.fi,.sk-cat,.stat,.bc').forEach(el=>io.observe(el));
+
+// ── PORTFOLIO PAGINATION ─────────────────────────────────
+const PER=6;
+let aFilter='all', aPage=1;
+
+function allCards(){return[...document.querySelectorAll('.pc')]}
+function filtered(){return allCards().filter(c=>aFilter==='all'||c.dataset.c===aFilter)}
+
+function showPage(page,animate){
+  aPage=page;
+  const cards=filtered();
+  const total=Math.ceil(cards.length/PER);
+  const start=(page-1)*PER;
+  const grid=document.getElementById('proj-grid');
+
+  const run=()=>{
+    allCards().forEach(c=>{c.classList.add('hide');c.classList.remove('vis')});
+    const slice=cards.slice(start,start+PER);
+    slice.forEach((c,i)=>{c.classList.remove('hide');c.style.transitionDelay=i*0.055+'s'});
+    setTimeout(()=>{slice.forEach(c=>c.classList.add('vis'))},30);
+    grid.style.opacity='1';
+    grid.style.transform='translateY(0)';
+    // pagination
+    const nav=document.getElementById('pg-nav');
+    if(total<=1){nav.style.display='none'}
+    else{
+      nav.style.display='flex';
+      nav.innerHTML=Array.from({length:total},(_,i)=>
+        `<button class="pg-btn${i+1===page?' active':''}" onclick="showPage(${i+1},true)">${i+1}</button>`
+      ).join('');
+    }
+  };
+
+  if(animate){
+    grid.style.transition='opacity .22s ease,transform .22s ease';
+    grid.style.opacity='0';
+    grid.style.transform='translateY(8px)';
+    setTimeout(run,220);
+  }else{
+    run();
+  }
+}
+
+document.querySelectorAll('.f-btn').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    document.querySelectorAll('.f-btn').forEach(b=>b.classList.remove('on'));
+    btn.classList.add('on');
+    aFilter=btn.dataset.f;
+    showPage(1,true);
+  });
+});
+
+showPage(1,false);
+
+// ── BLOG FETCH ───────────────────────────────────────────
+const FB=[
+  {title:'The Future of Cybersecurity: AI-Driven Vulnerability Management',pubDate:'2024-05-27',description:'As the digital landscape evolves, AI is transforming how organizations detect and respond to vulnerabilities at scale...',link:'https://anecaj.github.io/blog/The-Future-Of-Cybersecurity-AI-Drive-Vulnerability-Management/',thumbnail:''},
+  {title:"Zuckerberg's Attempt to Crack Snapchat's Encrypted Data",pubDate:'2024-05-20',description:'A case study in competitive intelligence practices and what it reveals about corporate ethics in tech...',link:'https://anecaj.github.io/blog/Mark-Zuckerbergs-Attempt-to-Crack-Snapchats-Encrypted-Data-A-Case-Study-in-Competitive-Practices/',thumbnail:''},
+  {title:'The Psychology Behind Social Engineering Attacks',pubDate:'2024-05-13',description:'Social engineering exploits human behavior rather than software. Understanding pretexting, baiting, and phishing is your first line of defense...',link:'https://anecaj.github.io/blog/The-Psychology-Behind-Social-Engineering-Attacks/',thumbnail:''}
+];
+
+function fmtDate(s){const d=new Date(s);return isNaN(d)?s:d.toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'})}
+function stripHtml(h){const d=document.createElement('div');d.innerHTML=h;return(d.textContent||'').trim().slice(0,155)+'…'}
+
+function renderPosts(posts){
+  const grid=document.getElementById('blog-grid');
+  grid.innerHTML=posts.slice(0,3).map(p=>{
+    const exc=typeof p.description==='string'&&p.description.includes('<')?stripHtml(p.description):(p.description||'');
+    const thumb=p.thumbnail||'';
+    const img=thumb
+      ?`<div class="bc-img"><img src="${thumb}" alt="" loading="lazy" onerror="this.parentElement.outerHTML='<div class=\\"bc-img bc-img-gen\\"><span>${p.title.split(' ').slice(0,5).join(' ')}</span></div>'"></div>`
+      :`<div class="bc-img bc-img-gen"><span>${p.title.split(' ').slice(0,5).join(' ')}</span></div>`;
+    return`<div class="bc fi">${img}<div class="bc-body"><p class="bc-date">${fmtDate(p.pubDate)}</p><h3 class="bc-title">${p.title}</h3><p class="bc-exc">${exc}</p><a href="${p.link}" target="_blank" class="bc-link">Read Post →</a></div></div>`;
+  }).join('');
+  grid.querySelectorAll('.bc').forEach(el=>io.observe(el));
+}
+
+async function fetchBlog(){
+  try{
+    const res=await fetch(`https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent('https://anecaj.github.io/blog/feed.xml')}&count=3`);
+    const data=await res.json();
+    if(data.status==='ok'&&data.items?.length)renderPosts(data.items);
+    else renderPosts(FB);
+  }catch{renderPosts(FB)}
+}
+fetchBlog();
+</script>
 </body>
 </html>

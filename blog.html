@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Adrian Necaj's blog — writing on cybersecurity, GRC, threat intelligence, and policy.">
+  <title>Blog — Adrian Necaj</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Fira+Code:wght@300;400;500;600&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+  <style>
+  :root{
+    --bg:#040912;--bg-s:#091221;--bg-e:#0d1a2e;
+    --green:#00e87a;--blue:#38bdf8;
+    --txt:#dde6f0;--txt-m:#8fa3bb;--txt-d:#3d5268;
+    --border:rgba(255,255,255,0.07);--bdr-g:rgba(0,232,122,0.3);
+    --fn-d:'Bebas Neue',sans-serif;--fn-m:'Fira Code',monospace;--fn-b:'DM Sans',sans-serif;
+  }
+  *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--txt);font-family:var(--fn-b);line-height:1.6;overflow-x:hidden;min-height:100vh}
+  body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(1px 1px at center,rgba(255,255,255,.028) 0%,transparent 100%);background-size:28px 28px;pointer-events:none;z-index:0}
+
+  ::-webkit-scrollbar{width:8px}
+  ::-webkit-scrollbar-track{background:var(--bg-s)}
+  ::-webkit-scrollbar-thumb{background:rgba(0,232,122,.5);border-radius:4px}
+  ::-webkit-scrollbar-thumb:hover{background:rgba(0,232,122,.8)}
+
+  /* NAV - same as portfolio */
+  nav{position:sticky;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:1.1rem 3.5rem;background:rgba(4,9,18,.92);backdrop-filter:blur(16px);border-bottom:2px solid rgba(0,232,122,.25)}
+  .nav-logo{font-family:var(--fn-d);font-size:1.5rem;letter-spacing:.12em;color:var(--txt);text-decoration:none}
+  .nav-logo em{color:var(--green);font-style:normal}
+  .nav-right{display:flex;align-items:center;gap:2rem}
+  .nav-back{font-family:var(--fn-m);font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;color:var(--txt-m);text-decoration:none;display:flex;align-items:center;gap:.4rem;transition:color .2s}
+  .nav-back:hover{color:var(--green)}
+  .nav-resume{font-family:var(--fn-m);font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;color:var(--green);text-decoration:none;padding:.45rem 1.1rem;border:1px solid var(--green);transition:background .2s,color .2s}
+  .nav-resume:hover{background:var(--green);color:var(--bg)}
+
+  /* HERO BANNER */
+  .blog-hero{padding:8rem 3.5rem 5rem;position:relative;z-index:1;overflow:hidden;background:var(--bg-s);border-bottom:1px solid var(--border)}
+  .blog-hero::before{content:'BLOG';position:absolute;right:-1rem;top:50%;transform:translateY(-50%);font-family:var(--fn-d);font-size:clamp(8rem,22vw,18rem);line-height:1;color:rgba(255,255,255,.02);pointer-events:none;user-select:none;letter-spacing:.05em}
+  .blog-hero-inner{max-width:1160px;margin:0 auto;position:relative;z-index:1}
+  .blog-eyebrow{font-family:var(--fn-m);font-size:.68rem;letter-spacing:.25em;text-transform:uppercase;color:var(--green);margin-bottom:.8rem;display:flex;align-items:center;gap:.6rem}
+  .blog-eyebrow::before{content:'';display:block;width:2rem;height:1px;background:var(--green)}
+  .blog-title{font-family:var(--fn-d);font-size:clamp(3rem,8vw,6.5rem);letter-spacing:.05em;line-height:.95;margin-bottom:1.2rem}
+  .blog-title span{color:var(--green)}
+  .blog-sub{font-family:var(--fn-m);font-size:.88rem;color:var(--txt-m);max-width:480px;line-height:1.7}
+
+  /* CONTROLS */
+  .controls{padding:2.5rem 3.5rem;position:relative;z-index:1;display:flex;align-items:center;gap:1.5rem;flex-wrap:wrap;border-bottom:1px solid var(--border);background:var(--bg)}
+  .search-wrap{flex:1;min-width:200px;position:relative}
+  .search-wrap svg{position:absolute;left:.9rem;top:50%;transform:translateY(-50%);width:14px;height:14px;color:var(--txt-d);pointer-events:none}
+  #search{width:100%;background:var(--bg-s);border:1px solid var(--border);color:var(--txt);font-family:var(--fn-m);font-size:.78rem;padding:.65rem 1rem .65rem 2.4rem;outline:none;transition:border-color .2s}
+  #search:focus{border-color:var(--bdr-g)}
+  #search::placeholder{color:var(--txt-d)}
+  .cat-filters{display:flex;gap:.6rem;flex-wrap:wrap}
+  .cf-btn{font-family:var(--fn-m);font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;padding:.4rem 1rem;border:1px solid var(--border);background:transparent;color:var(--txt-d);cursor:pointer;transition:all .2s}
+  .cf-btn:hover,.cf-btn.on{border-color:var(--green);color:var(--green);background:rgba(0,232,122,.05)}
+
+  /* POST COUNT */
+  .post-count{font-family:var(--fn-m);font-size:.7rem;color:var(--txt-d);padding:.2rem 0;white-space:nowrap}
+
+  /* MAIN GRID */
+  .blog-main{padding:3rem 3.5rem 5rem;position:relative;z-index:1;max-width:1160px;margin:0 auto}
+
+  .post-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:2rem;transition:opacity .2s}
+
+  /* FEATURED (first card, full-width) */
+  .post-card{background:var(--bg-s);border:1px solid var(--border);overflow:hidden;transition:transform .3s,border-color .3s;display:flex;flex-direction:column}
+  .post-card:hover{transform:translateY(-4px);border-color:var(--bdr-g)}
+  .post-card.featured{grid-column:1/-1;display:grid;grid-template-columns:1.4fr 1fr}
+
+  .post-img{overflow:hidden;background:var(--bg-e);flex-shrink:0}
+  .post-card:not(.featured) .post-img{height:180px}
+  .post-card.featured .post-img{min-height:260px}
+  .post-img img{width:100%;height:100%;object-fit:cover;transition:transform .4s;display:block}
+  .post-card:hover .post-img img{transform:scale(1.05)}
+  .post-img-gen{width:100%;height:100%;display:flex;align-items:center;justify-content:center;padding:2rem;background:linear-gradient(135deg,rgba(0,232,122,.07),rgba(56,189,248,.05))}
+  .post-img-gen span{font-family:var(--fn-d);font-size:1.2rem;letter-spacing:.06em;color:var(--txt-d);text-align:center;line-height:1.3}
+
+  .post-body{padding:1.8rem;display:flex;flex-direction:column;flex:1}
+  .post-meta{display:flex;align-items:center;gap:1rem;margin-bottom:.9rem;flex-wrap:wrap}
+  .post-date{font-family:var(--fn-m);font-size:.62rem;color:var(--txt-d);letter-spacing:.1em}
+  .post-cat{font-family:var(--fn-m);font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;color:var(--green);background:rgba(0,232,122,.08);border:1px solid rgba(0,232,122,.2);padding:.1rem .45rem}
+  .post-read{font-family:var(--fn-m);font-size:.6rem;color:var(--txt-d);margin-left:auto}
+  .post-title{font-family:var(--fn-d);font-size:1.4rem;letter-spacing:.04em;line-height:1.2;margin-bottom:.75rem}
+  .post-card.featured .post-title{font-size:1.8rem}
+  .post-exc{font-size:.87rem;color:var(--txt-m);line-height:1.7;flex:1;margin-bottom:1.4rem;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+  .post-card.featured .post-exc{-webkit-line-clamp:4}
+  .post-link{font-family:var(--fn-m);font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--green);text-decoration:none;display:inline-flex;align-items:center;gap:.35rem;transition:gap .2s;margin-top:auto}
+  .post-link:hover{gap:.6rem}
+
+  /* STATUS / EMPTY */
+  .status-msg{grid-column:1/-1;text-align:center;padding:4rem;font-family:var(--fn-m);font-size:.82rem;color:var(--txt-d)}
+  .no-results{grid-column:1/-1;text-align:center;padding:3rem}
+  .no-results p{font-family:var(--fn-m);font-size:.82rem;color:var(--txt-d)}
+
+  /* PAGINATION */
+  .blog-pg{display:none;justify-content:center;gap:.6rem;margin-top:3rem}
+  .bpg-btn{font-family:var(--fn-m);font-size:.72rem;letter-spacing:.1em;width:2.6rem;height:2.6rem;border:1px solid var(--border);background:transparent;color:var(--txt-d);cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center}
+  .bpg-btn:hover,.bpg-btn.active{border-color:var(--green);color:var(--green);background:rgba(0,232,122,.05)}
+  .bpg-btn.active{box-shadow:0 0 12px rgba(0,232,122,.15)}
+
+  /* FOOTER */
+  footer{padding:1.8rem 3.5rem;border-top:1px solid var(--border);background:var(--bg-s);display:flex;align-items:center;justify-content:space-between;position:relative;z-index:1}
+  .fc{font-family:var(--fn-m);font-size:.68rem;color:var(--txt-d)}
+  .fc em{color:var(--green);font-style:normal}
+  .fl{display:flex;gap:1.5rem}
+  .fl a{font-family:var(--fn-m);font-size:.68rem;color:var(--txt-d);text-decoration:none;transition:color .2s}
+  .fl a:hover{color:var(--green)}
+
+  /* FADE IN */
+  .fi{opacity:0;transform:translateY(16px);transition:opacity .5s ease,transform .5s ease}
+  .fi.vis{opacity:1;transform:none}
+
+  @media(max-width:900px){
+    nav{padding:1rem 1.5rem}
+    .blog-hero,.controls{padding-left:1.5rem;padding-right:1.5rem}
+    .blog-main{padding:2rem 1.5rem 4rem}
+    .post-grid{grid-template-columns:1fr}
+    .post-card.featured{grid-template-columns:1fr}
+    .post-card.featured .post-img{min-height:200px}
+    footer{flex-direction:column;gap:1rem;text-align:center}
+  }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">AN<em>_</em></a>
+  <div class="nav-right">
+    <a href="index.html" class="nav-back">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18"/></svg>
+      Portfolio
+    </a>
+    <a href="https://anecaj.github.io/Adrian's%20Resume.pdf" target="_blank" class="nav-resume">Resume ↗</a>
+  </div>
+</nav>
+
+<!-- HERO BANNER -->
+<div class="blog-hero">
+  <div class="blog-hero-inner">
+    <p class="blog-eyebrow">Writing</p>
+    <h1 class="blog-title">The<br><span>Blog</span></h1>
+    <p class="blog-sub">Thoughts on cybersecurity, GRC, threat intelligence, policy, and the human side of security. New posts when there's something worth saying.</p>
+  </div>
+</div>
+
+<!-- CONTROLS -->
+<div class="controls">
+  <div class="search-wrap">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+    <input id="search" type="text" placeholder="Search posts..." oninput="handleSearch()">
+  </div>
+  <div class="cat-filters" id="cat-filters">
+    <button class="cf-btn on" data-cat="all" onclick="setFilter('all',this)">All</button>
+  </div>
+  <p class="post-count" id="post-count"></p>
+</div>
+
+<!-- POSTS GRID -->
+<div class="blog-main">
+  <div class="post-grid" id="post-grid">
+    <p class="status-msg">// Fetching posts from the feed...</p>
+  </div>
+  <div class="blog-pg" id="blog-pg"></div>
+</div>
+
+<footer>
+  <p class="fc">© 2026 <em>Adrian Necaj</em> · Queens, NYC 🇦🇱</p>
+  <div class="fl">
+    <a href="index.html">Portfolio</a>
+    <a href="https://github.com/anecaj" target="_blank">GitHub</a>
+    <a href="https://www.linkedin.com/in/anecaj/" target="_blank">LinkedIn</a>
+  </div>
+</footer>
+
+<script>
+// ── INTERSECTION OBSERVER ───────────────────────────────
+const io=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('vis')}),{threshold:.1});
+
+// ── STATE ───────────────────────────────────────────────
+let allPosts=[];
+let filtered=[];
+let activeCat='all';
+let searchQ='';
+const PER=8;
+let page=1;
+
+// ── HELPERS ─────────────────────────────────────────────
+function fmtDate(s){const d=new Date(s);return isNaN(d)?s:d.toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'})}
+function stripHtml(h){const d=document.createElement('div');d.innerHTML=h;return(d.textContent||'').trim()}
+function readTime(text){const w=text.split(/\s+/).length;return Math.max(1,Math.round(w/200))+' min read'}
+function inferCat(title,content){
+  const t=(title+' '+content).toLowerCase();
+  if(t.includes('grc')||t.includes('compliance')||t.includes('governance'))return'GRC';
+  if(t.includes('iot')||t.includes('internet of things'))return'IoT';
+  if(t.includes('ai ')||t.includes('artificial intelligence')||t.includes('machine learning'))return'AI & Security';
+  if(t.includes('social engineer')||t.includes('phishing')||t.includes('psychology'))return'Social Engineering';
+  if(t.includes('ransomware')||t.includes('malware')||t.includes('wannacry'))return'Malware';
+  if(t.includes('policy')||t.includes('regulation'))return'Policy';
+  return'Cybersecurity';
+}
+
+// ── RENDER ───────────────────────────────────────────────
+function renderGrid(){
+  const grid=document.getElementById('post-grid');
+  const pgNav=document.getElementById('blog-pg');
+
+  // Apply search + filter
+  filtered=allPosts.filter(p=>{
+    const catOk=activeCat==='all'||p.cat===activeCat;
+    const q=searchQ.toLowerCase();
+    const searchOk=!q||(p.title.toLowerCase().includes(q))||(p.excerpt.toLowerCase().includes(q));
+    return catOk&&searchOk;
+  });
+
+  document.getElementById('post-count').textContent=filtered.length+' post'+(filtered.length!==1?'s':'');
+
+  if(filtered.length===0){
+    grid.innerHTML='<div class="no-results"><p>// No posts match that search.</p></div>';
+    pgNav.style.display='none';
+    return;
+  }
+
+  const totalPages=Math.ceil(filtered.length/PER);
+  if(page>totalPages)page=1;
+  const slice=filtered.slice((page-1)*PER,(page-1)*PER+PER);
+
+  grid.innerHTML=slice.map((p,i)=>{
+    const featured=i===0&&page===1&&activeCat==='all'&&!searchQ;
+    const thumbHtml=p.thumb
+      ?`<div class="post-img"><img src="${p.thumb}" alt="${p.title}" loading="lazy" onerror="this.parentElement.innerHTML='<div class=\\"post-img-gen\\"><span>${p.title.split(' ').slice(0,4).join(' ')}</span></div>'"></div>`
+      :`<div class="post-img"><div class="post-img-gen"><span>${p.title.split(' ').slice(0,4).join(' ')}</span></div></div>`;
+    return`<div class="post-card${featured?' featured':''} fi">
+      ${thumbHtml}
+      <div class="post-body">
+        <div class="post-meta">
+          <span class="post-date">${p.date}</span>
+          <span class="post-cat">${p.cat}</span>
+          <span class="post-read">${p.rt}</span>
+        </div>
+        <h2 class="post-title">${p.title}</h2>
+        <p class="post-exc">${p.excerpt}</p>
+        <a href="${p.link}" target="_blank" class="post-link">Read Post →</a>
+      </div>
+    </div>`;
+  }).join('');
+
+  grid.querySelectorAll('.fi').forEach((el,i)=>{
+    el.style.transitionDelay=i*0.06+'s';
+    io.observe(el);
+  });
+
+  // Pagination
+  if(totalPages<=1){pgNav.style.display='none'}
+  else{
+    pgNav.style.display='flex';
+    pgNav.innerHTML=Array.from({length:totalPages},(_,i)=>
+      `<button class="bpg-btn${i+1===page?' active':''}" onclick="gotoPage(${i+1})">${i+1}</button>`
+    ).join('');
+  }
+}
+
+function gotoPage(p){
+  page=p;
+  document.getElementById('post-grid').style.opacity='0';
+  setTimeout(()=>{
+    renderGrid();
+    document.getElementById('post-grid').style.opacity='1';
+    window.scrollTo({top:document.querySelector('.controls').offsetTop-80,behavior:'smooth'});
+  },180);
+}
+
+// ── CONTROLS ─────────────────────────────────────────────
+function setFilter(cat,btn){
+  activeCat=cat;
+  page=1;
+  document.querySelectorAll('.cf-btn').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');
+  renderGrid();
+}
+
+function handleSearch(){
+  searchQ=document.getElementById('search').value;
+  page=1;
+  renderGrid();
+}
+
+// ── BUILD CATEGORY FILTERS ────────────────────────────────
+function buildFilters(){
+  const cats=[...new Set(allPosts.map(p=>p.cat))];
+  const wrap=document.getElementById('cat-filters');
+  cats.forEach(cat=>{
+    const btn=document.createElement('button');
+    btn.className='cf-btn';
+    btn.dataset.cat=cat;
+    btn.textContent=cat;
+    btn.onclick=()=>setFilter(cat,btn);
+    wrap.appendChild(btn);
+  });
+}
+
+// ── FALLBACK DATA ─────────────────────────────────────────
+const FALLBACK=[
+  {title:'The Future of Cybersecurity: AI-Driven Vulnerability Management',pubDate:'2024-05-27',description:'As the digital landscape continues to evolve, the threats facing organizations are becoming more sophisticated. AI is now transforming how organizations detect, respond to, and prioritize vulnerabilities at scale.',link:'https://anecaj.github.io/blog/The-Future-Of-Cybersecurity-AI-Drive-Vulnerability-Management/',thumbnail:''},
+  {title:"Zuckerberg's Attempt to Crack Snapchat's Encrypted Data",pubDate:'2024-05-20',description:'In the highly competitive world of social media, companies often go to great lengths to understand their rivals. This case study explores the ethics and technical implications of competitive intelligence.',link:'https://anecaj.github.io/blog/Mark-Zuckerbergs-Attempt-to-Crack-Snapchats-Encrypted-Data-A-Case-Study-in-Competitive-Practices/',thumbnail:''},
+  {title:'The Psychology Behind Social Engineering Attacks',pubDate:'2024-05-13',description:'Social engineering stands as one of the most formidable threats in cybersecurity — not because it exploits software vulnerabilities, but because it exploits human nature itself.',link:'https://anecaj.github.io/blog/The-Psychology-Behind-Social-Engineering-Attacks/',thumbnail:''},
+  {title:'Emerging Cybersecurity Trends in 2024',pubDate:'2024-05-06',description:'As we advance through 2024, the cybersecurity landscape continues to evolve at a rapid pace. From AI-powered threats to quantum encryption, here are the trends shaping the field.',link:'https://anecaj.github.io/blog/Emerging-Cybersecurity-Trends-In-2024/',thumbnail:''},
+  {title:'Securing IoT Devices in Smart Homes',pubDate:'2024-04-29',description:'The rapid expansion of IoT technology into our homes has brought convenience but also expanded the attack surface. Learn how to defend your connected devices.',link:'https://anecaj.github.io/blog/Securing-IoT-Devices-In-Smart-Homes/',thumbnail:''},
+  {title:'Cybersecurity Strategies in the Healthcare Sector',pubDate:'2024-04-23',description:'The healthcare industry faces escalating cybersecurity challenges. Patient data is among the most valuable on the dark web, making hospitals prime ransomware targets.',link:'https://anecaj.github.io/blog/Cybersecurity-Strategies-In-The-Healthcare-Sector/',thumbnail:''},
+  {title:'Mastering Cybersecurity GRC',pubDate:'2024-04-16',description:'Navigating the complexities of Governance, Risk, and Compliance is essential for any modern organization. This post breaks down GRC frameworks and how to apply them practically.',link:'https://anecaj.github.io/blog/Mastering-Cybersecurity-GRC/',thumbnail:''}
+];
+
+function processPosts(raw){
+  allPosts=raw.map(p=>{
+    const fullText=stripHtml(p.description||'');
+    return{
+      title:p.title,
+      date:fmtDate(p.pubDate),
+      cat:inferCat(p.title,fullText),
+      rt:readTime(fullText||p.title),
+      excerpt:fullText.slice(0,200)||p.title,
+      link:p.link,
+      thumb:p.thumbnail||''
+    };
+  });
+  buildFilters();
+  renderGrid();
+}
+
+// ── FETCH ─────────────────────────────────────────────────
+(async()=>{
+  try{
+    const res=await fetch(`https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent('https://anecaj.github.io/blog/feed.xml')}&count=30`);
+    const data=await res.json();
+    if(data.status==='ok'&&data.items?.length) processPosts(data.items);
+    else processPosts(FALLBACK);
+  }catch{processPosts(FALLBACK)}
+})();
+</script>
+</body>
+</html>

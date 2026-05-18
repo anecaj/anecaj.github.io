@@ -41,6 +41,8 @@
   .post-hero{position:relative;min-height:400px;display:flex;align-items:flex-end;overflow:hidden;z-index:1}
   .post-hero.no-img{background:linear-gradient(135deg,var(--bg-s),var(--bg-e));border-bottom:1px solid var(--border)}
   .post-hero.no-img::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 20% 60%,rgba(0,232,122,.07),transparent 50%),radial-gradient(circle at 80% 30%,rgba(56,189,248,.05),transparent 50%)}
+  .post-hero.has-img .hero-bg{position:absolute;inset:0;background-size:cover;background-position:center;filter:brightness(.32) saturate(.75);transform:scale(1.03);transition:transform 8s}
+  .post-hero.has-img:hover .hero-bg{transform:scale(1)}
   .hero-ov{position:absolute;inset:0;background:linear-gradient(to top,rgba(4,9,18,.95) 0%,rgba(4,9,18,.65) 40%,rgba(4,9,18,.15) 100%);z-index:1}
   .hero-c{position:relative;z-index:2;padding:4rem 3rem 3rem;width:100%;max-width:calc(var(--w) + 6rem);margin:0 auto}
   .tag-pills{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:1.2rem}

@@ -86,8 +86,8 @@
   .footer-top{display:flex;align-items:flex-start;justify-content:space-between;gap:2rem;flex-wrap:wrap;margin-bottom:2rem}
   .tags-label{font-family:var(--fn-m);font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--txt-d);margin-bottom:.75rem}
   .author-card{display:flex;align-items:center;gap:1rem;padding:1.2rem 1.5rem;background:var(--bg-s);border:1px solid var(--border);flex:1;min-width:220px;max-width:320px}
-  .av{width:42px;height:42px;border-radius:50%;border:2px solid var(--bdr-g);background:linear-gradient(135deg,rgba(0,232,122,.2),rgba(56,189,248,.1));display:flex;align-items:center;justify-content:center;font-family:var(--fn-d);font-size:1.1rem;color:var(--green);flex-shrink:0}
-  .av-info .name{font-family:var(--fn-d);font-size:.95rem;letter-spacing:.06em;margin-bottom:.15rem}
+  .av{width:42px;height:42px;border-radius:50%;border:2px solid var(--bdr-g);overflow:hidden;flex-shrink:0}
+  .av img{width:100%;height:100%;object-fit:cover;object-position:center top;display:block}  .av-info .name{font-family:var(--fn-d);font-size:.95rem;letter-spacing:.06em;margin-bottom:.15rem}
   .av-info .role{font-family:var(--fn-m);font-size:.62rem;color:var(--txt-d);letter-spacing:.08em}
   .nav-btns{display:flex;gap:1rem;flex-wrap:wrap}
   .nb{font-family:var(--fn-m);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;padding:.6rem 1.3rem;border:1px solid var(--border);color:var(--txt-m);text-decoration:none;transition:all .2s;display:inline-flex;align-items:center;gap:.4rem}
@@ -167,7 +167,7 @@
       <div class="tag-pills"><span class="tag-pill">Cybersecurity</span><span class="tag-pill">Data Privacy</span><span class="tag-pill">Corporate Ethics</span></div>
     </div>
     <div class="author-card">
-      <div class="av">AN</div>
+    <div class="av"><img src="../../profile.jpg" alt="Adrian Necaj"></div>
       <div class="av-info">
         <p class="name">Adrian Necaj</p>
         <p class="role">MS Cybersecurity · NYU Tandon<br>NYS Executive Chamber</p>

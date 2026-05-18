@@ -133,10 +133,10 @@
  
 <div class="blog-hero">
   <canvas id="blog-canvas"></canvas>
-  <div class="blog-hero-ghost">BLOG</div>
+  <div class="blog-hero-ghost">INTEL</div>
   <div class="blog-hero-inner">
     <p class="blog-eyebrow">Writing</p>
-    <h1 class="blog-title">The<br><span>Blog</span></h1>
+    <h1 class="blog-title">Adrian's<br><span>Intel</span></h1>
     <p class="blog-sub">Thoughts on cybersecurity, GRC, threat intelligence, policy, and the human side of security.</p>
   </div>
 </div>
@@ -399,10 +399,19 @@ function renderGrid() {
     grid.appendChild(card);
   });
  
-  // Pagination
   nav.style.display = total > 1 ? 'flex' : 'none';
   if (total > 1) {
     while (nav.firstChild) nav.removeChild(nav.firstChild);
+
+    // PREV button
+    const prev = document.createElement('button');
+    prev.className = 'bpg-btn bpg-nav' + (page === 1 ? ' bpg-disabled' : '');
+    prev.textContent = '← Prev';
+    prev.disabled = page === 1;
+    prev.onclick = () => page > 1 && gotoPage(page - 1);
+    nav.appendChild(prev);
+
+    // Numbered page buttons
     for (let i = 1; i <= total; i++) {
       const b = document.createElement('button');
       b.className = 'bpg-btn' + (i === page ? ' active' : '');
@@ -410,6 +419,14 @@ function renderGrid() {
       b.onclick = () => gotoPage(i);
       nav.appendChild(b);
     }
+
+    // NEXT button
+    const next = document.createElement('button');
+    next.className = 'bpg-btn bpg-nav' + (page === total ? ' bpg-disabled' : '');
+    next.textContent = 'Next →';
+    next.disabled = page === total;
+    next.onclick = () => page < total && gotoPage(page + 1);
+    nav.appendChild(next);
   }
 }
  

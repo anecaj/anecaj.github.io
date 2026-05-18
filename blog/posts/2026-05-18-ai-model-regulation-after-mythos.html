@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Model Regulation: Washington Wakes Up After Mythos — Adrian Necaj</title>
+  <meta name="post-title"       content="AI Model Regulation: Washington Wakes Up After Mythos">
+  <meta name="post-date"        content="2026-05-13">
+  <meta name="post-description" content="The Trump administration is eyeing formal oversight of AI model releases — but before policymakers pull the trigger, they need to understand what they're actually regulating.">
+  <meta name="post-image"       content="">
+  <meta name="post-tags"        content="AI, Cybersecurity, Policy, GRC">
+
+  <meta property="og:title"       content="AI Model Regulation: Washington Wakes Up After Mythos">
+  <meta property="og:description" content="The Trump administration is eyeing formal oversight of AI model releases — but before policymakers pull the trigger, they need to understand what they're actually regulating.">
+  <meta property="og:type"        content="article">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Fira+Code:wght@300;400;500;600&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+  <style>
+  :root{
+    --bg:#040912;--bg-s:#091221;--bg-e:#0d1a2e;
+    --green:#00e87a;--blue:#38bdf8;
+    --txt:#dde6f0;--txt-m:#8fa3bb;--txt-d:#3d5268;
+    --border:rgba(255,255,255,.07);--bdr-g:rgba(0,232,122,.28);
+    --fn-d:'Bebas Neue',sans-serif;--fn-m:'Fira Code',monospace;--fn-b:'DM Sans',sans-serif;
+    --w:720px;
+  }
+  *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--txt);font-family:var(--fn-b);line-height:1.6;overflow-x:hidden}
+  body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(1px 1px at center,rgba(255,255,255,.025) 0%,transparent 100%);background-size:28px 28px;pointer-events:none;z-index:0}
+  ::-webkit-scrollbar{width:8px}::-webkit-scrollbar-track{background:var(--bg-s)}::-webkit-scrollbar-thumb{background:rgba(0,232,122,.45);border-radius:4px}::-webkit-scrollbar-thumb:hover{background:rgba(0,232,122,.75)}
+  #prog{position:fixed;top:0;left:0;height:2px;width:0;background:linear-gradient(90deg,var(--green),var(--blue));z-index:200;transition:width .1s linear}
+  nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:1rem 3rem;background:rgba(4,9,18,.92);backdrop-filter:blur(16px);border-bottom:2px solid rgba(0,232,122,.2)}
+  .logo{font-family:var(--fn-d);font-size:1.4rem;letter-spacing:.12em;color:var(--txt);text-decoration:none}.logo em{color:var(--green);font-style:normal}
+  .nav-r{display:flex;align-items:center;gap:1.5rem}
+  .nav-back,.nav-port{font-family:var(--fn-m);font-size:.76rem;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;transition:color .2s}
+  .nav-back{color:var(--txt-m);display:flex;align-items:center;gap:.4rem}.nav-back:hover,.nav-port:hover{color:var(--green)}
+  .nav-port{color:var(--txt-d)}
+  .post-hero{position:relative;min-height:400px;display:flex;align-items:flex-end;overflow:hidden;z-index:1}
+  .post-hero.no-img{background:linear-gradient(135deg,var(--bg-s),var(--bg-e));border-bottom:1px solid var(--border)}
+  .post-hero.no-img::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 20% 60%,rgba(0,232,122,.07),transparent 50%),radial-gradient(circle at 80% 30%,rgba(56,189,248,.05),transparent 50%)}
+  .hero-ov{position:absolute;inset:0;background:linear-gradient(to top,rgba(4,9,18,.95) 0%,rgba(4,9,18,.65) 40%,rgba(4,9,18,.15) 100%);z-index:1}
+  .hero-c{position:relative;z-index:2;padding:4rem 3rem 3rem;width:100%;max-width:calc(var(--w) + 6rem);margin:0 auto}
+  .tag-pills{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:1.2rem}
+  .tag-pill{font-family:var(--fn-m);font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;padding:.2rem .6rem;background:rgba(0,232,122,.1);border:1px solid rgba(0,232,122,.22);color:var(--green)}
+  .post-title{font-family:var(--fn-d);font-size:clamp(2rem,5.5vw,3.6rem);letter-spacing:.04em;line-height:1.05;margin-bottom:1.3rem;text-shadow:0 2px 20px rgba(0,0,0,.5)}
+  .post-meta{display:flex;align-items:center;gap:1.2rem;flex-wrap:wrap}
+  .meta-i{font-family:var(--fn-m);font-size:.68rem;color:var(--txt-m);letter-spacing:.06em}
+  .meta-dot{color:var(--txt-d)}
+  .post-wrap{max-width:var(--w);margin:0 auto;padding:3.5rem 3rem 5rem;position:relative;z-index:1}
+  .post-content{font-size:1.05rem;line-height:1.82;color:var(--txt-m)}
+  .post-content p{margin-bottom:1.5rem}
+  .post-content h2{font-family:var(--fn-d);font-size:2rem;letter-spacing:.05em;color:var(--txt);line-height:1.1;margin:2.5rem 0 1rem;border-bottom:1px solid var(--border);padding-bottom:.55rem}
+  .post-content h3{font-family:var(--fn-d);font-size:1.5rem;letter-spacing:.05em;color:var(--txt);margin:2rem 0 .8rem}
+  .post-content h4{font-size:1.05rem;font-weight:600;color:var(--txt);margin:1.5rem 0 .6rem}
+  .post-content a{color:var(--blue);text-decoration:none;border-bottom:1px solid rgba(56,189,248,.3);transition:color .2s,border-color .2s}
+  .post-content a:hover{color:var(--green);border-bottom-color:rgba(0,232,122,.4)}
+  .post-content strong{color:var(--txt);font-weight:600}
+  .post-content ul{list-style:none;padding:0;margin-bottom:1.5rem;display:flex;flex-direction:column;gap:.5rem}
+  .post-content ul li{padding-left:1.4rem;position:relative}
+  .post-content ul li::before{content:'▸';position:absolute;left:0;color:var(--green);font-size:.85em}
+  .post-content ol{padding-left:1.6rem;margin-bottom:1.5rem;display:flex;flex-direction:column;gap:.5rem}
+  .post-content ol li{color:var(--txt-m)}
+  .post-content ol li::marker{color:var(--green);font-family:var(--fn-m);font-size:.85em}
+  .post-content blockquote{border-left:3px solid var(--green);padding:1rem 1.5rem;background:rgba(0,232,122,.04);margin:2rem 0;color:var(--txt-m);font-style:italic}
+  .post-content blockquote p{margin-bottom:0}
+  .post-content hr{border:none;border-top:1px solid var(--border);margin:2.5rem 0}
+  .post-content code{font-family:var(--fn-m);font-size:.85em;background:rgba(0,232,122,.08);border:1px solid rgba(0,232,122,.15);color:var(--green);padding:.15em .4em;border-radius:3px}
+  .post-content pre{background:#060d1a;border:1px solid var(--border);border-left:3px solid var(--green);padding:1.5rem;margin:2rem 0;overflow-x:auto}
+  .post-content pre code{background:none;border:none;color:#a8d8a8;padding:0;font-size:.85rem;line-height:1.6}
+  .post-content img{max-width:100%;display:block;margin:2rem auto;border:1px solid var(--border);border-radius:2px}
+  .post-content figure{margin:2rem 0}
+  .post-content figure img{margin:0 auto}
+  .post-content figcaption{font-family:var(--fn-m);font-size:.72rem;color:var(--txt-d);text-align:center;margin-top:.7rem;letter-spacing:.06em;line-height:1.5}
+  .post-footer{max-width:var(--w);margin:0 auto;padding:0 3rem 4rem;position:relative;z-index:1}
+  .footer-line{height:1px;background:linear-gradient(90deg,var(--green),transparent);margin-bottom:2.5rem}
+  .footer-top{display:flex;align-items:flex-start;justify-content:space-between;gap:2rem;flex-wrap:wrap;margin-bottom:2rem}
+  .tags-label{font-family:var(--fn-m);font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--txt-d);margin-bottom:.75rem}
+  .author-card{display:flex;align-items:center;gap:1rem;padding:1.2rem 1.5rem;background:var(--bg-s);border:1px solid var(--border);flex:1;min-width:220px;max-width:320px}
+  .av{width:42px;height:42px;border-radius:50%;border:2px solid var(--bdr-g);overflow:hidden;flex-shrink:0}
+  .av img{width:100%;height:100%;object-fit:cover;object-position:center top;display:block}
+  .av-info .name{font-family:var(--fn-d);font-size:.95rem;letter-spacing:.06em;margin-bottom:.15rem}
+  .av-info .role{font-family:var(--fn-m);font-size:.62rem;color:var(--txt-d);letter-spacing:.08em}
+  .nav-btns{display:flex;gap:1rem;flex-wrap:wrap}
+  .nb{font-family:var(--fn-m);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;padding:.6rem 1.3rem;border:1px solid var(--border);color:var(--txt-m);text-decoration:none;transition:all .2s;display:inline-flex;align-items:center;gap:.4rem}
+  .nb:hover{border-color:var(--green);color:var(--green)}
+  .nb.p{background:var(--green);color:var(--bg);border-color:var(--green);font-weight:600}
+  .nb.p:hover{background:#00c96a}
+  .site-footer{padding:1.8rem 3rem;border-top:1px solid var(--border);background:var(--bg-s);display:flex;align-items:center;justify-content:space-between;position:relative;z-index:1}
+  .site-footer p{font-family:var(--fn-m);font-size:.68rem;color:var(--txt-d)}
+  .site-footer em{color:var(--green);font-style:normal}
+  .sf-links{display:flex;gap:1.5rem}
+  .sf-links a{font-family:var(--fn-m);font-size:.68rem;color:var(--txt-d);text-decoration:none;transition:color .2s}
+  .sf-links a:hover{color:var(--green)}
+
+  /* Callout box for key insight */
+  .callout{background:rgba(56,189,248,.05);border:1px solid rgba(56,189,248,.18);border-left:3px solid var(--blue);padding:1.2rem 1.5rem;margin:2rem 0}
+  .callout-label{font-family:var(--fn-m);font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color:var(--blue);margin-bottom:.5rem}
+  .callout p{margin-bottom:0;color:var(--txt-m);font-size:.95rem}
+
+  /* Side-by-side comparison */
+  .compare{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:2rem 0}
+  .compare-col{background:var(--bg-s);border:1px solid var(--border);padding:1.2rem}
+  .compare-col h4{font-family:var(--fn-m);font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--green);margin-bottom:.8rem;border-bottom:1px solid var(--border);padding-bottom:.5rem}
+  .compare-col ul{margin-bottom:0}
+  @media(max-width:560px){.compare{grid-template-columns:1fr}}
+
+  @media(max-width:720px){nav,.hero-c,.post-wrap,.post-footer,.site-footer{padding-left:1.5rem;padding-right:1.5rem}.post-title{font-size:clamp(1.8rem,8vw,2.6rem)}.footer-top{flex-direction:column}.author-card{max-width:100%}.site-footer{flex-direction:column;gap:1rem;text-align:center}}
+  </style>
+</head>
+<body>
+<div id="prog"></div>
+
+<nav>
+  <a href="/" class="logo">AN<em>_</em></a>
+  <div class="nav-r">
+    <a href="/blog.html" class="nav-back">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18"/></svg>
+      All Posts
+    </a>
+    <a href="/" class="nav-port">Portfolio</a>
+  </div>
+</nav>
+
+<div class="post-hero has-img">
+  <div class="hero-bg" style="background-image:url('../../blog/assets/img/mythos.jpg')"></div>
+  <div class="hero-ov"></div>
+  <div class="hero-c">
+    <div class="tag-pills">
+      <span class="tag-pill">AI</span>
+      <span class="tag-pill">Cybersecurity</span>
+      <span class="tag-pill">Policy</span>
+      <span class="tag-pill">GRC</span>
+    </div>
+    <h1 class="post-title">AI Model Regulation: Washington Wakes Up After Mythos</h1>
+    <div class="post-meta">
+      <span class="meta-i">May 18, 2026</span>
+      <span class="meta-dot">·</span>
+      <span class="meta-i">6 min read</span>
+      <span class="meta-dot">·</span>
+      <span class="meta-i">Adrian Necaj</span>
+    </div>
+  </div>
+</div>
+
+<div class="post-wrap">
+  <div class="post-content">
+
+    <p>For years the dominant posture in Washington toward frontier AI has been: let the labs figure it out. That posture is cracking. The release of Anthropic's <strong>Mythos Preview</strong> — and the hacking capabilities it demonstrated — appears to have been the catalyst that finally pushed the Trump administration toward considering formal government oversight of new model rollouts. The question is whether the regulation being floated will actually help, or whether policymakers are about to write rules for a problem they don't yet fully understand.</p>
+
+    <h2>The Shift in Tone</h2>
+
+    <p>According to reporting by the <em>New York Times</em>, the administration is exploring a working group of tech executives and government officials tasked with proposing oversight procedures for all new AI model releases. A formal government review process is reportedly on the table. This is a meaningful departure from the light-touch posture that has characterized this administration's AI stance so far.</p>
+
+    <p>The trigger is cyber capability, not deepfakes or job displacement or any of the other AI harms that dominate public debate. Frontier models are getting genuinely good at finding software vulnerabilities — and policymakers are starting to internalize what that means at scale. The UK's NCSC has already flagged an impending "vulnerability patch wave" as AI uncovers decades of accumulated bugs in commonly deployed software. CISA is reportedly considering compressing the default patch window for actively exploited bugs from three weeks down to as little as three days.</p>
+
+    <div class="callout">
+      <p class="callout-label">// Key tension</p>
+      <p>Patching faster is directionally correct — but no organization can simply patch its way out of a world where new CVEs are being generated faster than they can be remediated. The underlying attack surface problem doesn't go away; it compounds.</p>
+    </div>
+
+    <h2>Two Labs, Two Very Different Bets</h2>
+
+    <p>What makes this regulatory moment interesting is that the two most capable labs went in completely opposite directions on release strategy, and both are now under scrutiny for it.</p>
+
+    <p><strong>Anthropic</strong> took a restricted-access approach with Mythos through its Project Glasswing initiative. A limited set of trusted organizations — Mozilla reportedly among them — received early access specifically to find and patch vulnerabilities before the model went broader. Mozilla disclosed that it had remediated 271 Firefox vulnerabilities during that window. The intent was to buy defenders a head start.</p>
+
+    <p><strong>OpenAI</strong> released GPT-5.5 to all customers who wanted it and leaned on model-level safeguards to prevent dangerous outputs. Users in verified cybersecurity roles could have those safeguards dialed back through a Trusted Access for Cyber program, with KYC-style vetting for more capable, less restricted model variants.</p>
+
+    <div class="compare">
+      <div class="compare-col">
+        <h4>Anthropic — Project Glasswing</h4>
+        <ul>
+          <li>Restricted to vetted organizations</li>
+          <li>Explicit patch window before broad release</li>
+          <li>Mozilla fixed 271 Firefox CVEs during access</li>
+          <li>White House has reportedly opposed further expansion</li>
+        </ul>
+      </div>
+      <div class="compare-col">
+        <h4>OpenAI — Trusted Access for Cyber</h4>
+        <ul>
+          <li>Broad release with model-layer guardrails</li>
+          <li>Identity verification for reduced friction</li>
+          <li>Specialist model variants for vetted defenders</li>
+          <li>No reported White House pushback</li>
+        </ul>
+      </div>
+    </div>
+
+    <p>The irony here is stark: the administration has reportedly moved to block Anthropic's plan to expand Glasswing access to 70 more companies, while saying nothing about GPT-5.5, which the UK's AI Security Institute found may actually outperform Mythos on cyber tasks — and which is widely available to anyone who signs up. The cautious actor is being penalized. The more open one is not.</p>
+
+    <h2>The Uncomfortable Truth About Capability Gaps</h2>
+
+    <p>Former Google Distinguished Engineer Niels Provos published a blog post last week that should recalibrate anyone's thinking about how much staggered access actually buys. Using an orchestration harness paired with older commercial and open-weight models, Provos independently rediscovered vulnerabilities that Mythos had found. The implication is significant: the gap between a cutting-edge frontier model operated by a novice and an older model operated by an expert is not as wide as we'd like to believe.</p>
+
+    <blockquote>
+      <p>Holding back Mythos or GPT-5.5 to a White House-approved circle of trust for 90 days probably won't achieve as much as we'd hope — if a skilled analyst with last year's model can get close to the same output, the edge being protected is thinner than it looks.</p>
+    </blockquote>
+
+    <p>This doesn't mean release strategy is irrelevant. It means that any regulatory framework built entirely on access control for frontier models will have a shorter shelf life than policymakers expect. The capability is diffusing. The question is how fast, and what the impact curve looks like.</p>
+
+    <h2>What the Government Should Actually Do First</h2>
+
+    <p>The instinct to act is understandable. But designing durable policy for a technology you don't yet have enough data on is how you get rules that are simultaneously too restrictive in the wrong places and too permissive in the right ones. Before any formal review process gets codified, the government should spend time building a factual baseline:</p>
+
+    <ul>
+      <li>How many novel zero-days does each new frontier model release actually surface, and what are their severity profiles?</li>
+      <li>Is that number trending up, down, or plateauing across model generations?</li>
+      <li>Are vendors actually patching the bugs defenders find, and at what rate?</li>
+      <li>How fast is comparable capability propagating to older and open-weight models?</li>
+      <li>Are the frontier labs acting responsibly on their own, and does responsible behavior vary meaningfully between them?</li>
+    </ul>
+
+    <p>None of those questions have solid public answers right now. Without them, any oversight framework is essentially a guess — and a guess that will be immediately tested by the next model release.</p>
+
+    <h2>The GRC Angle</h2>
+
+    <p>For those of us working in governance, risk, and compliance, this moment has a familiar shape. It's the same dynamic that plays out whenever a powerful new technology outruns the frameworks meant to govern it — the instinct is to reach for the nearest existing regulatory lever, even if it doesn't quite fit. The right answer is usually to gather data, build a risk model, and then design controls that address actual threat vectors rather than intuitive ones.</p>
+
+    <p>The patch window debate is a good example. Compressing CISA's default remediation timeline from three weeks to three days is directionally sound — speed matters when bugs are being actively exploited. But the organizations most likely to miss a three-day window are the ones that are already struggling with security fundamentals. Tightening SLAs without addressing baseline hygiene doesn't fix the underlying risk; it just changes which organizations are out of compliance.</p>
+
+    <p>The same logic applies to AI model release policy. Staggered access and trusted-access programs can provide real value at the margin. But they're not a substitute for the harder work: building continuous vulnerability intelligence pipelines, improving coordination between labs and affected vendors, and developing honest metrics for what "responsible release" actually looks like in practice.</p>
+
+    <hr>
+
+    <p>The Mythos moment is a genuine inflection point, and it's right that Washington is paying attention. What matters now is that the response is grounded in evidence rather than urgency. The worst outcome would be a rigid review process that penalizes cautious actors, ignores open-weight model proliferation, and gives policymakers a false sense of control over a problem that is fundamentally about the diffusion of capability — not just access to a handful of frontier models.</p>
+
+  </div>
+</div>
+
+<div class="post-footer">
+  <div class="footer-line"></div>
+  <div class="footer-top">
+    <div>
+      <p class="tags-label">// Tagged under</p>
+      <div class="tag-pills">
+        <span class="tag-pill">AI</span>
+        <span class="tag-pill">Cybersecurity</span>
+        <span class="tag-pill">Policy</span>
+        <span class="tag-pill">GRC</span>
+      </div>
+    </div>
+    <div class="author-card">
+      <div class="av"><img src="../../profile.jpg" alt="Adrian Necaj"></div>
+      <div class="av-info">
+        <p class="name">Adrian Necaj</p>
+        <p class="role">MS Cybersecurity · NYU Tandon<br>NYS Executive Chamber</p>
+      </div>
+    </div>
+  </div>
+  <div class="nav-btns">
+    <a href="/blog.html" class="nb">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18"/></svg>
+      All Posts
+    </a>
+    <a href="/" class="nb p">Portfolio →</a>
+  </div>
+</div>
+
+<div class="site-footer">
+  <p>© 2026 <em>Adrian Necaj</em> · Queens, NYC 🇦🇱</p>
+  <div class="sf-links">
+    <a href="/">Portfolio</a>
+    <a href="/blog.html">Blog</a>
+    <a href="https://github.com/anecaj" target="_blank">GitHub</a>
+    <a href="https://www.linkedin.com/in/anecaj/" target="_blank">LinkedIn</a>
+  </div>
+</div>
+
+<script>
+const b=document.getElementById('prog');
+window.addEventListener('scroll',()=>{
+  const d=document.documentElement;
+  b.style.width=(d.scrollTop/(d.scrollHeight-d.clientHeight)*100)+'%';
+});
+</script>
+</body>
+</html>

@@ -21,8 +21,7 @@
   body{background:var(--bg);color:var(--txt);font-family:var(--fn-b);line-height:1.6;overflow-x:hidden;min-height:100vh}
   body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(1px 1px at center,rgba(255,255,255,.025) 0%,transparent 100%);background-size:28px 28px;pointer-events:none;z-index:0}
   ::-webkit-scrollbar{width:8px}::-webkit-scrollbar-track{background:var(--bg-s)}::-webkit-scrollbar-thumb{background:rgba(0,232,122,.45);border-radius:4px}::-webkit-scrollbar-thumb:hover{background:rgba(0,232,122,.75)}
-
-  /* NAV */
+ 
   nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:1.1rem 3.5rem;background:rgba(4,9,18,.92);backdrop-filter:blur(16px);border-bottom:2px solid rgba(0,232,122,.22)}
   .nav-logo{font-family:var(--fn-d);font-size:1.5rem;letter-spacing:.12em;color:var(--txt);text-decoration:none}
   .nav-logo em{color:var(--green);font-style:normal}
@@ -31,17 +30,19 @@
   .nav-back:hover{color:var(--green)}
   .nav-resume{font-family:var(--fn-m);font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;color:var(--green);text-decoration:none;padding:.45rem 1.1rem;border:1px solid var(--green);transition:background .2s,color .2s}
   .nav-resume:hover{background:var(--green);color:var(--bg)}
-
-  /* HERO BANNER */
+ 
+  /* HERO */
   .blog-hero{padding:8rem 3.5rem 5rem;position:relative;z-index:1;overflow:hidden;background:var(--bg-s);border-bottom:1px solid var(--border)}
-  .blog-hero::before{content:'BLOG';position:absolute;right:-1rem;top:50%;transform:translateY(-50%);font-family:var(--fn-d);font-size:clamp(8rem,22vw,18rem);line-height:1;color:rgba(255,255,255,.02);pointer-events:none;user-select:none;letter-spacing:.05em}
-  .blog-hero-inner{max-width:1160px;margin:0 auto;position:relative;z-index:1}
+  #blog-canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:0;opacity:.4}
+  .blog-hero::after{content:'';position:absolute;inset:0;z-index:1;background:radial-gradient(ellipse 75% 100% at 25% 50%,transparent 15%,rgba(9,18,33,.88) 70%),linear-gradient(to right,rgba(9,18,33,.5) 0%,transparent 45%,rgba(9,18,33,.95) 100%);pointer-events:none}
+  .blog-hero-ghost{position:absolute;right:-1rem;top:50%;transform:translateY(-50%);font-family:var(--fn-d);font-size:clamp(8rem,22vw,18rem);line-height:1;color:rgba(255,255,255,.025);pointer-events:none;user-select:none;letter-spacing:.05em;z-index:2}
+  .blog-hero-inner{max-width:1160px;margin:0 auto;position:relative;z-index:3}
   .blog-eyebrow{font-family:var(--fn-m);font-size:.68rem;letter-spacing:.25em;text-transform:uppercase;color:var(--green);margin-bottom:.8rem;display:flex;align-items:center;gap:.6rem}
   .blog-eyebrow::before{content:'';display:block;width:2rem;height:1px;background:var(--green)}
   .blog-title{font-family:var(--fn-d);font-size:clamp(3rem,8vw,6.5rem);letter-spacing:.05em;line-height:.95;margin-bottom:1.2rem}
   .blog-title span{color:var(--green)}
   .blog-sub{font-family:var(--fn-m);font-size:.88rem;color:var(--txt-m);max-width:480px;line-height:1.7}
-
+ 
   /* CONTROLS */
   .controls{padding:2rem 3.5rem;position:relative;z-index:1;display:flex;align-items:center;gap:1.2rem;flex-wrap:wrap;border-bottom:1px solid var(--border);background:var(--bg)}
   .search-wrap{flex:1;min-width:200px;position:relative}
@@ -53,27 +54,30 @@
   .cf-btn{font-family:var(--fn-m);font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;padding:.4rem 1rem;border:1px solid var(--border);background:transparent;color:var(--txt-d);cursor:pointer;transition:all .2s}
   .cf-btn:hover,.cf-btn.on{border-color:var(--green);color:var(--green);background:rgba(0,232,122,.05)}
   .post-count{font-family:var(--fn-m);font-size:.7rem;color:var(--txt-d);white-space:nowrap;margin-left:auto}
-
-  /* MAIN */
+ 
+  /* GRID */
   .blog-main{padding:3rem 3.5rem 5rem;max-width:1160px;margin:0 auto;position:relative;z-index:1}
-  .post-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:2rem;transition:opacity .2s}
-
+  .post-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:2rem}
+ 
   /* CARDS */
-  .post-card{background:var(--bg-s);border:1px solid var(--border);overflow:hidden;transition:transform .3s,border-color .3s;display:flex;flex-direction:column;opacity:0;transform:translateY(14px);animation:fadeUp .45s ease forwards}
-  @keyframes fadeUp{to{opacity:1;transform:none}}
+  .post-card{background:var(--bg-s);border:1px solid var(--border);overflow:hidden;transition:transform .3s,border-color .3s;display:flex;flex-direction:column;opacity:0;animation:fadeUp .45s ease forwards}
+  @keyframes fadeUp{to{opacity:1;transform:translateY(0)}}
   .post-card:hover{transform:translateY(-4px);border-color:var(--bdr-g)}
-  .post-card.featured{grid-column:1/-1;display:flex;flex-direction:row;min-height:280px}
-  .post-card.featured .post-img{width:55%;flex-shrink:0;min-height:280px;height:auto}
-  .post-card.featured .post-body{flex:1;padding:2.2rem;display:flex;flex-direction:column}
-
+ 
+  /* Featured spans full width, image left / body right */
+  .post-card.featured{grid-column:1/-1;display:flex;flex-direction:row;min-height:300px}
+  .post-card.featured .post-img{width:55%;flex-shrink:0;height:auto;min-height:300px}
+  .post-card.featured .post-body{flex:1;padding:2.4rem;display:flex;flex-direction:column;justify-content:center}
+  .post-card.featured .post-title-link{font-size:1.75rem}
+  .post-card.featured .post-exc{-webkit-line-clamp:4}
+ 
   .post-img{overflow:hidden;background:var(--bg-e);flex-shrink:0}
-  .post-card:not(.featured) .post-img{height:180px}
-  .post-card.featured .post-img{min-height:260px}
+  .post-card:not(.featured) .post-img{height:185px}
   .post-img img{width:100%;height:100%;object-fit:cover;transition:transform .4s;display:block}
   .post-card:hover .post-img img{transform:scale(1.05)}
-  .post-img-gen{width:100%;height:100%;display:flex;align-items:center;justify-content:center;padding:2rem;background:linear-gradient(135deg,rgba(0,232,122,.07),rgba(56,189,248,.05))}
-  .post-img-gen span{font-family:var(--fn-d);font-size:1.1rem;letter-spacing:.06em;color:var(--txt-d);text-align:center;line-height:1.3}
-
+  .post-img.gen{display:flex;align-items:center;justify-content:center;padding:2rem;background:linear-gradient(135deg,rgba(0,232,122,.07),rgba(56,189,248,.05))}
+  .post-img.gen span{font-family:var(--fn-d);font-size:1.1rem;letter-spacing:.06em;color:var(--txt-d);text-align:center;line-height:1.3}
+ 
   .post-body{padding:1.8rem;display:flex;flex-direction:column;flex:1}
   .post-meta-row{display:flex;align-items:center;gap:.8rem;margin-bottom:.9rem;flex-wrap:wrap}
   .post-date{font-family:var(--fn-m);font-size:.62rem;color:var(--txt-d);letter-spacing:.1em}
@@ -81,49 +85,41 @@
   .post-rt{font-family:var(--fn-m);font-size:.6rem;color:var(--txt-d);margin-left:auto}
   .post-title-link{font-family:var(--fn-d);font-size:1.4rem;letter-spacing:.04em;line-height:1.2;margin-bottom:.75rem;color:var(--txt);text-decoration:none;display:block;transition:color .2s}
   .post-title-link:hover{color:var(--green)}
-  .post-card.featured .post-title-link{font-size:1.8rem}
   .post-exc{font-size:.87rem;color:var(--txt-m);line-height:1.7;flex:1;margin-bottom:1.4rem;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
-  .post-card.featured .post-exc{-webkit-line-clamp:4}
   .post-read-link{font-family:var(--fn-m);font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--green);text-decoration:none;display:inline-flex;align-items:center;gap:.35rem;transition:gap .2s;margin-top:auto}
   .post-read-link:hover{gap:.6rem}
-
-  /* STATUS */
+ 
   .status-msg{grid-column:1/-1;text-align:center;padding:4rem;font-family:var(--fn-m);font-size:.82rem;color:var(--txt-d)}
-  .status-msg .spinner{display:inline-block;width:16px;height:16px;border:2px solid var(--border);border-top-color:var(--green);border-radius:50%;animation:spin .8s linear infinite;margin-right:.5rem;vertical-align:middle}
+  .spinner{display:inline-block;width:16px;height:16px;border:2px solid var(--border);border-top-color:var(--green);border-radius:50%;animation:spin .8s linear infinite;margin-right:.5rem;vertical-align:middle}
   @keyframes spin{to{transform:rotate(360deg)}}
   .no-results{grid-column:1/-1;text-align:center;padding:3rem;font-family:var(--fn-m);font-size:.82rem;color:var(--txt-d)}
-
-  /* PAGINATION */
+ 
   .blog-pg{display:none;justify-content:center;gap:.6rem;margin-top:3rem}
   .bpg-btn{font-family:var(--fn-m);font-size:.72rem;letter-spacing:.1em;width:2.6rem;height:2.6rem;border:1px solid var(--border);background:transparent;color:var(--txt-d);cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center}
   .bpg-btn:hover,.bpg-btn.active{border-color:var(--green);color:var(--green);background:rgba(0,232,122,.05)}
   .bpg-btn.active{box-shadow:0 0 12px rgba(0,232,122,.15)}
-
-  /* FOOTER */
+ 
   footer{padding:1.8rem 3.5rem;border-top:1px solid var(--border);background:var(--bg-s);display:flex;align-items:center;justify-content:space-between;position:relative;z-index:1}
   .fc{font-family:var(--fn-m);font-size:.68rem;color:var(--txt-d)}
   .fc em{color:var(--green);font-style:normal}
   .fl{display:flex;gap:1.5rem}
   .fl a{font-family:var(--fn-m);font-size:.68rem;color:var(--txt-d);text-decoration:none;transition:color .2s}
   .fl a:hover{color:var(--green)}
-
-  /* FADE */
-  .fi{opacity:0;transform:translateY(14px);transition:opacity .5s ease,transform .5s ease}
-  .fi.vis{opacity:1;transform:none}
-
+ 
   @media(max-width:900px){
     nav{padding:1rem 1.5rem}
     .blog-hero,.controls{padding-left:1.5rem;padding-right:1.5rem}
     .blog-main{padding:2rem 1.5rem 4rem}
     .post-grid{grid-template-columns:1fr}
-    .post-card.featured{grid-template-columns:1fr}
-    .post-card.featured .post-img{min-height:200px}
+    .post-card.featured{flex-direction:column}
+    .post-card.featured .post-img{width:100%;height:200px;min-height:200px}
+    .post-card.featured .post-body{padding:1.6rem}
     footer{flex-direction:column;gap:1rem;text-align:center}
   }
   </style>
 </head>
 <body>
-
+ 
 <nav>
   <a href="index.html" class="nav-logo">AN<em>_</em></a>
   <div class="nav-right">
@@ -134,15 +130,17 @@
     <a href="https://anecaj.github.io/Adrian's%20Resume.pdf" target="_blank" class="nav-resume">Resume ↗</a>
   </div>
 </nav>
-
+ 
 <div class="blog-hero">
+  <canvas id="blog-canvas"></canvas>
+  <div class="blog-hero-ghost">BLOG</div>
   <div class="blog-hero-inner">
     <p class="blog-eyebrow">Writing</p>
     <h1 class="blog-title">The<br><span>Blog</span></h1>
     <p class="blog-sub">Thoughts on cybersecurity, GRC, threat intelligence, policy, and the human side of security.</p>
   </div>
 </div>
-
+ 
 <div class="controls">
   <div class="search-wrap">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
@@ -153,14 +151,14 @@
   </div>
   <p class="post-count" id="post-count"></p>
 </div>
-
+ 
 <div class="blog-main">
   <div class="post-grid" id="post-grid">
     <p class="status-msg"><span class="spinner"></span>Loading posts...</p>
   </div>
   <div class="blog-pg" id="blog-pg"></div>
 </div>
-
+ 
 <footer>
   <p class="fc">© 2026 <em>Adrian Necaj</em> · Queens, NYC 🇦🇱</p>
   <div class="fl">
@@ -169,226 +167,262 @@
     <a href="https://www.linkedin.com/in/anecaj/" target="_blank">LinkedIn</a>
   </div>
 </footer>
-
+ 
 <script>
+// ── MATRIX CANVAS ─────────────────────────────────────────────────
+(function () {
+  const canvas = document.getElementById('blog-canvas');
+  const ctx    = canvas.getContext('2d');
+  const CHARS  = '01アイウエカキクサシスCVENISTGRCAWSSO010110xFF0x';
+  const SIZE   = 16;
+  let W, H, cols, drops, speeds;
+ 
+  function resize() {
+    W = canvas.width  = canvas.offsetWidth;
+    H = canvas.height = canvas.offsetHeight;
+    cols   = Math.floor(W / SIZE);
+    drops  = Array.from({length: cols}, () => Math.random() * -(H / SIZE));
+    speeds = Array.from({length: cols}, () => 0.25 + Math.random() * 0.65);
+  }
+  resize();
+  window.addEventListener('resize', resize);
+ 
+  function frame() {
+    ctx.fillStyle = 'rgba(4,9,18,0.07)';
+    ctx.fillRect(0, 0, W, H);
+    ctx.font = (SIZE * 0.85) + 'px "Fira Code", monospace';
+ 
+    for (let i = 0; i < cols; i++) {
+      const x    = i * SIZE;
+      const y    = drops[i];
+      const char = CHARS[Math.floor(Math.random() * CHARS.length)];
+ 
+      // Bright leading character
+      ctx.fillStyle = 'rgba(0,232,122,0.9)';
+      ctx.fillText(char, x, y * SIZE);
+ 
+      // Short dim trail
+      ctx.fillStyle = 'rgba(0,232,122,0.18)';
+      ctx.fillText(CHARS[Math.floor(Math.random() * CHARS.length)], x, (y - 1) * SIZE);
+      ctx.fillStyle = 'rgba(56,189,248,0.07)';
+      ctx.fillText(CHARS[Math.floor(Math.random() * CHARS.length)], x, (y - 2) * SIZE);
+ 
+      drops[i] += speeds[i];
+      if (drops[i] * SIZE > H && Math.random() > 0.97) {
+        drops[i]  = Math.random() * -20;
+        speeds[i] = 0.25 + Math.random() * 0.65;
+      }
+    }
+    requestAnimationFrame(frame);
+  }
+  frame();
+})();
+ 
 // ── CONFIG ────────────────────────────────────────────────────────
-// YOUR GitHub username and repo name — update if you rename the repo
 const GITHUB_USER = 'anecaj';
 const GITHUB_REPO = 'anecaj.github.io';
 const POSTS_PATH  = 'blog/posts';
 const CACHE_KEY   = 'an_blog_v2';
 const PER_PAGE    = 8;
-
-// ── STATE ────────────────────────────────────────────────────────
-let allPosts = [];
-let filtered = [];
-let activeCat = 'all';
-let page = 1;
-
+ 
+let allPosts = [], filtered = [], activeCat = 'all', page = 1;
+ 
 // ── HELPERS ──────────────────────────────────────────────────────
 function fmtDate(s) {
-  try {
-    const d = new Date(s + 'T00:00:00');
-    return d.toLocaleDateString('en-US', { year:'numeric', month:'long', day:'numeric' });
-  } catch { return s; }
+  try { return new Date(s + 'T00:00:00').toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'}); }
+  catch { return s; }
 }
-
-function readTime(wordCount) {
-  return Math.max(1, Math.round(wordCount / 200)) + ' min read';
-}
-
+function readTime(w) { return Math.max(1, Math.round(w / 200)) + ' min read'; }
 function inferCat(title, tags) {
-  const all = (title + ' ' + tags).toLowerCase();
-  if (all.includes('grc') || all.includes('compliance') || all.includes('governance') || all.includes('risk')) return 'GRC';
-  if (all.includes('iot') || all.includes('network') || all.includes('segmentation')) return 'IoT & Network';
-  if (all.includes('ai ') || all.includes('artificial intelligence') || all.includes('machine learning')) return 'AI & Security';
-  if (all.includes('social engineer') || all.includes('phishing') || all.includes('psychology')) return 'Social Engineering';
-  if (all.includes('ransomware') || all.includes('malware') || all.includes('wannacry')) return 'Malware';
-  if (all.includes('policy') || all.includes('healthcare') || all.includes('hospital')) return 'Policy';
+  const a = (title + ' ' + tags).toLowerCase();
+  if (a.includes('grc')||a.includes('compliance')||a.includes('governance')||a.includes('risk')) return 'GRC';
+  if (a.includes('iot')||a.includes('network')||a.includes('segmentation')) return 'IoT & Network';
+  if (a.includes('ai ')||a.includes('machine learning')) return 'AI & Security';
+  if (a.includes('social engineer')||a.includes('phishing')||a.includes('psychology')) return 'Social Engineering';
+  if (a.includes('ransomware')||a.includes('malware')||a.includes('wannacry')) return 'Malware';
+  if (a.includes('policy')||a.includes('healthcare')) return 'Policy';
   return 'Cybersecurity';
 }
-
-// ── FETCH & CACHE ─────────────────────────────────────────────────
+ 
+// ── FETCH ─────────────────────────────────────────────────────────
 async function loadPosts() {
-  const grid = document.getElementById('post-grid');
   try {
-    // 1. Get directory listing from GitHub API
-    const apiUrl = `https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/contents/${POSTS_PATH}`;
-    const dirRes = await fetch(apiUrl, { headers: { 'Accept': 'application/vnd.github.v3+json' } });
-
-    if (!dirRes.ok) throw new Error('GitHub API error: ' + dirRes.status);
-    const files = await dirRes.json();
-
-    // Filter to only HTML posts (not the template)
-    const postFiles = files
+    const res = await fetch(
+      'https://api.github.com/repos/' + GITHUB_USER + '/' + GITHUB_REPO + '/contents/' + POSTS_PATH,
+      { headers: { Accept: 'application/vnd.github.v3+json' } }
+    );
+    if (!res.ok) throw new Error('API ' + res.status);
+    const files = (await res.json())
       .filter(f => f.name.endsWith('.html') && !f.name.startsWith('_'))
-      .sort((a, b) => b.name.localeCompare(a.name)); // newest first (by filename date prefix)
-
-    // 2. Load cache
+      .sort((a, b) => b.name.localeCompare(a.name));
+ 
     let cache = {};
     try { cache = JSON.parse(localStorage.getItem(CACHE_KEY) || '{}'); } catch {}
-
-    // 3. For each file, use cache if SHA matches, else fetch
-    const posts = await Promise.all(postFiles.map(async (file, idx) => {
-      if (cache[file.sha]) return cache[file.sha];
-
+ 
+    const posts = await Promise.all(files.map(async f => {
+      if (cache[f.sha]) return cache[f.sha];
       try {
-        const raw = await fetch(file.download_url);
-        const html = await raw.text();
-        const parser = new DOMParser();
-        const doc = parser.parseFromString(html, 'text/html');
-        const meta = name => doc.querySelector(`meta[name="${name}"]`)?.getAttribute('content') || '';
-
-        // Estimate word count from content div
-        const contentEl = doc.querySelector('.post-content');
-        const words = contentEl ? contentEl.textContent.trim().split(/\s+/).length : 200;
-
-        const post = {
-          title:    meta('post-title') || file.name.replace(/^\d{4}-\d{2}-\d{2}-/, '').replace(/-/g, ' ').replace('.html', ''),
-          date:     meta('post-date') || file.name.slice(0, 10),
-          desc:     meta('post-description'),
-          image:    meta('post-image'),
-          tags:     meta('post-tags'),
-          url:      '/blog/posts/' + file.name,
-          rt:       readTime(words),
-          sha:      file.sha
+        const doc  = new DOMParser().parseFromString(await (await fetch(f.download_url)).text(), 'text/html');
+        const meta = n => doc.querySelector('meta[name="' + n + '"]')?.getAttribute('content') || '';
+        const words = (doc.querySelector('.post-content')?.textContent || '').trim().split(/\s+/).length;
+        const p = {
+          title: meta('post-title') || f.name.replace(/^\d{4}-\d{2}-\d{2}-/,'').replace(/-/g,' ').replace('.html',''),
+          date:  meta('post-date')  || f.name.slice(0,10),
+          desc:  meta('post-description'), image: meta('post-image'),
+          tags:  meta('post-tags'),        url:   '/blog/posts/' + f.name,
+          rt:    readTime(words),          sha:   f.sha
         };
-        post.cat = inferCat(post.title, post.tags);
-        cache[file.sha] = post;
-        return post;
-      } catch(e) {
-        // Fallback: parse from filename
-        const name = file.name.replace('.html', '');
-        return {
-          title: name.replace(/^\d{4}-\d{2}-\d{2}-/, '').replace(/-/g, ' '),
-          date: name.slice(0, 10),
-          desc: '', image: '', tags: '', cat: 'Cybersecurity',
-          url: '/blog/posts/' + file.name, rt: '5 min read', sha: file.sha
-        };
+        p.cat = inferCat(p.title, p.tags);
+        return (cache[f.sha] = p);
+      } catch {
+        return { title: f.name.replace(/^\d{4}-\d{2}-\d{2}-/,'').replace(/-/g,' ').replace('.html',''),
+          date: f.name.slice(0,10), desc:'', image:'', tags:'', cat:'Cybersecurity',
+          url: '/blog/posts/' + f.name, rt:'5 min read', sha: f.sha };
       }
     }));
-
-    // 4. Save cache (keep only keys that are still in the current file list)
-    const currentSHAs = new Set(postFiles.map(f => f.sha));
-    const trimmedCache = {};
-    for (const sha in cache) {
-      if (currentSHAs.has(sha)) trimmedCache[sha] = cache[sha];
-    }
-    try { localStorage.setItem(CACHE_KEY, JSON.stringify(trimmedCache)); } catch {}
-
+ 
+    const shas = new Set(files.map(f => f.sha));
+    const trimmed = {};
+    for (const k in cache) if (shas.has(k)) trimmed[k] = cache[k];
+    try { localStorage.setItem(CACHE_KEY, JSON.stringify(trimmed)); } catch {}
+ 
     allPosts = posts;
     buildCatFilters();
     applyFilters();
-
-  } catch (err) {
-    console.error('Blog load error:', err);
-    // Fallback: show helpful message
-    grid.innerHTML = `<p class="status-msg">
-      // Could not load posts from GitHub API.<br>
-      <span style="font-size:.75rem;margin-top:.5rem;display:block">
-        If you're viewing this locally, open the live site at anecaj.github.io/blog.html
-      </span>
-    </p>`;
+  } catch(e) {
+    console.error(e);
+    document.getElementById('post-grid').innerHTML =
+      '<p class="status-msg">// Could not load posts — are you on the live site?</p>';
   }
 }
-
+ 
 // ── FILTERS ───────────────────────────────────────────────────────
 function buildCatFilters() {
-  const cats = [...new Set(allPosts.map(p => p.cat))].sort();
   const wrap = document.getElementById('cat-filters');
-  cats.forEach(cat => {
-    const btn = document.createElement('button');
-    btn.className = 'cf-btn';
-    btn.textContent = cat;
-    btn.dataset.cat = cat;
-    btn.onclick = () => setCat(cat, btn);
-    wrap.appendChild(btn);
+  [...new Set(allPosts.map(p => p.cat))].sort().forEach(cat => {
+    const b = document.createElement('button');
+    b.className = 'cf-btn'; b.textContent = cat; b.dataset.cat = cat;
+    b.onclick = () => setCat(cat, b);
+    wrap.appendChild(b);
   });
 }
-
 function setCat(cat, btn) {
-  activeCat = cat;
-  page = 1;
+  activeCat = cat; page = 1;
   document.querySelectorAll('.cf-btn').forEach(b => b.classList.remove('on'));
   btn.classList.add('on');
   applyFilters();
 }
-
 function applyFilters() {
   const q = document.getElementById('search').value.toLowerCase();
   filtered = allPosts.filter(p => {
     const catOk = activeCat === 'all' || p.cat === activeCat;
-    const searchOk = !q || p.title.toLowerCase().includes(q) || (p.desc || '').toLowerCase().includes(q) || (p.tags || '').toLowerCase().includes(q);
-    return catOk && searchOk;
+    const srOk  = !q || p.title.toLowerCase().includes(q)
+                     || (p.desc||'').toLowerCase().includes(q)
+                     || (p.tags||'').toLowerCase().includes(q);
+    return catOk && srOk;
   });
-  page = 1;
-  renderGrid();
+  page = 1; renderGrid();
 }
-
-// ── RENDER ────────────────────────────────────────────────────────
+ 
+// ── RENDER — DOM methods only, no innerHTML for card structure ─────
+// This avoids the HTML-parsing bug where onerror escaped quotes break
+// the card wrapper and push .post-body outside the .post-card element.
 function renderGrid() {
   const grid = document.getElementById('post-grid');
   const nav  = document.getElementById('blog-pg');
   const total = Math.ceil(filtered.length / PER_PAGE);
-  const slice = filtered.slice((page - 1) * PER_PAGE, page * PER_PAGE);
-
+  const slice = filtered.slice((page-1)*PER_PAGE, page*PER_PAGE);
+ 
   document.getElementById('post-count').textContent =
     filtered.length + ' post' + (filtered.length !== 1 ? 's' : '');
-
-  if (filtered.length === 0) {
-    grid.innerHTML = '<p class="no-results">// No posts match that search.</p>';
-    nav.style.display = 'none';
-    return;
+ 
+  if (!filtered.length) {
+    grid.innerHTML = '<p class="no-results">// No posts match.</p>';
+    nav.style.display = 'none'; return;
   }
-
-  grid.innerHTML = slice.map((p, i) => {
-    const featured = i === 0 && page === 1 && activeCat === 'all' && !document.getElementById('search').value;
-    const dateStr = fmtDate(p.date);
-    const firstTag = p.tags ? p.tags.split(',')[0].trim() : p.cat;
-
-    const imgHtml = p.image
-      ? `<div class="post-img"><img src="/blog/assets/img/${p.image}" alt="${p.title}" loading="lazy"
-           onerror="this.parentElement.innerHTML='<div class=\\"post-img-gen\\"><span>${p.title.split(' ').slice(0,4).join(' ')}</span></div>'"></div>`
-      : `<div class="post-img"><div class="post-img-gen"><span>${p.title.split(' ').slice(0,4).join(' ')}</span></div></div>`;
-
-    return `<div class="post-card${featured ? ' featured' : ''}" style="animation-delay:${i * 0.06}s">
-      ${imgHtml}
-      <div class="post-body">
-        <div class="post-meta-row">
-          <span class="post-date">${dateStr}</span>
-          <span class="post-cat">${firstTag}</span>
-          <span class="post-rt">${p.rt}</span>
-        </div>
-        <a href="${p.url}" class="post-title-link">${p.title}</a>
-        <p class="post-exc">${p.desc || ''}</p>
-        <a href="${p.url}" class="post-read-link">Read Post →</a>
-      </div>
-    </div>`;
-  }).join('');
-
+ 
+  while (grid.firstChild) grid.removeChild(grid.firstChild);
+ 
+  slice.forEach((p, i) => {
+    const featured = i === 0 && page === 1 && activeCat === 'all'
+                  && !document.getElementById('search').value;
+    const tag = p.tags ? p.tags.split(',')[0].trim() : p.cat;
+ 
+    // Card
+    const card = document.createElement('div');
+    card.className = 'post-card' + (featured ? ' featured' : '');
+    card.style.animationDelay = (i * 0.06) + 's';
+ 
+    // Image
+    const imgDiv = document.createElement('div');
+    if (p.image) {
+      imgDiv.className = 'post-img';
+      const img = document.createElement('img');
+      img.src = '/blog/assets/img/' + p.image;
+      img.alt = p.title; img.loading = 'lazy';
+      img.onerror = function () {
+        imgDiv.className = 'post-img gen';
+        this.remove();
+        const s = document.createElement('span');
+        s.textContent = p.title.split(' ').slice(0,5).join(' ');
+        imgDiv.appendChild(s);
+      };
+      imgDiv.appendChild(img);
+    } else {
+      imgDiv.className = 'post-img gen';
+      const s = document.createElement('span');
+      s.textContent = p.title.split(' ').slice(0,5).join(' ');
+      imgDiv.appendChild(s);
+    }
+ 
+    // Body — safe to use innerHTML here since content is controlled
+    const body = document.createElement('div');
+    body.className = 'post-body';
+ 
+    const metaRow = document.createElement('div'); metaRow.className = 'post-meta-row';
+    const dEl = document.createElement('span'); dEl.className = 'post-date'; dEl.textContent = fmtDate(p.date);
+    const cEl = document.createElement('span'); cEl.className = 'post-cat';  cEl.textContent = tag;
+    const rEl = document.createElement('span'); rEl.className = 'post-rt';   rEl.textContent = p.rt;
+    metaRow.append(dEl, cEl, rEl);
+ 
+    const titleA = document.createElement('a');
+    titleA.className = 'post-title-link'; titleA.href = p.url; titleA.textContent = p.title;
+ 
+    const exc = document.createElement('p');
+    exc.className = 'post-exc'; exc.textContent = p.desc || '';
+ 
+    const readA = document.createElement('a');
+    readA.className = 'post-read-link'; readA.href = p.url; readA.textContent = 'Read Post →';
+ 
+    body.append(metaRow, titleA, exc, readA);
+    card.append(imgDiv, body);
+    grid.appendChild(card);
+  });
+ 
   // Pagination
-  if (total <= 1) {
-    nav.style.display = 'none';
-  } else {
-    nav.style.display = 'flex';
-    nav.innerHTML = Array.from({ length: total }, (_, i) =>
-      `<button class="bpg-btn${i + 1 === page ? ' active' : ''}" onclick="gotoPage(${i + 1})">${i + 1}</button>`
-    ).join('');
+  nav.style.display = total > 1 ? 'flex' : 'none';
+  if (total > 1) {
+    while (nav.firstChild) nav.removeChild(nav.firstChild);
+    for (let i = 1; i <= total; i++) {
+      const b = document.createElement('button');
+      b.className = 'bpg-btn' + (i === page ? ' active' : '');
+      b.textContent = i;
+      b.onclick = () => gotoPage(i);
+      nav.appendChild(b);
+    }
   }
 }
-
+ 
 function gotoPage(p) {
   page = p;
   const grid = document.getElementById('post-grid');
   grid.style.opacity = '0';
   setTimeout(() => {
-    renderGrid();
-    grid.style.opacity = '1';
-    window.scrollTo({ top: document.querySelector('.controls').offsetTop - 80, behavior: 'smooth' });
+    renderGrid(); grid.style.opacity = '1';
+    window.scrollTo({top: document.querySelector('.controls').offsetTop - 80, behavior:'smooth'});
   }, 180);
 }
-
-// ── INIT ──────────────────────────────────────────────────────────
+ 
 loadPosts();
 </script>
 </body>

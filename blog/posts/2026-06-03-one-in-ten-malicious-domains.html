@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>One in Ten: The Malicious Domain Problem Is Bigger Than You Think — Adrian Necaj</title>
+  <meta name="post-title"       content="One in Ten: The Malicious Domain Problem Is Bigger Than You Think">
+  <meta name="post-date"        content="2026-06-03">
+  <meta name="post-description" content="Nearly 8.5 million domains registered in 2025 ended up on a cybersecurity blocklist — and researchers believe the real number could be double that, hiding in plain sight through domain aging.">
+  <meta name="post-image"       content="malicious.png">
+  <meta name="post-tags"        content="Threat Intelligence, DNS, Cybersecurity, GRC">
+
+  <meta property="og:title"       content="One in Ten: The Malicious Domain Problem Is Bigger Than You Think">
+  <meta property="og:description" content="Nearly 8.5 million domains registered in 2025 ended up on a cybersecurity blocklist — and researchers believe the real number could be double that.">
+  <meta property="og:type"        content="article">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Fira+Code:wght@300;400;500;600&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+  <style>
+  :root{
+    --bg:#040912;--bg-s:#091221;--bg-e:#0d1a2e;
+    --green:#00e87a;--blue:#38bdf8;
+    --txt:#dde6f0;--txt-m:#8fa3bb;--txt-d:#3d5268;
+    --border:rgba(255,255,255,.07);--bdr-g:rgba(0,232,122,.28);
+    --fn-d:'Bebas Neue',sans-serif;--fn-m:'Fira Code',monospace;--fn-b:'DM Sans',sans-serif;
+    --w:720px;
+  }
+  *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--txt);font-family:var(--fn-b);line-height:1.6;overflow-x:hidden}
+  body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(1px 1px at center,rgba(255,255,255,.025) 0%,transparent 100%);background-size:28px 28px;pointer-events:none;z-index:0}
+  ::-webkit-scrollbar{width:8px}::-webkit-scrollbar-track{background:var(--bg-s)}::-webkit-scrollbar-thumb{background:rgba(0,232,122,.45);border-radius:4px}::-webkit-scrollbar-thumb:hover{background:rgba(0,232,122,.75)}
+  #prog{position:fixed;top:0;left:0;height:2px;width:0;background:linear-gradient(90deg,var(--green),var(--blue));z-index:200;transition:width .1s linear}
+  nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:1rem 3rem;background:rgba(4,9,18,.92);backdrop-filter:blur(16px);border-bottom:2px solid rgba(0,232,122,.2)}
+  .logo{font-family:var(--fn-d);font-size:1.4rem;letter-spacing:.12em;color:var(--txt);text-decoration:none}.logo em{color:var(--green);font-style:normal}
+  .nav-r{display:flex;align-items:center;gap:1.5rem}
+  .nav-back,.nav-port{font-family:var(--fn-m);font-size:.76rem;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;transition:color .2s}
+  .nav-back{color:var(--txt-m);display:flex;align-items:center;gap:.4rem}.nav-back:hover,.nav-port:hover{color:var(--green)}
+  .nav-port{color:var(--txt-d)}
+  .post-hero{position:relative;min-height:400px;display:flex;align-items:flex-end;overflow:hidden;z-index:1}
+  .post-hero.has-img .hero-bg{position:absolute;inset:0;background-size:cover;background-position:center;filter:brightness(.32) saturate(.75);transform:scale(1.03);transition:transform 8s}
+  .post-hero.has-img:hover .hero-bg{transform:scale(1)}
+  .hero-ov{position:absolute;inset:0;background:linear-gradient(to top,rgba(4,9,18,.95) 0%,rgba(4,9,18,.65) 40%,rgba(4,9,18,.15) 100%);z-index:1}
+  .hero-c{position:relative;z-index:2;padding:4rem 3rem 3rem;width:100%;max-width:calc(var(--w) + 6rem);margin:0 auto}
+  .tag-pills{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:1.2rem}
+  .tag-pill{font-family:var(--fn-m);font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;padding:.2rem .6rem;background:rgba(0,232,122,.1);border:1px solid rgba(0,232,122,.22);color:var(--green)}
+  .post-title{font-family:var(--fn-d);font-size:clamp(2rem,5.5vw,3.6rem);letter-spacing:.04em;line-height:1.05;margin-bottom:1.3rem;text-shadow:0 2px 20px rgba(0,0,0,.5)}
+  .post-meta{display:flex;align-items:center;gap:1.2rem;flex-wrap:wrap}
+  .meta-i{font-family:var(--fn-m);font-size:.68rem;color:var(--txt-m);letter-spacing:.06em}
+  .meta-dot{color:var(--txt-d)}
+  .post-wrap{max-width:var(--w);margin:0 auto;padding:3.5rem 3rem 5rem;position:relative;z-index:1}
+  .post-content{font-size:1.05rem;line-height:1.82;color:var(--txt-m)}
+  .post-content p{margin-bottom:1.5rem}
+  .post-content h2{font-family:var(--fn-d);font-size:2rem;letter-spacing:.05em;color:var(--txt);line-height:1.1;margin:2.5rem 0 1rem;border-bottom:1px solid var(--border);padding-bottom:.55rem}
+  .post-content h3{font-family:var(--fn-d);font-size:1.5rem;letter-spacing:.05em;color:var(--txt);margin:2rem 0 .8rem}
+  .post-content h4{font-size:1.05rem;font-weight:600;color:var(--txt);margin:1.5rem 0 .6rem}
+  .post-content a{color:var(--blue);text-decoration:none;border-bottom:1px solid rgba(56,189,248,.3);transition:color .2s,border-color .2s}
+  .post-content a:hover{color:var(--green);border-bottom-color:rgba(0,232,122,.4)}
+  .post-content strong{color:var(--txt);font-weight:600}
+  .post-content ul{list-style:none;padding:0;margin-bottom:1.5rem;display:flex;flex-direction:column;gap:.5rem}
+  .post-content ul li{padding-left:1.4rem;position:relative}
+  .post-content ul li::before{content:'▸';position:absolute;left:0;color:var(--green);font-size:.85em}
+  .post-content ol{padding-left:1.6rem;margin-bottom:1.5rem;display:flex;flex-direction:column;gap:.5rem}
+  .post-content ol li{color:var(--txt-m)}
+  .post-content ol li::marker{color:var(--green);font-family:var(--fn-m);font-size:.85em}
+  .post-content blockquote{border-left:3px solid var(--green);padding:1rem 1.5rem;background:rgba(0,232,122,.04);margin:2rem 0;color:var(--txt-m);font-style:italic}
+  .post-content blockquote p{margin-bottom:0}
+  .post-content hr{border:none;border-top:1px solid var(--border);margin:2.5rem 0}
+  .post-content code{font-family:var(--fn-m);font-size:.85em;background:rgba(0,232,122,.08);border:1px solid rgba(0,232,122,.15);color:var(--green);padding:.15em .4em;border-radius:3px}
+  .post-content pre{background:#060d1a;border:1px solid var(--border);border-left:3px solid var(--green);padding:1.5rem;margin:2rem 0;overflow-x:auto}
+  .post-content pre code{background:none;border:none;color:#a8d8a8;padding:0;font-size:.85rem;line-height:1.6}
+  .post-content img{max-width:100%;display:block;margin:2rem auto;border:1px solid var(--border);border-radius:2px}
+  .post-content figure{margin:2rem 0}
+  .post-content figure img{margin:0 auto}
+  .post-content figcaption{font-family:var(--fn-m);font-size:.72rem;color:var(--txt-d);text-align:center;margin-top:.7rem;letter-spacing:.06em;line-height:1.5}
+  .post-footer{max-width:var(--w);margin:0 auto;padding:0 3rem 4rem;position:relative;z-index:1}
+  .footer-line{height:1px;background:linear-gradient(90deg,var(--green),transparent);margin-bottom:2.5rem}
+  .footer-top{display:flex;align-items:flex-start;justify-content:space-between;gap:2rem;flex-wrap:wrap;margin-bottom:2rem}
+  .tags-label{font-family:var(--fn-m);font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--txt-d);margin-bottom:.75rem}
+  .author-card{display:flex;align-items:center;gap:1rem;padding:1.2rem 1.5rem;background:var(--bg-s);border:1px solid var(--border);flex:1;min-width:220px;max-width:320px}
+  .av{width:42px;height:42px;border-radius:50%;border:2px solid var(--bdr-g);overflow:hidden;flex-shrink:0}
+  .av img{width:100%;height:100%;object-fit:cover;object-position:center top;display:block}
+  .av-info .name{font-family:var(--fn-d);font-size:.95rem;letter-spacing:.06em;margin-bottom:.15rem}
+  .av-info .role{font-family:var(--fn-m);font-size:.62rem;color:var(--txt-d);letter-spacing:.08em}
+  .nav-btns{display:flex;gap:1rem;flex-wrap:wrap}
+  .nb{font-family:var(--fn-m);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;padding:.6rem 1.3rem;border:1px solid var(--border);color:var(--txt-m);text-decoration:none;transition:all .2s;display:inline-flex;align-items:center;gap:.4rem}
+  .nb:hover{border-color:var(--green);color:var(--green)}
+  .nb.p{background:var(--green);color:var(--bg);border-color:var(--green);font-weight:600}
+  .nb.p:hover{background:#00c96a}
+  .site-footer{padding:1.8rem 3rem;border-top:1px solid var(--border);background:var(--bg-s);display:flex;align-items:center;justify-content:space-between;position:relative;z-index:1}
+  .site-footer p{font-family:var(--fn-m);font-size:.68rem;color:var(--txt-d)}
+  .site-footer em{color:var(--green);font-style:normal}
+  .sf-links{display:flex;gap:1.5rem}
+  .sf-links a{font-family:var(--fn-m);font-size:.68rem;color:var(--txt-d);text-decoration:none;transition:color .2s}
+  .sf-links a:hover{color:var(--green)}
+
+  /* Stat cards */
+  .stat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin:2rem 0}
+  .stat-card{background:var(--bg-s);border:1px solid var(--border);padding:1.4rem 1.2rem;text-align:center}
+  .stat-card .num{font-family:var(--fn-d);font-size:2.2rem;letter-spacing:.04em;color:var(--green);line-height:1;margin-bottom:.4rem}
+  .stat-card .label{font-family:var(--fn-m);font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:var(--txt-d);line-height:1.4}
+  @media(max-width:560px){.stat-grid{grid-template-columns:1fr 1fr}}
+
+  /* Callout */
+  .callout{background:rgba(56,189,248,.05);border:1px solid rgba(56,189,248,.18);border-left:3px solid var(--blue);padding:1.2rem 1.5rem;margin:2rem 0}
+  .callout-label{font-family:var(--fn-m);font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color:var(--blue);margin-bottom:.5rem}
+  .callout p{margin-bottom:0;color:var(--txt-m);font-size:.95rem}
+
+  /* Registrar abuse table */
+  .abuse-table{width:100%;border-collapse:collapse;margin:2rem 0;font-size:.9rem}
+  .abuse-table thead th{font-family:var(--fn-m);font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;color:var(--txt-d);text-align:left;padding:.6rem .8rem;border-bottom:1px solid var(--border)}
+  .abuse-table tbody td{padding:.7rem .8rem;border-bottom:1px solid rgba(255,255,255,.04);color:var(--txt-m);font-family:var(--fn-b)}
+  .abuse-table tbody tr:hover td{background:rgba(0,232,122,.03)}
+  .abuse-table .pct{font-family:var(--fn-m);color:var(--green)}
+  .abuse-table .bar-cell{width:140px}
+  .bar-wrap{background:rgba(255,255,255,.05);height:6px;border-radius:3px;overflow:hidden}
+  .bar-fill{height:100%;background:linear-gradient(90deg,var(--green),var(--blue));border-radius:3px}
+
+  /* TLD pill list */
+  .tld-list{display:flex;flex-wrap:wrap;gap:.5rem;margin:1rem 0 1.5rem}
+  .tld-pill{font-family:var(--fn-m);font-size:.72rem;padding:.3rem .7rem;background:rgba(255,255,255,.04);border:1px solid var(--border);color:var(--txt-m)}
+  .tld-pill.hot{background:rgba(0,232,122,.08);border-color:rgba(0,232,122,.2);color:var(--green)}
+
+  /* Briefing list at bottom */
+  .briefing{background:var(--bg-s);border:1px solid var(--border);padding:1.5rem;margin:2rem 0}
+  .briefing-label{font-family:var(--fn-m);font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--txt-d);margin-bottom:1rem}
+  .briefing ul{margin-bottom:0}
+
+  @media(max-width:720px){nav,.hero-c,.post-wrap,.post-footer,.site-footer{padding-left:1.5rem;padding-right:1.5rem}.post-title{font-size:clamp(1.8rem,8vw,2.6rem)}.footer-top{flex-direction:column}.author-card{max-width:100%}.site-footer{flex-direction:column;gap:1rem;text-align:center}}
+  </style>
+</head>
+<body>
+<div id="prog"></div>
+
+<nav>
+  <a href="/" class="logo">AN<em>_</em></a>
+  <div class="nav-r">
+    <a href="/blog.html" class="nav-back">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18"/></svg>
+      All Posts
+    </a>
+    <a href="/" class="nav-port">Portfolio</a>
+  </div>
+</nav>
+
+<div class="post-hero has-img">
+  <div class="hero-bg" style="background-image:url('../../blog/assets/img/malicious.png')"></div>
+  <div class="hero-ov"></div>
+  <div class="hero-c">
+    <div class="tag-pills">
+      <span class="tag-pill">Threat Intelligence</span>
+      <span class="tag-pill">DNS</span>
+      <span class="tag-pill">Cybersecurity</span>
+      <span class="tag-pill">GRC</span>
+    </div>
+    <h1 class="post-title">One in Ten: The Malicious Domain Problem Is Bigger Than You Think</h1>
+    <div class="post-meta">
+      <span class="meta-i">Jun 03, 2026</span>
+      <span class="meta-dot">·</span>
+      <span class="meta-i">7 min read</span>
+      <span class="meta-dot">·</span>
+      <span class="meta-i">Adrian Necaj</span>
+    </div>
+  </div>
+</div>
+
+<div class="post-wrap">
+  <div class="post-content">
+
+    <p>Nearly 85 million domains were registered in 2025. That's an enormous number — and according to a new report from Interisle Consulting, roughly one in every ten of those domains was eventually flagged as malicious and added to a cybersecurity blocklist. That's 8.5 million bad domains in a single year. Worse, researchers believe that figure likely captures only half the real picture, with the other half still quietly aging on the shelf, waiting to be weaponized.</p>
+
+    <div class="stat-grid">
+      <div class="stat-card">
+        <div class="num">84.9M</div>
+        <div class="label">Total new domains<br>registered in 2025</div>
+      </div>
+      <div class="stat-card">
+        <div class="num">8.5M</div>
+        <div class="label">Domains added<br>to blocklists</div>
+      </div>
+      <div class="stat-card">
+        <div class="num">~16.8M</div>
+        <div class="label">Estimated actual<br>malicious total</div>
+      </div>
+    </div>
+
+    <p>The Interisle report, published this week, provides one of the clearest quantitative pictures we've had of how professional cybercrime groups use the domain registration system as infrastructure — and the concentration of abuse it reveals is striking.</p>
+
+    <h2>Domain Aging: The Sleeper Cell Strategy</h2>
+
+    <p>The gap between the confirmed 8.5 million and the estimated 16.8 million comes down to a technique researchers call <strong>domain aging</strong>. Threat actors purchase domains in bulk and then deliberately leave them dormant — sometimes for months, sometimes years. The logic is straightforward: security tools tend to flag newly registered domains as higher risk, so letting a domain "age" makes it look more legitimate before it's ever deployed in an operation.</p>
+
+    <p>It's a supply chain approach to malicious infrastructure. The domains are already bought, already waiting. The threat actor just needs to decide when to activate them. From a defender's perspective, this means blocklists are always operating with a lag — they can only flag domains that have been observed doing something bad, not domains that are simply sitting idle for future use.</p>
+
+    <div class="callout">
+      <p class="callout-label">// Defender implication</p>
+      <p>A domain that was registered six months ago and has seen no traffic isn't necessarily clean — it may just be aging. Threat intel feeds based purely on observed malicious activity will systematically undercount the actual threat pool.</p>
+    </div>
+
+    <h2>The Registrar Concentration Problem</h2>
+
+    <p>Perhaps the most damning finding in the Interisle report is how tightly abuse is concentrated among a small number of registrars. This is not a diffuse, spread-out problem — it's a handful of known bad actors enabling the vast majority of malicious domain activity.</p>
+
+    <table class="abuse-table">
+      <thead>
+        <tr>
+          <th>Registrar group</th>
+          <th>Share of all blocklisted domains</th>
+          <th class="bar-cell"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Top 5 registrars</td>
+          <td class="pct">50%</td>
+          <td class="bar-cell"><div class="bar-wrap"><div class="bar-fill" style="width:50%"></div></div></td>
+        </tr>
+        <tr>
+          <td>Top 8 registrars</td>
+          <td class="pct">92%</td>
+          <td class="bar-cell"><div class="bar-wrap"><div class="bar-fill" style="width:92%"></div></div></td>
+        </tr>
+        <tr>
+          <td>3 outlier registrars</td>
+          <td class="pct">&gt;80% of their own domains blocklisted</td>
+          <td class="bar-cell"><div class="bar-wrap"><div class="bar-fill" style="width:80%"></div></div></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p>Three registrars had more than 80% of every domain they sold in 2025 end up on a blocklist by year's end. That's not incidental abuse — that's a business model. The question of why ICANN and national domain regulators allow this to continue is a legitimate governance question that the industry largely avoids answering.</p>
+
+    <p>From an organizational risk perspective, this concentration actually provides an actionable signal. If your threat intelligence platform or firewall integrates registrar-level data, domains from these known-abusive registrars can be treated with elevated suspicion even before any malicious activity is confirmed. Block-by-registrar-reputation is a blunt instrument, but against a backdrop where 80%+ of a registrar's output is malicious, blunt might be appropriate.</p>
+
+    <h2>The gTLD Problem</h2>
+
+    <p>Roughly two-thirds of all malicious domains registered last year used one of the newer generic top-level domains — the custom extensions that were introduced to expand beyond the traditional <code>.com</code>, <code>.net</code>, and <code>.org</code>. These are the gTLDs that proliferated over the past decade: extensions like <code>.top</code>, <code>.bond</code>, <code>.vip</code>, <code>.xyz</code>, and <code>.shop</code>.</p>
+
+    <p>The gTLDs most associated with malicious registrations in 2025:</p>
+
+    <div class="tld-list">
+      <span class="tld-pill hot">.top</span>
+      <span class="tld-pill hot">.bond</span>
+      <span class="tld-pill hot">.vip</span>
+      <span class="tld-pill hot">.xyz</span>
+      <span class="tld-pill hot">.shop</span>
+      <span class="tld-pill">.click</span>
+      <span class="tld-pill">.online</span>
+      <span class="tld-pill">.live</span>
+      <span class="tld-pill">.store</span>
+      <span class="tld-pill">.fun</span>
+    </div>
+
+    <p>The appeal for threat actors is clear: these gTLDs are cheap, widely available, and were specifically designed to be easy to register at scale. The same market dynamics that made them attractive for legitimate small businesses and startups made them attractive for phishing crews and malware operators. Many of these extensions have minimal abuse-prevention policies compared to legacy TLDs like <code>.com</code>, and enforcement from their registries has historically been inconsistent.</p>
+
+    <p>This doesn't mean every <code>.xyz</code> or <code>.shop</code> domain is suspicious — there are plenty of legitimate sites using these extensions. But it does mean that for high-value targets like financial institutions, government agencies, and healthcare systems, any inbound traffic or email links using obscure gTLDs should carry additional scrutiny.</p>
+
+    <h2>What This Means in Practice</h2>
+
+    <p>The domain registration landscape is not going to self-correct. The economics favor abuse: domains are cheap, the registration process is fast, and the consequences for the registrars enabling mass abuse have been minimal. That means defenders have to build controls that account for this reality rather than assuming the supply side will clean itself up.</p>
+
+    <p>A few concrete angles worth considering at the organizational level:</p>
+
+    <ul>
+      <li><strong>DNS filtering with registrar reputation data:</strong> Standard blocklists catch domains after they've been observed in attacks. Layering in registrar-reputation signals gives you earlier warning on infrastructure that hasn't been deployed yet.</li>
+      <li><strong>Elevated scrutiny on new gTLDs in email:</strong> Links and sender domains using high-abuse TLDs in inbound email should trigger additional sandbox analysis or user warnings. Most modern SEGs support TLD-based policy rules.</li>
+      <li><strong>Brand monitoring for aged domains:</strong> If your organization's name or product names appear in domains registered through known-abusive registrars, don't wait for those domains to go live. Request takedown proactively.</li>
+      <li><strong>Midterm election season awareness:</strong> Separately reported this week, over 4,000 election-related domains have already been registered in 2026 ahead of the US midterm cycle. This is a significant phishing and disinformation surface that will ramp up through the fall — worth flagging in security awareness programs now.</li>
+    </ul>
+
+    <h2>The Broader Threat Context This Week</h2>
+
+    <p>The domain report doesn't sit in isolation. This week's threat landscape reinforced just how many vectors are converging at once. A few items worth flagging:</p>
+
+    <div class="briefing">
+      <p class="briefing-label">// Threat briefing — week of Jun 03, 2026</p>
+      <ul>
+        <li><strong>Meta AI support bot abused for account takeover:</strong> A pro-Iranian hacktivist group exploited Meta's own AI assistant to hijack high-profile Instagram accounts — including the Obama White House team and Space Force officials — by asking the bot to change account email addresses. No authentication beyond a VPN with a nearby IP address was required.</li>
+        <li><strong>Red Hat npm supply chain attack:</strong> Over 30 Red Hat cloud-related npm packages were compromised, shipping malware that stole CI/CD secrets and cloud access tokens — with a worm component designed to self-propagate into a victim's own packages.</li>
+        <li><strong>Windows Netlogon RCE in active exploitation:</strong> A critical remote code execution bug in the Windows Netlogon authentication service (CVE-2026-41089) — patched in May — is now being exploited against domain controllers in the wild. Belgium's cybersecurity agency first flagged live attacks last week.</li>
+        <li><strong>NIST NVD audit findings:</strong> A Department of Commerce IG audit confirmed what the community had long suspected: NIST lacked the planning and decisiveness to manage the NVD vulnerability backlog, and the fix would have cost only $800K. NIST has since moved toward enriching only a subset of high-priority bugs — a triage posture that will require defenders to compensate with independent intelligence sources.</li>
+      </ul>
+    </div>
+
+    <blockquote>
+      <p>The NVD situation is particularly worth tracking for anyone running a vulnerability management program. If NIST is only enriching a fraction of submitted CVEs going forward, the gap between raw CVE data and actionable enrichment is going to widen — and that gap will need to be filled by commercial or open-source threat intel feeds, not assumed away.</p>
+    </blockquote>
+
+    <hr>
+
+    <p>The Interisle report puts a number on something the security community has known anecdotally for years: the domain registration ecosystem has a serious structural abuse problem, and it's not getting smaller. Eight and a half million confirmed malicious domains in a single year, concentrated in a handful of registrars with near-zero accountability — that's not a bug in the system. At this point, it's a feature that threat actors are deliberately exploiting. The response has to be at least as deliberate.</p>
+
+  </div>
+</div>
+
+<div class="post-footer">
+  <div class="footer-line"></div>
+  <div class="footer-top">
+    <div>
+      <p class="tags-label">// Tagged under</p>
+      <div class="tag-pills">
+        <span class="tag-pill">Threat Intelligence</span>
+        <span class="tag-pill">DNS</span>
+        <span class="tag-pill">Cybersecurity</span>
+        <span class="tag-pill">GRC</span>
+      </div>
+    </div>
+    <div class="author-card">
+      <div class="av"><img src="../../profile.jpg" alt="Adrian Necaj"></div>
+      <div class="av-info">
+        <p class="name">Adrian Necaj</p>
+        <p class="role">MS Cybersecurity · NYU Tandon<br>NYS Executive Chamber</p>
+      </div>
+    </div>
+  </div>
+  <div class="nav-btns">
+    <a href="/blog.html" class="nb">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18"/></svg>
+      All Posts
+    </a>
+    <a href="/" class="nb p">Portfolio →</a>
+  </div>
+</div>
+
+<div class="site-footer">
+  <p>© 2026 <em>Adrian Necaj</em> · Queens, NYC 🇦🇱</p>
+  <div class="sf-links">
+    <a href="/">Portfolio</a>
+    <a href="/blog.html">Blog</a>
+    <a href="https://github.com/anecaj" target="_blank">GitHub</a>
+    <a href="https://www.linkedin.com/in/anecaj/" target="_blank">LinkedIn</a>
+  </div>
+</div>
+
+<script>
+const b=document.getElementById('prog');
+window.addEventListener('scroll',()=>{
+  const d=document.documentElement;
+  b.style.width=(d.scrollTop/(d.scrollHeight-d.clientHeight)*100)+'%';
+});
+</script>
+</body>
+</html>

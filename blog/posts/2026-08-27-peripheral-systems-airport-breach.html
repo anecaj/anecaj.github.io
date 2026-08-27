@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Peripheral Vision: 8.7 Million Records and the Systems Nobody Watches — Adrian Necaj</title>
+  <meta name="post-title"       content="Peripheral Vision: 8.7 Million Records and the Systems Nobody Watches">
+  <meta name="post-date"        content="2026-08-27">
+  <meta name="post-description" content="Manchester Airports Group lost 8.7 million customer records to an extortion group — not from a flight system or a payment gateway, but from Wi-Fi sign-ups and parking data sitting in the security blind spot.">
+  <meta name="post-image"       content="manchester-airport.jpg">
+  <meta name="post-tags"        content="Data Breach, GRC, Incident Response, Cybersecurity">
+
+  <meta property="og:title"       content="Peripheral Vision: 8.7 Million Records and the Systems Nobody Watches">
+  <meta property="og:description" content="8.7 million customer records leaked from an airport Wi-Fi sign-up and parking system — a case study in the personal data hiding in peripheral systems.">
+  <meta property="og:type"        content="article">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Fira+Code:wght@300;400;500;600&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+  <style>
+  :root{
+    --bg:#040912;--bg-s:#091221;--bg-e:#0d1a2e;
+    --green:#00e87a;--blue:#38bdf8;
+    --txt:#dde6f0;--txt-m:#8fa3bb;--txt-d:#3d5268;
+    --border:rgba(255,255,255,.07);--bdr-g:rgba(0,232,122,.28);
+    --fn-d:'Bebas Neue',sans-serif;--fn-m:'Fira Code',monospace;--fn-b:'DM Sans',sans-serif;
+    --w:720px;
+  }
+  *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--txt);font-family:var(--fn-b);line-height:1.6;overflow-x:hidden}
+  body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(1px 1px at center,rgba(255,255,255,.025) 0%,transparent 100%);background-size:28px 28px;pointer-events:none;z-index:0}
+  ::-webkit-scrollbar{width:8px}::-webkit-scrollbar-track{background:var(--bg-s)}::-webkit-scrollbar-thumb{background:rgba(0,232,122,.45);border-radius:4px}::-webkit-scrollbar-thumb:hover{background:rgba(0,232,122,.75)}
+  #prog{position:fixed;top:0;left:0;height:2px;width:0;background:linear-gradient(90deg,var(--green),var(--blue));z-index:200;transition:width .1s linear}
+  nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:1rem 3rem;background:rgba(4,9,18,.92);backdrop-filter:blur(16px);border-bottom:2px solid rgba(0,232,122,.2)}
+  .logo{font-family:var(--fn-d);font-size:1.4rem;letter-spacing:.12em;color:var(--txt);text-decoration:none}.logo em{color:var(--green);font-style:normal}
+  .nav-r{display:flex;align-items:center;gap:1.5rem}
+  .nav-back,.nav-port{font-family:var(--fn-m);font-size:.76rem;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;transition:color .2s}
+  .nav-back{color:var(--txt-m);display:flex;align-items:center;gap:.4rem}.nav-back:hover,.nav-port:hover{color:var(--green)}
+  .nav-port{color:var(--txt-d)}
+  .post-hero{position:relative;min-height:400px;display:flex;align-items:flex-end;overflow:hidden;z-index:1}
+  .post-hero.has-img .hero-bg{position:absolute;inset:0;background-size:cover;background-position:center;filter:brightness(.32) saturate(.75);transform:scale(1.03);transition:transform 8s}
+  .post-hero.has-img:hover .hero-bg{transform:scale(1)}
+  .hero-ov{position:absolute;inset:0;background:linear-gradient(to top,rgba(4,9,18,.95) 0%,rgba(4,9,18,.65) 40%,rgba(4,9,18,.15) 100%);z-index:1}
+  .hero-c{position:relative;z-index:2;padding:4rem 3rem 3rem;width:100%;max-width:calc(var(--w) + 6rem);margin:0 auto}
+  .tag-pills{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:1.2rem}
+  .tag-pill{font-family:var(--fn-m);font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;padding:.2rem .6rem;background:rgba(0,232,122,.1);border:1px solid rgba(0,232,122,.22);color:var(--green)}
+  .post-title{font-family:var(--fn-d);font-size:clamp(2rem,5.5vw,3.6rem);letter-spacing:.04em;line-height:1.05;margin-bottom:1.3rem;text-shadow:0 2px 20px rgba(0,0,0,.5)}
+  .post-meta{display:flex;align-items:center;gap:1.2rem;flex-wrap:wrap}
+  .meta-i{font-family:var(--fn-m);font-size:.68rem;color:var(--txt-m);letter-spacing:.06em}
+  .meta-dot{color:var(--txt-d)}
+  .post-wrap{max-width:var(--w);margin:0 auto;padding:3.5rem 3rem 5rem;position:relative;z-index:1}
+  .post-content{font-size:1.05rem;line-height:1.82;color:var(--txt-m)}
+  .post-content p{margin-bottom:1.5rem}
+  .post-content h2{font-family:var(--fn-d);font-size:2rem;letter-spacing:.05em;color:var(--txt);line-height:1.1;margin:2.5rem 0 1rem;border-bottom:1px solid var(--border);padding-bottom:.55rem}
+  .post-content h3{font-family:var(--fn-d);font-size:1.5rem;letter-spacing:.05em;color:var(--txt);margin:2rem 0 .8rem}
+  .post-content h4{font-size:1.05rem;font-weight:600;color:var(--txt);margin:1.5rem 0 .6rem}
+  .post-content a{color:var(--blue);text-decoration:none;border-bottom:1px solid rgba(56,189,248,.3);transition:color .2s,border-color .2s}
+  .post-content a:hover{color:var(--green);border-bottom-color:rgba(0,232,122,.4)}
+  .post-content strong{color:var(--txt);font-weight:600}
+  .post-content ul{list-style:none;padding:0;margin-bottom:1.5rem;display:flex;flex-direction:column;gap:.5rem}
+  .post-content ul li{padding-left:1.4rem;position:relative}
+  .post-content ul li::before{content:'▸';position:absolute;left:0;color:var(--green);font-size:.85em}
+  .post-content ol{padding-left:1.6rem;margin-bottom:1.5rem;display:flex;flex-direction:column;gap:.5rem}
+  .post-content ol li{color:var(--txt-m)}
+  .post-content ol li::marker{color:var(--green);font-family:var(--fn-m);font-size:.85em}
+  .post-content blockquote{border-left:3px solid var(--green);padding:1rem 1.5rem;background:rgba(0,232,122,.04);margin:2rem 0;color:var(--txt-m);font-style:italic}
+  .post-content blockquote p{margin-bottom:0}
+  .post-content hr{border:none;border-top:1px solid var(--border);margin:2.5rem 0}
+  .post-content code{font-family:var(--fn-m);font-size:.85em;background:rgba(0,232,122,.08);border:1px solid rgba(0,232,122,.15);color:var(--green);padding:.15em .4em;border-radius:3px}
+  .post-content pre{background:#060d1a;border:1px solid var(--border);border-left:3px solid var(--green);padding:1.5rem;margin:2rem 0;overflow-x:auto}
+  .post-content pre code{background:none;border:none;color:#a8d8a8;padding:0;font-size:.85rem;line-height:1.6}
+  .post-content img{max-width:100%;display:block;margin:2rem auto;border:1px solid var(--border);border-radius:2px}
+  .post-content figure{margin:2rem 0}
+  .post-content figure img{margin:0 auto}
+  .post-content figcaption{font-family:var(--fn-m);font-size:.72rem;color:var(--txt-d);text-align:center;margin-top:.7rem;letter-spacing:.06em;line-height:1.5}
+  .post-footer{max-width:var(--w);margin:0 auto;padding:0 3rem 4rem;position:relative;z-index:1}
+  .footer-line{height:1px;background:linear-gradient(90deg,var(--green),transparent);margin-bottom:2.5rem}
+  .footer-top{display:flex;align-items:flex-start;justify-content:space-between;gap:2rem;flex-wrap:wrap;margin-bottom:2rem}
+  .tags-label{font-family:var(--fn-m);font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--txt-d);margin-bottom:.75rem}
+  .author-card{display:flex;align-items:center;gap:1rem;padding:1.2rem 1.5rem;background:var(--bg-s);border:1px solid var(--border);flex:1;min-width:220px;max-width:320px}
+  .av{width:42px;height:42px;border-radius:50%;border:2px solid var(--bdr-g);overflow:hidden;flex-shrink:0}
+  .av img{width:100%;height:100%;object-fit:cover;object-position:center top;display:block}
+  .av-info .name{font-family:var(--fn-d);font-size:.95rem;letter-spacing:.06em;margin-bottom:.15rem}
+  .av-info .role{font-family:var(--fn-m);font-size:.62rem;color:var(--txt-d);letter-spacing:.08em}
+  .nav-btns{display:flex;gap:1rem;flex-wrap:wrap}
+  .nb{font-family:var(--fn-m);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;padding:.6rem 1.3rem;border:1px solid var(--border);color:var(--txt-m);text-decoration:none;transition:all .2s;display:inline-flex;align-items:center;gap:.4rem}
+  .nb:hover{border-color:var(--green);color:var(--green)}
+  .nb.p{background:var(--green);color:var(--bg);border-color:var(--green);font-weight:600}
+  .nb.p:hover{background:#00c96a}
+  .site-footer{padding:1.8rem 3rem;border-top:1px solid var(--border);background:var(--bg-s);display:flex;align-items:center;justify-content:space-between;position:relative;z-index:1}
+  .site-footer p{font-family:var(--fn-m);font-size:.68rem;color:var(--txt-d)}
+  .site-footer em{color:var(--green);font-style:normal}
+  .sf-links{display:flex;gap:1.5rem}
+  .sf-links a{font-family:var(--fn-m);font-size:.68rem;color:var(--txt-d);text-decoration:none;transition:color .2s}
+  .sf-links a:hover{color:var(--green)}
+
+  /* Stat cards */
+  .stat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin:2rem 0}
+  .stat-card{background:var(--bg-s);border:1px solid var(--border);padding:1.4rem 1.2rem;text-align:center}
+  .stat-card .num{font-family:var(--fn-d);font-size:2.2rem;letter-spacing:.04em;color:var(--green);line-height:1;margin-bottom:.4rem}
+  .stat-card .label{font-family:var(--fn-m);font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:var(--txt-d);line-height:1.4}
+  @media(max-width:560px){.stat-grid{grid-template-columns:1fr 1fr}}
+
+  /* Callout */
+  .callout{background:rgba(56,189,248,.05);border:1px solid rgba(56,189,248,.18);border-left:3px solid var(--blue);padding:1.2rem 1.5rem;margin:2rem 0}
+  .callout-label{font-family:var(--fn-m);font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color:var(--blue);margin-bottom:.5rem}
+  .callout p{margin-bottom:0;color:var(--txt-m);font-size:.95rem}
+
+  /* Registrar abuse table */
+  .abuse-table{width:100%;border-collapse:collapse;margin:2rem 0;font-size:.9rem}
+  .abuse-table thead th{font-family:var(--fn-m);font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;color:var(--txt-d);text-align:left;padding:.6rem .8rem;border-bottom:1px solid var(--border)}
+  .abuse-table tbody td{padding:.7rem .8rem;border-bottom:1px solid rgba(255,255,255,.04);color:var(--txt-m);font-family:var(--fn-b)}
+  .abuse-table tbody tr:hover td{background:rgba(0,232,122,.03)}
+  .abuse-table .pct{font-family:var(--fn-m);color:var(--green)}
+  .abuse-table .bar-cell{width:140px}
+  .bar-wrap{background:rgba(255,255,255,.05);height:6px;border-radius:3px;overflow:hidden}
+  .bar-fill{height:100%;background:linear-gradient(90deg,var(--green),var(--blue));border-radius:3px}
+
+  /* TLD pill list */
+  .tld-list{display:flex;flex-wrap:wrap;gap:.5rem;margin:1rem 0 1.5rem}
+  .tld-pill{font-family:var(--fn-m);font-size:.72rem;padding:.3rem .7rem;background:rgba(255,255,255,.04);border:1px solid var(--border);color:var(--txt-m)}
+  .tld-pill.hot{background:rgba(0,232,122,.08);border-color:rgba(0,232,122,.2);color:var(--green)}
+
+  /* Briefing list at bottom */
+  .briefing{background:var(--bg-s);border:1px solid var(--border);padding:1.5rem;margin:2rem 0}
+  .briefing-label{font-family:var(--fn-m);font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--txt-d);margin-bottom:1rem}
+  .briefing ul{margin-bottom:0}
+
+  @media(max-width:720px){nav,.hero-c,.post-wrap,.post-footer,.site-footer{padding-left:1.5rem;padding-right:1.5rem}.post-title{font-size:clamp(1.8rem,8vw,2.6rem)}.footer-top{flex-direction:column}.author-card{max-width:100%}.site-footer{flex-direction:column;gap:1rem;text-align:center}}
+  </style>
+</head>
+<body>
+<div id="prog"></div>
+
+<nav>
+  <a href="/" class="logo">AN<em>_</em></a>
+  <div class="nav-r">
+    <a href="/blog.html" class="nav-back">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18"/></svg>
+      All Posts
+    </a>
+    <a href="/" class="nav-port">Portfolio</a>
+  </div>
+</nav>
+
+<div class="post-hero has-img">
+  <div class="hero-bg" style="background-image:url('../assets/img/manchester-airport.jpg')"></div>
+  <div class="hero-ov"></div>
+  <div class="hero-c">
+    <div class="tag-pills">
+      <span class="tag-pill">Data Breach</span>
+      <span class="tag-pill">GRC</span>
+      <span class="tag-pill">Incident Response</span>
+      <span class="tag-pill">Cybersecurity</span>
+    </div>
+    <h1 class="post-title">Peripheral Vision: 8.7 Million Records and the Systems Nobody Watches</h1>
+    <div class="post-meta">
+      <span class="meta-i">Aug 27, 2026</span>
+      <span class="meta-dot">·</span>
+      <span class="meta-i">7 min read</span>
+      <span class="meta-dot">·</span>
+      <span class="meta-i">Adrian Necaj</span>
+    </div>
+  </div>
+</div>
+
+<div class="post-wrap">
+  <div class="post-content">
+
+    <p>On August 27, 2026, Manchester Airports Group (MAG) — the operator behind Manchester, London Stansted, and East Midlands airports — <a href="https://www.theguardian.com/business/2026/aug/27/uk-airports-operator-cyber-attack-customer-data-accessed" target="_blank">confirmed</a> that an unauthorized third party had accessed the personal data of roughly 8.7 million customers. It is one of the largest breaches to hit UK aviation in years. And yet not a single flight was delayed, no payment card was exposed, and aviation security was never in question. The data didn't come from a runway system or a payment gateway. It came from airport Wi-Fi sign-ups and parking reservations — the systems almost nobody thinks of as security-critical.</p>
+
+    <div class="stat-grid">
+      <div class="stat-card">
+        <div class="num">8.7M</div>
+        <div class="label">Customer records<br>accessed</div>
+      </div>
+      <div class="stat-card">
+        <div class="num">66M</div>
+        <div class="label">MAG passengers<br>in the past year</div>
+      </div>
+      <div class="stat-card">
+        <div class="num">&pound;0</div>
+        <div class="label">Extortion demand<br>paid</div>
+      </div>
+    </div>
+
+    <p>MAG operates three of the UK's busiest airports and served a record 66 million passengers in its last financial year. The compromised records span car park, lounge, and Fast Track bookings, along with public Wi-Fi sign-ups across all three sites. The company was quick to stress what was <em>not</em> affected — and that list is telling.</p>
+
+    <h2>What Leaked — and What Didn't</h2>
+
+    <p>The exposed fields were email addresses, phone numbers, vehicle registration numbers, and postcodes. Neither MAG nor the system that was accessed held bank or payment details, and airport operations — flights, parking, existing bookings — continued running normally throughout.</p>
+
+    <p>The shape of the data matters. By MAG's own account, the overwhelming majority of affected records were email addresses captured when travelers signed up for the airports' public Wi-Fi. The next-largest group came from people who had started — but never completed — a car park or Fast Track booking, leaving their details behind in the process. The smallest slice came from bookings that were actually finished.</p>
+
+    <div class="callout">
+      <p class="callout-label">// What didn't leak</p>
+      <p>No card numbers, no passport data, no air-traffic or aviation-security systems. From a passenger-safety standpoint, the airports were never at risk. From a data-protection standpoint, 8.7 million rows of contactable personal data is a full-blown crisis regardless of what wasn't taken.</p>
+    </div>
+
+    <h2>The Peripheral System Problem</h2>
+
+    <p>The interesting part of this breach isn't <em>what</em> was taken — it's <em>where it lived</em>. A Wi-Fi captive portal. A car park booking widget. A lounge reservation form. These are peripheral customer systems, and they sit well outside the operational-technology security spotlight that (rightly) surrounds air-traffic control and payment infrastructure. But they quietly accumulate enormous volumes of personal data. According to <a href="https://www.theregister.com/security/2026/08/27/cybercrooks-jet-off-with-manchester-airports-group-customer-data/5292943" target="_blank">reporting from The Register</a>, the attackers compromised one MAG system and then pivoted to steal files from a database hosted by a third party — meaning the exposed data wasn't even sitting inside MAG's own perimeter.</p>
+
+    <p>Every organization has its equivalent: the marketing database, the loyalty program, the third-party booking or forms widget, the "just collect an email for the Wi-Fi" captive portal. Individually, each feels low-stakes. At scale, a "minor" dataset becomes a major incident. 8.7 million contactable records means regulatory scrutiny under UK GDPR, mandatory engagement with the Information Commissioner's Office, and mass customer notification — all triggered by a system most security teams would have ranked near the bottom of their asset inventory, if they'd inventoried it at all.</p>
+
+    <div class="callout">
+      <p class="callout-label">// Defender implication</p>
+      <p>The systems that leak the most personal data are rarely the ones you've hardened the most. A captive-portal email list or an abandoned-booking table hosted by a third-party processor can carry more GDPR exposure than the flagship application everyone actually watches.</p>
+    </div>
+
+    <h2>Extortion, Not Ransomware</h2>
+
+    <p>MAG was explicit that this was not a ransomware event — nothing was encrypted, and no operations were held hostage. It was a straight data-theft-and-extortion play. At the ICO's request, MAG withheld the attacker's name, the ransom note, and the specific demands, to avoid handing the group the notoriety it was fishing for. Notably, the company says it did <strong>not</strong> pay, and that the demand was actually lower than what the group is known to ask for. Leadership has framed the incident as <strong>"a hack, not a lapse"</strong> — a sophisticated intrusion rather than an employee carelessly handing over credentials.</p>
+
+    <blockquote>
+      <p>That framing is a reputational and legal posture as much as a technical one. But it's worth being honest: to the 8.7 million people now bracing for targeted phishing, the distinction between a clever intrusion and a careless mistake is academic. The outcome is identical.</p>
+    </blockquote>
+
+    <h2>The First 24 Hours Are Communications, Not Forensics</h2>
+
+    <p>Watch what actually consumed MAG's first day. Not memory forensics — messaging. The group had to publish a public statement, stand up customer FAQs, reassure travelers that flights and parking were unaffected, notify regulators, brief national media, and begin contacting millions of affected customers — all before its own investigation had concluded. As a precaution, it temporarily revoked access to its Manage My Booking service, advising customers with imminent travel to phone customer services instead.</p>
+
+    <p>This is the part of incident response that tabletop exercises consistently underweight. UK GDPR gives an organization <strong>72 hours</strong> to notify the ICO of a qualifying breach. At 8.7 million records, notification isn't a formality — it's a logistical operation, and it runs in parallel with a live investigation, media pressure, and customers demanding answers. The teams that navigate this well are the ones who wrote the holding statement, the customer FAQ, and the regulator-notification workflow <em>before</em> they ever needed them.</p>
+
+    <div class="callout">
+      <p class="callout-label">// Why "just" email and postcode still matters</p>
+      <p>Email + phone + postcode + vehicle registration is a potent toolkit for targeted phishing and vishing. An attacker who knows you parked at Stansted, has your number, and can cite your car's plate can craft a "parking fine" or "booking problem" lure far more convincing than any spray-and-pray spam. No payment data is needed to run a profitable scam — just enough real context to be believed. MAG is already urging affected customers to stay alert for exactly this.</p>
+    </div>
+
+    <h2>What This Means in Practice</h2>
+
+    <p>The MAG breach is a clean case study in a risk most organizations carry and few actively manage. A few concrete angles worth taking back to your own environment:</p>
+
+    <ul>
+      <li><strong>Inventory your peripheral PII.</strong> Map every place customer data lands — not just the flagship app, but captive portals, marketing platforms, loyalty programs, abandoned-enquiry tables, and especially anything hosted by a third-party processor. You cannot protect what isn't on the asset list.</li>
+      <li><strong>Extend monitoring to third-party-hosted data.</strong> Under GDPR you remain the controller even when a processor holds the data. Know where it physically lives, what's logged, and how you would detect exfiltration from a system you don't operate — then pin it down in your Article 30 records and your Article 28 processor contracts.</li>
+      <li><strong>Minimize and expire.</strong> Ask why 8.7 million Wi-Fi emails and abandoned-enquiry records existed to be stolen in the first place. Collect less, retain it for less time, delete aggressively. Data you never kept can't leak.</li>
+      <li><strong>Pre-build the breach comms and notification playbook.</strong> Draft the holding statement, the customer FAQ, and the ICO-notification workflow during business-as-usual — so the 72-hour clock isn't the moment you start writing from scratch.</li>
+      <li><strong>Warn users about context-rich phishing.</strong> After a breach like this, affected people should expect lures that reference genuine details. Security-awareness messaging should call that out by name.</li>
+    </ul>
+
+    <hr>
+
+    <p>The runways were fine. The planes were fine. The payment systems were fine. That is precisely the lesson. The Manchester Airports breach never touched anything an "airport hack" headline would lead you to fear — it drained a Wi-Fi sign-up list and a pile of parking reservations sitting on someone else's server. In a GDPR world, there is no such thing as a low-stakes database with 8.7 million rows in it. The systems in your peripheral vision are still systems — and attackers have already noticed. The only real question is whether your asset inventory has.</p>
+
+  </div>
+</div>
+
+<div class="post-footer">
+  <div class="footer-line"></div>
+  <div class="footer-top">
+    <div>
+      <p class="tags-label">// Tagged under</p>
+      <div class="tag-pills">
+        <span class="tag-pill">Data Breach</span>
+        <span class="tag-pill">GRC</span>
+        <span class="tag-pill">Incident Response</span>
+        <span class="tag-pill">Cybersecurity</span>
+      </div>
+    </div>
+    <div class="author-card">
+      <div class="av"><img src="../../profile.jpg" alt="Adrian Necaj"></div>
+      <div class="av-info">
+        <p class="name">Adrian Necaj</p>
+        <p class="role">MS Cybersecurity · NYU Tandon<br>NYS Executive Chamber</p>
+      </div>
+    </div>
+  </div>
+  <div class="nav-btns">
+    <a href="/blog.html" class="nb">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18"/></svg>
+      All Posts
+    </a>
+    <a href="/" class="nb p">Portfolio →</a>
+  </div>
+</div>
+
+<div class="site-footer">
+  <p>© 2026 <em>Adrian Necaj</em> · Queens, NYC 🇦🇱</p>
+  <div class="sf-links">
+    <a href="/">Portfolio</a>
+    <a href="/blog.html">Blog</a>
+    <a href="https://github.com/anecaj" target="_blank">GitHub</a>
+    <a href="https://www.linkedin.com/in/anecaj/" target="_blank">LinkedIn</a>
+  </div>
+</div>
+
+<script>
+const b=document.getElementById('prog');
+window.addEventListener('scroll',()=>{
+  const d=document.documentElement;
+  b.style.width=(d.scrollTop/(d.scrollHeight-d.clientHeight)*100)+'%';
+});
+</script>
+</body>
+</html>

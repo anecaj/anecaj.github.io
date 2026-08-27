@@ -168,6 +168,10 @@
   .pc-link:hover{gap:.6rem}
   .pc-link.dead{color:var(--txt-d);cursor:default;pointer-events:none}
   .pc-links{display:flex;gap:1.3rem;flex-wrap:wrap;align-items:center;margin-top:.1rem}
+  .pc-link.demo{position:relative}
+  .pc-link.demo .tip{position:absolute;left:0;bottom:calc(100% + 10px);width:210px;background:var(--bg-e);border:1px solid var(--bdr-g);border-radius:6px;color:var(--txt-m);font-family:var(--fn-m);font-size:.6rem;line-height:1.55;letter-spacing:.01em;text-transform:none;padding:.55rem .65rem;opacity:0;visibility:hidden;transform:translateY(5px);transition:opacity .2s,transform .2s;pointer-events:none;z-index:6;box-shadow:0 10px 28px rgba(0,0,0,.55)}
+  .pc-link.demo .tip::after{content:'';position:absolute;top:100%;left:14px;border:6px solid transparent;border-top-color:var(--bdr-g)}
+  .pc-link.demo:hover .tip{opacity:1;visibility:visible;transform:translateY(0)}
 
   /* Pagination */
   .pg-nav{display:none;justify-content:center;align-items:center;gap:.6rem;margin-top:2.5rem}
@@ -243,12 +247,12 @@
     .skills-grid{grid-template-columns:repeat(2,1fr)}
   }
 
-  .hero-name-wrap { display:flex; align-items:center; gap:2rem; margin-bottom:1.2rem; }
+  .hero-name-wrap { display:flex; align-items:center; gap:2.4rem; margin-bottom:1.2rem; }
   .hero-avatar {
-    width:110px; height:110px; border-radius:50%;
+    width:155px; height:155px; border-radius:50%;
     object-fit:cover; object-position:center top;
     border:2px solid var(--green);
-    box-shadow:0 0 28px rgba(0,232,122,.2);
+    box-shadow:0 0 34px rgba(0,232,122,.22);
     flex-shrink:0;
   }
   </style>
@@ -387,7 +391,8 @@
                 <p class="tl-co">@ NYS Chief Cyber Office · New York, NY</p>
               </div>
               <div class="org-logo" style="--c:#f59e0b">
-                <svg width="100%" height="100%" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="New York State"><rect width="40" height="40" fill="#0a2647"/><text x="20" y="25.5" text-anchor="middle" font-family="'Arial Black',Arial,Helvetica,sans-serif" font-weight="900" font-size="12.5" letter-spacing="0.3" fill="#f5a623">NYS</text></svg>
+                <img src="/assets/logos/nys-seal.png" alt="New York State" style="padding:3px" onerror="this.closest('.org-logo').classList.add('no-img')">
+                <span class="fb">NYS</span>
               </div>
             </div>
             <span class="tl-badge">Current Role</span>
@@ -443,7 +448,8 @@
                 <p class="tl-co">@ Douglas Elliman Real Estate · NYC</p>
               </div>
               <div class="org-logo" style="--c:#94a3b8">
-                <svg width="100%" height="100%" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Douglas Elliman"><rect width="40" height="40" fill="#111111"/><text x="20" y="25.5" text-anchor="middle" font-family="'Arial Black',Arial,Helvetica,sans-serif" font-weight="900" font-size="13" letter-spacing="1" fill="#ffffff">DE</text></svg>
+                <img src="/assets/logos/douglas-elliman.png" alt="Douglas Elliman" style="padding:4px" onerror="this.closest('.org-logo').classList.add('no-img')">
+                <span class="fb">DE</span>
               </div>
             </div>
             <ul class="tl-ul">
@@ -549,7 +555,7 @@
           <p class="pc-desc">Real-time threat intelligence platform aggregating MITRE ATT&amp;CK techniques and NIST NVD CVEs into a live, filterable dashboard. Flask/SQLite backend with a scheduled ingestion pipeline (APScheduler) feeding a React + Recharts frontend — fully deployed, no API keys required.</p>
           <div class="pc-tags"><span class="tag">Flask</span><span class="tag">React</span><span class="tag">MITRE ATT&amp;CK</span><span class="tag">NIST NVD</span></div>
           <div class="pc-links">
-            <a href="https://anecaj.github.io/Threat-Intel-Aggregator/" target="_blank" class="pc-link">Live Demo →</a>
+            <a href="https://anecaj.github.io/Threat-Intel-Aggregator/" target="_blank" class="pc-link demo">Live Demo →<span class="tip">Heads up: the backend runs on Render’s free tier and sleeps when idle—the first load can take ~30s to wake up. Give it a moment before assuming it’s down.</span></a>
             <a href="https://github.com/anecaj/Threat-Intel-Aggregator" target="_blank" class="pc-link" style="color:var(--green)">GitHub →</a>
           </div>
         </div>
@@ -565,7 +571,7 @@
           <p class="pc-desc">ML-powered phishing URL detector using a scikit-learn Random Forest trained on 25+ lexical features — length, Shannon entropy, subdomain depth, punycode, and phishing-keyword signals. Real-time scoring via a Flask API and React frontend, trained on free OpenPhish + Tranco data.</p>
           <div class="pc-tags"><span class="tag">Random Forest</span><span class="tag">scikit-learn</span><span class="tag">Flask</span><span class="tag">React</span></div>
           <div class="pc-links">
-            <a href="https://anecaj.github.io/Phishing-Detector/" target="_blank" class="pc-link">Live Demo →</a>
+            <a href="https://anecaj.github.io/Phishing-Detector/" target="_blank" class="pc-link demo">Live Demo →<span class="tip">Heads up: the backend runs on Render’s free tier and sleeps when idle—the first load can take ~30s to wake up. Give it a moment before assuming it’s down.</span></a>
             <a href="https://github.com/anecaj/Phishing-Detector" target="_blank" class="pc-link" style="color:var(--green)">GitHub →</a>
           </div>
         </div>
@@ -581,7 +587,7 @@
           <p class="pc-desc">A working Zero Trust access control system enforcing continuous verification, least privilege, and assume-breach. Dynamic trust scoring from TOTP MFA, device fingerprinting, and session context gates access to tiered resources — JWT/bcrypt auth with a full audit trail and React frontend.</p>
           <div class="pc-tags"><span class="tag">Zero Trust</span><span class="tag">TOTP MFA</span><span class="tag">JWT</span><span class="tag">Flask</span></div>
           <div class="pc-links">
-            <a href="https://anecaj.github.io/Zero-Trust-Access/" target="_blank" class="pc-link">Live Demo →</a>
+            <a href="https://anecaj.github.io/Zero-Trust-Access/" target="_blank" class="pc-link demo">Live Demo →<span class="tip">Heads up: the backend runs on Render’s free tier and sleeps when idle—the first load can take ~30s to wake up. Give it a moment before assuming it’s down.</span></a>
             <a href="https://github.com/anecaj/Zero-Trust-Access" target="_blank" class="pc-link" style="color:var(--green)">GitHub →</a>
           </div>
         </div>
@@ -597,7 +603,7 @@
           <p class="pc-desc">OWASP Top 10-aligned scanner checking 15+ vulnerability classes — missing security headers, CSP/HSTS gaps, CORS misconfiguration, cookie flags, reflected XSS and SQLi indicators — with severity-ranked findings, evidence, and remediation guidance. Flask + BeautifulSoup backend, React/Recharts UI.</p>
           <div class="pc-tags"><span class="tag">OWASP Top 10</span><span class="tag">Flask</span><span class="tag">BeautifulSoup</span><span class="tag">React</span></div>
           <div class="pc-links">
-            <a href="https://anecaj.github.io/Web-Vuln-Scanner/" target="_blank" class="pc-link">Live Demo →</a>
+            <a href="https://anecaj.github.io/Web-Vuln-Scanner/" target="_blank" class="pc-link demo">Live Demo →<span class="tip">Heads up: the backend runs on Render’s free tier and sleeps when idle—the first load can take ~30s to wake up. Give it a moment before assuming it’s down.</span></a>
             <a href="https://github.com/anecaj/Web-Vuln-Scanner" target="_blank" class="pc-link" style="color:var(--green)">GitHub →</a>
           </div>
         </div>

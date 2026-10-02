@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>When the Nurse Can't Log In: Lessons from the Springfield Schools Cyberattack — Adrian Necaj</title>
+  <meta name="post-title"       content="When the Nurse Can't Log In: Lessons from the Springfield Schools Cyberattack">
+  <meta name="post-date"        content="2026-09-11">
+  <meta name="post-description" content="Springfield Public Schools just lived through a Level 4 cyber incident that closed classrooms for a week. The reason schools couldn't reopen says everything about how unprepared K-12 districts are for the threat landscape they're operating in.">
+  <meta name="post-image"       content="springfield.jpg">
+  <meta name="post-tags"        content="K-12 Security, Local Government, Incident Response, Cybersecurity">
+
+  <meta property="og:title"       content="When the Nurse Can't Log In: Lessons from the Springfield Schools Cyberattack">
+  <meta property="og:description" content="Springfield Public Schools just lived through a Level 4 cyber incident that closed classrooms for a week — and the reason schools couldn't reopen says everything about how vulnerable K-12 districts really are.">
+  <meta property="og:type"        content="article">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Fira+Code:wght@300;400;500;600&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+  <style>
+  :root{
+    --bg:#040912;--bg-s:#091221;--bg-e:#0d1a2e;
+    --green:#00e87a;--blue:#38bdf8;
+    --txt:#dde6f0;--txt-m:#8fa3bb;--txt-d:#3d5268;
+    --border:rgba(255,255,255,.07);--bdr-g:rgba(0,232,122,.28);
+    --fn-d:'Bebas Neue',sans-serif;--fn-m:'Fira Code',monospace;--fn-b:'DM Sans',sans-serif;
+    --w:720px;
+  }
+  *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--txt);font-family:var(--fn-b);line-height:1.6;overflow-x:hidden}
+  body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(1px 1px at center,rgba(255,255,255,.025) 0%,transparent 100%);background-size:28px 28px;pointer-events:none;z-index:0}
+  ::-webkit-scrollbar{width:8px}::-webkit-scrollbar-track{background:var(--bg-s)}::-webkit-scrollbar-thumb{background:rgba(0,232,122,.45);border-radius:4px}::-webkit-scrollbar-thumb:hover{background:rgba(0,232,122,.75)}
+  #prog{position:fixed;top:0;left:0;height:2px;width:0;background:linear-gradient(90deg,var(--green),var(--blue));z-index:200;transition:width .1s linear}
+  nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:1rem 3rem;background:rgba(4,9,18,.92);backdrop-filter:blur(16px);border-bottom:2px solid rgba(0,232,122,.2)}
+  .logo{font-family:var(--fn-d);font-size:1.4rem;letter-spacing:.12em;color:var(--txt);text-decoration:none}.logo em{color:var(--green);font-style:normal}
+  .nav-r{display:flex;align-items:center;gap:1.5rem}
+  .nav-back,.nav-port{font-family:var(--fn-m);font-size:.76rem;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;transition:color .2s}
+  .nav-back{color:var(--txt-m);display:flex;align-items:center;gap:.4rem}.nav-back:hover,.nav-port:hover{color:var(--green)}
+  .nav-port{color:var(--txt-d)}
+  .post-hero{position:relative;min-height:400px;display:flex;align-items:flex-end;overflow:hidden;z-index:1}
+  .post-hero.has-img .hero-bg{position:absolute;inset:0;background-size:cover;background-position:center;filter:brightness(.32) saturate(.75);transform:scale(1.03);transition:transform 8s}
+  .post-hero.has-img:hover .hero-bg{transform:scale(1)}
+  .hero-ov{position:absolute;inset:0;background:linear-gradient(to top,rgba(4,9,18,.95) 0%,rgba(4,9,18,.65) 40%,rgba(4,9,18,.15) 100%);z-index:1}
+  .hero-c{position:relative;z-index:2;padding:4rem 3rem 3rem;width:100%;max-width:calc(var(--w) + 6rem);margin:0 auto}
+  .tag-pills{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:1.2rem}
+  .tag-pill{font-family:var(--fn-m);font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;padding:.2rem .6rem;background:rgba(0,232,122,.1);border:1px solid rgba(0,232,122,.22);color:var(--green)}
+  .post-title{font-family:var(--fn-d);font-size:clamp(2rem,5.5vw,3.6rem);letter-spacing:.04em;line-height:1.05;margin-bottom:1.3rem;text-shadow:0 2px 20px rgba(0,0,0,.5)}
+  .post-meta{display:flex;align-items:center;gap:1.2rem;flex-wrap:wrap}
+  .meta-i{font-family:var(--fn-m);font-size:.68rem;color:var(--txt-m);letter-spacing:.06em}
+  .meta-dot{color:var(--txt-d)}
+  .post-wrap{max-width:var(--w);margin:0 auto;padding:3.5rem 3rem 5rem;position:relative;z-index:1}
+  .post-content{font-size:1.05rem;line-height:1.82;color:var(--txt-m)}
+  .post-content p{margin-bottom:1.5rem}
+  .post-content h2{font-family:var(--fn-d);font-size:2rem;letter-spacing:.05em;color:var(--txt);line-height:1.1;margin:2.5rem 0 1rem;border-bottom:1px solid var(--border);padding-bottom:.55rem}
+  .post-content h3{font-family:var(--fn-d);font-size:1.5rem;letter-spacing:.05em;color:var(--txt);margin:2rem 0 .8rem}
+  .post-content h4{font-size:1.05rem;font-weight:600;color:var(--txt);margin:1.5rem 0 .6rem}
+  .post-content a{color:var(--blue);text-decoration:none;border-bottom:1px solid rgba(56,189,248,.3);transition:color .2s,border-color .2s}
+  .post-content a:hover{color:var(--green);border-bottom-color:rgba(0,232,122,.4)}
+  .post-content strong{color:var(--txt);font-weight:600}
+  .post-content ul{list-style:none;padding:0;margin-bottom:1.5rem;display:flex;flex-direction:column;gap:.5rem}
+  .post-content ul li{padding-left:1.4rem;position:relative}
+  .post-content ul li::before{content:'▸';position:absolute;left:0;color:var(--green);font-size:.85em}
+  .post-content ol{padding-left:1.6rem;margin-bottom:1.5rem;display:flex;flex-direction:column;gap:.5rem}
+  .post-content ol li{color:var(--txt-m)}
+  .post-content ol li::marker{color:var(--green);font-family:var(--fn-m);font-size:.85em}
+  .post-content blockquote{border-left:3px solid var(--green);padding:1rem 1.5rem;background:rgba(0,232,122,.04);margin:2rem 0;color:var(--txt-m);font-style:italic}
+  .post-content blockquote p{margin-bottom:0}
+  .post-content hr{border:none;border-top:1px solid var(--border);margin:2.5rem 0}
+  .post-content code{font-family:var(--fn-m);font-size:.85em;background:rgba(0,232,122,.08);border:1px solid rgba(0,232,122,.15);color:var(--green);padding:.15em .4em;border-radius:3px}
+  .post-content pre{background:#060d1a;border:1px solid var(--border);border-left:3px solid var(--green);padding:1.5rem;margin:2rem 0;overflow-x:auto}
+  .post-content pre code{background:none;border:none;color:#a8d8a8;padding:0;font-size:.85rem;line-height:1.6}
+  .post-content img{max-width:100%;display:block;margin:2rem auto;border:1px solid var(--border);border-radius:2px}
+  .post-footer{max-width:var(--w);margin:0 auto;padding:0 3rem 4rem;position:relative;z-index:1}
+  .footer-line{height:1px;background:linear-gradient(90deg,var(--green),transparent);margin-bottom:2.5rem}
+  .footer-top{display:flex;align-items:flex-start;justify-content:space-between;gap:2rem;flex-wrap:wrap;margin-bottom:2rem}
+  .tags-label{font-family:var(--fn-m);font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--txt-d);margin-bottom:.75rem}
+  .author-card{display:flex;align-items:center;gap:1rem;padding:1.2rem 1.5rem;background:var(--bg-s);border:1px solid var(--border);flex:1;min-width:220px;max-width:320px}
+  .av{width:42px;height:42px;border-radius:50%;border:2px solid var(--bdr-g);overflow:hidden;flex-shrink:0}
+  .av img{width:100%;height:100%;object-fit:cover;object-position:center top;display:block}
+  .av-info .name{font-family:var(--fn-d);font-size:.95rem;letter-spacing:.06em;margin-bottom:.15rem}
+  .av-info .role{font-family:var(--fn-m);font-size:.62rem;color:var(--txt-d);letter-spacing:.08em}
+  .nav-btns{display:flex;gap:1rem;flex-wrap:wrap}
+  .nb{font-family:var(--fn-m);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;padding:.6rem 1.3rem;border:1px solid var(--border);color:var(--txt-m);text-decoration:none;transition:all .2s;display:inline-flex;align-items:center;gap:.4rem}
+  .nb:hover{border-color:var(--green);color:var(--green)}
+  .nb.p{background:var(--green);color:var(--bg);border-color:var(--green);font-weight:600}
+  .nb.p:hover{background:#00c96a}
+  .site-footer{padding:1.8rem 3rem;border-top:1px solid var(--border);background:var(--bg-s);display:flex;align-items:center;justify-content:space-between;position:relative;z-index:1}
+  .site-footer p{font-family:var(--fn-m);font-size:.68rem;color:var(--txt-d)}
+  .site-footer em{color:var(--green);font-style:normal}
+  .sf-links{display:flex;gap:1.5rem}
+  .sf-links a{font-family:var(--fn-m);font-size:.68rem;color:var(--txt-d);text-decoration:none;transition:color .2s}
+  .sf-links a:hover{color:var(--green)}
+
+  /* Timeline */
+  .timeline{margin:2rem 0;position:relative;padding-left:1.8rem}
+  .timeline::before{content:'';position:absolute;left:.35rem;top:.4rem;bottom:.4rem;width:1px;background:linear-gradient(to bottom,var(--green),rgba(0,232,122,.1))}
+  .tl-item{position:relative;margin-bottom:1.4rem}
+  .tl-item:last-child{margin-bottom:0}
+  .tl-dot{position:absolute;left:-1.55rem;top:.45rem;width:8px;height:8px;background:var(--green);border-radius:50%;box-shadow:0 0 0 3px rgba(0,232,122,.15)}
+  .tl-date{font-family:var(--fn-m);font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:var(--green);margin-bottom:.2rem}
+  .tl-text{font-size:.95rem;color:var(--txt-m);line-height:1.6}
+
+  /* Callout variants */
+  .callout{padding:1.2rem 1.5rem;margin:2rem 0}
+  .callout-blue{background:rgba(56,189,248,.05);border:1px solid rgba(56,189,248,.18);border-left:3px solid var(--blue)}
+  .callout-red{background:rgba(255,80,80,.04);border:1px solid rgba(255,80,80,.15);border-left:3px solid #f87171}
+  .callout-label{font-family:var(--fn-m);font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;margin-bottom:.5rem}
+  .callout-blue .callout-label{color:var(--blue)}
+  .callout-red .callout-label{color:#f87171}
+  .callout p{margin-bottom:0;color:var(--txt-m);font-size:.95rem}
+
+  /* Impact grid */
+  .impact-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:2rem 0}
+  .impact-card{background:var(--bg-s);border:1px solid var(--border);padding:1.2rem}
+  .impact-card h4{font-family:var(--fn-m);font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:var(--txt-d);margin-bottom:.7rem;border-bottom:1px solid var(--border);padding-bottom:.4rem;font-weight:400}
+  .impact-card ul{margin-bottom:0}
+  @media(max-width:560px){.impact-grid{grid-template-columns:1fr}}
+
+  @media(max-width:720px){nav,.hero-c,.post-wrap,.post-footer,.site-footer{padding-left:1.5rem;padding-right:1.5rem}.post-title{font-size:clamp(1.8rem,8vw,2.6rem)}.footer-top{flex-direction:column}.author-card{max-width:100%}.site-footer{flex-direction:column;gap:1rem;text-align:center}}
+  </style>
+</head>
+<body>
+<div id="prog"></div>
+
+<nav>
+  <a href="/" class="logo">AN<em>_</em></a>
+  <div class="nav-r">
+    <a href="/blog.html" class="nav-back">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18"/></svg>
+      All Posts
+    </a>
+    <a href="/" class="nav-port">Portfolio</a>
+  </div>
+</nav>
+
+<div class="post-hero has-img">
+  <div class="hero-bg" style="background-image:url('../../blog/assets/img/springfield.jpg')"></div>
+  <div class="hero-ov"></div>
+  <div class="hero-c">
+    <div class="tag-pills">
+      <span class="tag-pill">K-12 Security</span>
+      <span class="tag-pill">Local Government</span>
+      <span class="tag-pill">Incident Response</span>
+      <span class="tag-pill">Cybersecurity</span>
+    </div>
+    <h1 class="post-title">When the Nurse Can't Log In: Lessons from the Springfield Schools Cyberattack</h1>
+    <div class="post-meta">
+      <span class="meta-i">Sep 11, 2026</span>
+      <span class="meta-dot">·</span>
+      <span class="meta-i">8 min read</span>
+      <span class="meta-dot">·</span>
+      <span class="meta-i">Adrian Necaj</span>
+    </div>
+  </div>
+</div>
+
+<div class="post-wrap">
+  <div class="post-content">
+
+    <p>On Monday, September 7th — a Labor Day holiday — Springfield Public Schools in Massachusetts quietly discovered they had a problem. By Tuesday the schools were closed. By Wednesday they were still closed. By Thursday night, Mayor Domenic Sarno was standing at a podium at City Hall characterizing the attackers as "very sophisticated" while declining to name them, and Superintendent Dr. Sonia Dinnall was fielding questions about when 25,000 students could safely return to their classrooms. The answer came down to a single, revealing detail: schools wouldn't reopen until <strong>school nurses had access to student medical records</strong>.</p>
+
+    <p>That sentence is worth sitting with. In a district that had spent considerable energy emphasizing that teachers are prepared to teach with pencil and paper if they have to, the actual hard blocker on resuming operations wasn't internet access, wasn't email, wasn't even the phone system — it was whether a nurse could pull up a student's allergy history or seizure protocol before that student walked through the door. This is what critical dependency looks like in a K-12 environment, and it's a detail that gets lost in the broader narrative of school cyberattacks.</p>
+
+    <h2>What Happened: The Timeline</h2>
+
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-date">~Sep 01 — Incident first detected</div>
+        <div class="tl-text">The district later confirmed the cyber incident was first detected approximately one week before the public announcement — pointing to initial discovery during the final days of August, likely over the Labor Day weekend.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-date">Sep 07 (Labor Day) — Closure announced</div>
+        <div class="tl-text">Around 4 p.m. Monday, Springfield Public Schools announced Tuesday closures. The timing — when families were already out for the holiday — compressed the community's window to make childcare arrangements.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-date">Sep 08–09 — Schools remain closed</div>
+        <div class="tl-text">The district classified the event as a <strong>Level 4 cyber incident</strong>. Access to third-party cloud platforms housing student medical and transportation records was blocked. All staff and students with district-issued laptops were directed off district networks. The FBI, Massachusetts State Police, and local authorities opened investigations.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-date">Sep 10 — Teacher return; press conference</div>
+        <div class="tl-text">Teachers returned Friday. At a 5:30 p.m. press conference at City Hall, Mayor Sarno, Superintendent Dinnall, and district officials confirmed progress was being made. Phone lines expected restored by Monday. No school days added to the end-of-year calendar.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-date">Sep 14 — Students return</div>
+        <div class="tl-text">Students expected back in classrooms Monday, with phone systems restored and IT specialists continuing to work on full system recovery.</div>
+      </div>
+    </div>
+
+    <p>Also notable: in the same week, Everett City Hall — roughly 90 miles northeast of Springfield — shut down due to a separate cyber incident. As of Thursday, investigators had not established whether the two events are related. Two Massachusetts public entities hit in the same short window is a pattern worth watching, even if it turns out to be coincidence.</p>
+
+    <h2>The Level 4 Designation</h2>
+
+    <p>Officials described this as a "Level 4 cyber incident" — a classification that doesn't map to a single universal standard but in most K-12 and state government frameworks refers to a severe, multi-system compromise that materially disrupts operations and requires external law enforcement or incident response assistance. The fact that the FBI and Massachusetts State Police are both involved, and that system access was blocked district-wide, is consistent with that severity tier.</p>
+
+    <div class="callout callout-red">
+      <p class="callout-label">// Disclosure posture</p>
+      <p>Mayor Sarno explicitly acknowledged limiting what the district would say publicly: <em>"Those individuals that have perpetrated this could be watching right now, so we're limited at what we want to say — period."</em> This is a defensible operational security decision during an active investigation, but it also means the public picture remains incomplete. No ransomware group has been named, no data exfiltration confirmed or denied beyond initial statements that data was "not compromised."</p>
+    </div>
+
+    <p>The "not compromised" line on student data is the kind of claim that gets made early and walked back later as forensic analysis deepens. It may well hold — the initial containment appears to have blocked access to cloud platforms before exfiltration could occur — but it's worth treating as preliminary until the investigation concludes.</p>
+
+    <h2>Why K-12 Keeps Getting Hit</h2>
+
+    <p>Springfield isn't an anomaly. School districts have been among the most consistently targeted public sector entities for the past five years, and the reasons haven't changed: large attack surfaces, chronically underfunded IT departments, rich stores of personally identifiable information, and a political economy that makes it genuinely difficult to prioritize security spending over classroom resources.</p>
+
+    <p>What Springfield illustrates particularly clearly is how deep the operational dependency on connected systems has become — even in districts that pride themselves on analog fallback capability. The superintendent's talking point that "teachers can teach with pencil and paper" was accurate but incomplete. You can run a classroom without a computer. You can't safely run a school nurse's office without access to student medication lists, emergency contacts, and allergy profiles. Those records live in cloud platforms, and when access to those platforms is severed, the health and safety calculus changes.</p>
+
+    <div class="impact-grid">
+      <div class="impact-card">
+        <h4>Operational impact</h4>
+        <ul>
+          <li>Schools closed for a full week</li>
+          <li>Phone systems taken offline</li>
+          <li>District-issued devices quarantined</li>
+          <li>Student medical records inaccessible</li>
+          <li>Transportation data blocked</li>
+          <li>Staff locked off district network</li>
+        </ul>
+      </div>
+      <div class="impact-card">
+        <h4>Community impact</h4>
+        <ul>
+          <li>~25,000 students out of school</li>
+          <li>14,000+ emergency texts sent to families</li>
+          <li>Grab-and-go meals at 6 city locations</li>
+          <li>YMCA absorbed overflow childcare</li>
+          <li>Parents without childcare missing work</li>
+          <li>Academic calendar disruption</li>
+        </ul>
+      </div>
+    </div>
+
+    <p>The community impact is the part that doesn't show up in most cyber incident write-ups. For a city like Springfield — the third-largest in Massachusetts, with significant concentrations of lower-income families — a sudden week-long school closure isn't just an inconvenience. It's a food access problem (the district serves thousands of free and reduced-price meals daily), a childcare problem (the YMCA reported well over 100 kids flooding their downtown location on short notice), and an income problem for parents who can't work from home. The YMCA offering full-day care for families in their before/after-school programs helped, but it absorbed capacity quickly. The district providing grab-and-go breakfast and lunch at six locations was a necessary improvisation, not a plan.</p>
+
+    <h2>The Communication Response</h2>
+
+    <p>One underappreciated element of the Springfield response was the communication infrastructure decision. When district phone lines went down, officials pushed over 14,000 emergency text messages to families through a platform called Edia — which, notably, is described as a "new platform." Elementary school families were directed to ClassDojo for ongoing updates.</p>
+
+    <p>This is actually a meaningful piece of the response that deserves more attention. Many districts don't have an out-of-band communication channel ready to go when their primary systems are compromised. The fact that Springfield had Edia available — even if it was newly deployed — meant they could reach families quickly without relying on the district's own email or website infrastructure, which were presumably also affected. Having a communication channel that doesn't depend on your own systems is a basic resilience requirement that a lot of districts simply haven't built.</p>
+
+    <div class="callout callout-blue">
+      <p class="callout-label">// Key takeaway for local government entities</p>
+      <p>Out-of-band communication capability isn't a nice-to-have. It's a fundamental incident response requirement. If your primary notification channel lives on infrastructure that could be taken offline by the same attack that causes the incident, you're designing a gap into your response plan from the start.</p>
+    </div>
+
+    <h2>What Good Looks Like Here</h2>
+
+    <p>Criticizing underfunded local government entities for cyber vulnerabilities is easy. The harder and more useful question is: what would actually move the needle for a district like Springfield? A few areas stand out as high-leverage, relatively achievable improvements:</p>
+
+    <ul>
+      <li><strong>Offline backup access to critical health records:</strong> Student medical files — allergies, medications, seizure protocols, IEP accommodations affecting health — need to be accessible to school nurses even when cloud platforms are unavailable. Encrypted offline copies, updated on a regular cycle, would have changed the reopening calculus here significantly.</li>
+      <li><strong>Network segmentation between administrative and operational systems:</strong> If health record access and student information systems are on the same network segment as administrative workstations, a compromise of the latter cascades into the former. Segmentation isn't free, but it's far cheaper than a week-long school closure.</li>
+      <li><strong>Tested incident response playbooks, not just plans:</strong> The response here appears to have been competent under pressure — they had backup communication platforms, they set up meal distribution, they coordinated with the YMCA. But "competent under pressure" is a fragile baseline. Tabletop exercises that specifically test the "what if nurses can't access medical records" scenario would make that response faster and less improvised.</li>
+      <li><strong>Registrar-level agreements with cloud vendors for emergency read-only access:</strong> If the issue was that third-party cloud platforms were blocked to prevent exfiltration, there may be a middle path — working with vendors in advance to establish emergency read-only access modes that allow nurses to retrieve critical records without enabling write access that attackers could abuse.</li>
+    </ul>
+
+    <h2>The Broader Pattern</h2>
+
+    <p>Springfield is one data point in a consistent trend. K-12 districts are being targeted systematically, and the impact model is well understood by threat actors: hit the district at the start of the school year (when systems are maximally stressed from summer resets), encrypt or block access to enough systems to force closure, and create community pressure that makes rapid ransom payment more likely. The Labor Day timing here — with schools just starting their second week — fits that playbook closely.</p>
+
+    <p>The fact that Everett City Hall was simultaneously dealing with a separate incident raises questions that may never be publicly answered. Were these the same threat actor running parallel operations against Massachusetts public entities? Were they separate groups that happened to act in the same window? Is there shared infrastructure between the two incidents that investigators are now tracing? Mayor Sarno explicitly said he didn't know if the incidents were related. That answer may change as the investigation matures.</p>
+
+    <blockquote>
+      <p>For those of us who work on local government cybersecurity, Springfield is a reminder that the gap between "we have a plan" and "we can operate through an incident" is wide — and it's measured in things like whether a school nurse can access a student's epinephrine dosage when the network is down.</p>
+    </blockquote>
+
+    <hr>
+
+    <p>Students return to Springfield classrooms on Monday. The phone systems should be back. IT is still working on full recovery. The investigation is ongoing. And somewhere, the threat actor who did this is either watching the press conference footage or already on to the next target. The district responded as well as most would in the circumstances — but "as well as most" is a low bar, and the structural vulnerabilities that made this possible will still be there when students walk back in.</p>
+
+  </div>
+</div>
+
+<div class="post-footer">
+  <div class="footer-line"></div>
+  <div class="footer-top">
+    <div>
+      <p class="tags-label">// Tagged under</p>
+      <div class="tag-pills">
+        <span class="tag-pill">K-12 Security</span>
+        <span class="tag-pill">Local Government</span>
+        <span class="tag-pill">Incident Response</span>
+        <span class="tag-pill">Cybersecurity</span>
+      </div>
+    </div>
+    <div class="author-card">
+      <div class="av"><img src="../../profile.jpg" alt="Adrian Necaj"></div>
+      <div class="av-info">
+        <p class="name">Adrian Necaj</p>
+        <p class="role">MS Cybersecurity · NYU Tandon<br>NYS Executive Chamber</p>
+      </div>
+    </div>
+  </div>
+  <div class="nav-btns">
+    <a href="/blog.html" class="nb">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18"/></svg>
+      All Posts
+    </a>
+    <a href="/" class="nb p">Portfolio →</a>
+  </div>
+</div>
+
+<div class="site-footer">
+  <p>© 2026 <em>Adrian Necaj</em> · Queens, NYC 🇦🇱</p>
+  <div class="sf-links">
+    <a href="/">Portfolio</a>
+    <a href="/blog.html">Blog</a>
+    <a href="https://github.com/anecaj" target="_blank">GitHub</a>
+    <a href="https://www.linkedin.com/in/anecaj/" target="_blank">LinkedIn</a>
+  </div>
+</div>
+
+<script>
+const b=document.getElementById('prog');
+window.addEventListener('scroll',()=>{
+  const d=document.documentElement;
+  b.style.width=(d.scrollTop/(d.scrollHeight-d.clientHeight)*100)+'%';
+});
+</script>
+</body>
+</html>
